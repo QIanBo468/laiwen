@@ -50,6 +50,9 @@ export default {
       if (this.$route.name === routeName) return;
       this.$router.replace(routeName);
     }
+  },
+  created(){
+    
   }
 };
 </script>

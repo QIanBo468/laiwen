@@ -7,21 +7,20 @@ Vue.use(Vant);
 
 // axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.timeout = 10000; 
-const no_login_code = 40001; 
+axios.defaults.timeout = 10000;
+const no_login_code = -2; // 未登录返回码
 
-if (process.env.NODE_ENV == 'development') { 
-    axios.defaults.baseURL = "http://ubs.wangzhengyu.top";
-    Vue.prototype.httpPath = "http://ubs.wangzhengyu.top";
-} else if (process.env.NODE_ENV == 'debug') { 
+if (process.env.NODE_ENV == 'development') {
+    axios.defaults.baseURL = "";
+    Vue.prototype.httpPath = "";
+} else if (process.env.NODE_ENV == 'debug') {
     axios.defaults.baseURL = "";
     Vue.prototype.httpPath = "";
 } else if (process.env.NODE_ENV == 'production') {
     axios.defaults.baseURL = "";
     Vue.prototype.httpPath = "";
 }
-// 3535cedceb41e71720eb7447612d0939
-const token = localStorage.getItem("token") || "3535cedceb41e71720eb7447612d0938";//
+const token = localStorage.getItem("token") || "";
 
 Vue.prototype.$get = params => {
     axios

@@ -6,7 +6,7 @@ import './assets/css/reset.css';
 Vue.config.productionTip = false;
 
 /**
- * 点击处开始扩散水波纹效果
+ * 自点击处开始扩散水波纹效果
  * 
  * this.$_clickAnimate(target, pageX, pageY)
  * 

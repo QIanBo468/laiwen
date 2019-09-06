@@ -57,6 +57,7 @@
 4. yarn dev | npm run dev
 5. 底部导航的页面写在 src/views/tabbar 文件夹下 (首页需要命名为index.vue, 自动注册路由时 name 为 "/", path 为 "/")
 6. 普通页面写在 src/views/pages 文件夹下 (命名随意, 子文件夹下命名为 index.vue 的文件, 自动注册路由时 name 为文件夹名称, path 为 "/文件路径")
+7. axios 与后台交互封装在 src/request/http.js 文件
 
 ### 已集成插件：
 

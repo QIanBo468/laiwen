@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5>个人中心</h5>
+    <h5>第二页</h5>
   </div>
 </template>
 <script>
