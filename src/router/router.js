@@ -2,12 +2,7 @@ import Vue from 'vue'
 import router from 'vue-router'
 Vue.use(router)
 
-/**
- * 名称为index.vue的页面路由名称默认设为文件夹名称,并注册为底部导航,所以非底部导航的文件不要命名为index.vue
- * 
- * 路由名称备注:
- * 首页: "/"  (首页为index文件夹下index.vue文件)
- */
+
 const files = require.context('@/view', true, /\.vue$/)
 
 const pages = {}

@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "app",
-  data() {
+  data () {
     return {
       show: true
     };
@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style>
+@import './assets/font/font.css';
 .van-nav-bar .van-icon {
   color: black !important;
 }
@@ -73,7 +74,7 @@ button,
 }
 button::after,
 .animateBtn::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 100%;

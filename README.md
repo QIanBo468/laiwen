@@ -52,138 +52,35 @@
 ### 已集成插件：
 
 1. vue-router
-2. Vant2.0 UI 组件
-3. Axios 插件
-4. i18n 插件
-5. qs 插件
+2. Vant2.0 UI 
+3. Axios 
+4. i18n/多语言 
+5. qs 
+6. core-js
+7. 苹方字体
 
 ### 已集成功能：
-1. 全局下拉刷新
-2. 页面过渡淡入、淡出
-3. 解决插值表达式闪烁的问题
-4. 按钮点击波纹效果
+1. 页面过渡淡入、淡出
+2. 解决插值表达式闪烁的问题
+3. 按钮点击波纹效果
+4. axios封装
+5. 上下左右切入动画效果
+6. 路由自动注册
+7. 底部导航自动适配
+
+### 路由使用方法
+ 1. 名称为index.vue的页面路由名称默认设为文件夹名称,并注册为底部导航,所以非底部导航的文件不要命名为index.vue
+ 2. 路由名称:首页: "/"  (首页为index文件夹下index.vue文件)
+ 3. 路由名称注释规范：
+ ```javascript
+
+index
+——  index.vue 首页
+——  welcome.vue 欢迎页
+
+ ```
 
 
-### axios 全局封装
-
-```javascript
-Vue.prototype.$get = params => {
-    if (localStorage.getItem('token')) {
-        axios
-            .get(params.url, { params: params.data })
-            .then(res => {
-                console.log('请求成功', res)
-                if (params.success) params.success(res)
-            })
-            .catch(err => {
-                console.log('请求失败', err)
-                if (params.fail) params.fail(err)
-            })
-    } else {
-        setTimeout(() => {
-            window.location.href = '/#/login'
-        }, 1000)
-    }
-}
-
-Vue.prototype.$post = params => {
-    if (localStorage.getItem('token')) {
-        axios
-            .post(params.url, qs.stringify(params.data))
-            .then(res => {
-                console.log('请求成功', res)
-                if (params.success) params.success(res)
-            })
-            .catch(err => {
-                console.log('请求失败', err)
-                if (params.fail) params.fail(err)
-            })
-    } else {
-        setTimeout(() => {
-            window.location.href = '/#/login'
-        }, 1000)
-    }
-}
-
-
-Vue.prototype.$req = httpRequest;
-function httpRequest(url, method, data = {}, ) {
-    //将method转换为小写
-    method = method.toLowerCase();
-    let axiosOptions = {
-        url: Vue.prototype.httpPath + url,
-        method: method
-    };
-    if (method === 'get' || method === 'delete') {
-        axiosOptions.params = data;
-    } else {
-        axiosOptions.data = qs.stringify(data);
-    }
-    return new Promise((resolve, reject) => {
-        axios(axiosOptions).then(res => {
-                if (res.data.code == -2) {
-                    Vue.prototype.$toast('未登录');
-                    console.log('目标页', this.$router)
-                    let urlname = this.$router.history.current.fullPath;
-                    setTimeout(() => {
-                        this.$router.push({
-                            name: 'login',
-                            query: {
-                                urlname
-                            }
-                        })
-                    }, 3000);
-                } else {
-                    //成功
-                    resolve(res.data);
-                }
-            })
-            .catch(err => {
-                //失败
-                reject(err)
-            })
-    })
-}
-
-this.$req("/home/address/get_address_list", "get").then(res => {
-        console.log("地址", res);
-        this.$toast.clear();
-        if (res.code == 0) {
-          this.arr = res.data;
-          if (res.data.length == 0) {
-            this.$toast({
-              message: "暂时没有地址,快去添加吧！",
-              duration: 2000
-            });
-          }
-        }else {
-          this.$toast({
-            message: res.msg,
-            duration: 2000
-          });
-        }
-      });
-```
-
-### 使用 vant 的路由懒加载
-
-```javascript
-export default new Router({
-    routes: [
-        {
-            path: '/', //首页
-            name: 'Mypromotion',
-            component: resolve =>
-                require(['@/components/Mypromotion.vue'], resolve),
-        },
-        {
-            path: '/upCode', //vip列表页
-            name: 'upCode',
-            component: resolve => require(['@/components/upCode.vue'], resolve),
-        },
-    ],
-})
-```
 ### 多语言切换
 ```javascript
     changeLang() {
