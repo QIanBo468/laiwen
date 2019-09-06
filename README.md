@@ -49,6 +49,15 @@
 
 # 基于 Vue-Cli3 公共模板文件
 
+### 傻瓜式操作 
+
+1. git clone http://gitlab.qdunzi.com/wheel/vue_model.git
+2. 配置 src/components/navFoots.vue 文件 (自定义组件写在 components 文件夹下会自动注册, 无需手动注册)
+3. yarn | npm i
+4. yarn dev | npm run dev
+5. 底部导航的页面写在 src/views/tabbar 文件夹下 (首页需要命名为index.vue, 自动注册路由时 name 为 "/", path 为 "/")
+6. 普通页面写在 src/views/pages 文件夹下 (命名随意, 子文件夹下命名为 index.vue 的文件, 自动注册路由时 name 为文件夹名称, path 为 "/文件路径")
+
 ### 已集成插件：
 
 1. vue-router
@@ -67,16 +76,6 @@
 5. 上下左右切入动画效果
 6. 路由自动注册
 7. 底部导航自动适配
-
-### 路由使用方法
- 1. 名称为index.vue的页面路由名称默认设为文件夹名称,并注册为底部导航,所以非底部导航的文件不要命名为index.vue
- 2. 路由名称:首页: "/"  (首页为index文件夹下index.vue文件)
- 3. 路由名称注释规范：
- ```javascript
-
-index
-——  index.vue 首页
-——  welcome.vue 欢迎页
 
  ```
 

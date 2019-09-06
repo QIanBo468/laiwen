@@ -30,22 +30,15 @@ export default {
           id: 0, //ID号
           name: "首页", //名称
           routeName: "/", //路由名称
-          normal: require("../../assets/img/1.png"), //未选中时图标
-          selected: require("../../assets/img/1-00.png") //选中时图标
+          normal: require("@/assets/img/1.png"), //未选中时图标
+          selected: require("@/assets/img/1-00.png") //选中时图标
         },
         {
           id: 1, //ID号
           name: "第二页", //名称
-          routeName: "UBS", //路由名称
-          normal: require("../../assets/img/2.png"), //未选中时图标
-          selected: require("../../assets/img/2-00.png") //选中时图标
-        },
-        {
-          id: 2, //ID号
-          name: "第三页", //名称
           routeName: "mine", //路由名称
-          normal: require("../../assets/img/3-00.png"), //未选中时图标
-          selected: require("../../assets/img/3.png") //选中时图标
+          normal: require("@/assets/img/2.png"), //未选中时图标
+          selected: require("@/assets/img/2-00.png") //选中时图标
         }
       ]
     };
@@ -55,7 +48,7 @@ export default {
       this.$_clickAnimate(this.$refs["btn" + id][0], e.pageX, e.pageY);
       // 如果当前路由等于传入的路由则不触发跳转方法
       if (this.$route.name === routeName) return;
-      this.$router.replace({ name: routeName });
+      this.$router.replace(routeName);
     }
   }
 };
