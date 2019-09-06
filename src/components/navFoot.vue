@@ -51,9 +51,7 @@ export default {
       this.$router.replace(routeName);
     }
   },
-  created(){
-    
-  }
+  created() {}
 };
 </script>
 <style scoped lang="scss">
@@ -63,10 +61,6 @@ export default {
 }
 .bigItem > img {
   animation: animateImg 0.9s ease-in-out;
-  -moz-animation: animateImg 0.9s ease-in-out;
-  -webkit-animation: animateImg 0.9s ease-in-out;
-  -o-animation: animateImg 0.9s ease-in-out;
-  -ms-animation: animateImg 0.9s ease-in-out;
 }
 
 @keyframes animateImg {
