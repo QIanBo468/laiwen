@@ -26,11 +26,7 @@ export default {
 .van-nav-bar .van-icon {
   color: black !important;
 }
-html,
-body {
-  min-height: 100%;
-  background: #f5f5f5;
-}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.15s;
