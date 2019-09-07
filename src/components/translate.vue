@@ -82,17 +82,14 @@ export default {
 }
 // 无限上下交替
 .translateinfinite {
-  animation: translateinfinite 2s ease-in-out infinite;
+  animation: translateinfinite 2s ease-in-out infinite alternate;
 }
 @keyframes translateinfinite {
-  0% {
+  from {
     transform: translate3d(0, 2px, 0);
   }
-  50% {
+  to {
     transform: translate3d(0, -2px, 0);
-  }
-  100% {
-    transform: translate3d(0, 2px, 0);
   }
 }
 </style>
