@@ -80,7 +80,7 @@
 
 ### 第三方插件推荐：
 
-  1. 识别二维码插件: [qrcode-decoder](https://github.com/yugasun/qrcode-decoder/blob/HEAD/README.zh-CN.md)
+  1. 二维码解析工具。: [qrcode-decoder](https://github.com/yugasun/qrcode-decoder/blob/HEAD/README.zh-CN.md)
 
  ```
 
