@@ -100,4 +100,31 @@ export default {
     transform: translate3d(0, -2px, 0);
   }
 }
+// 闪光
+// .btn_view::before {
+//   content: "";
+//   position: absolute;
+//   width: 20px;
+//   top: 0;
+//   height: 100%;
+//   opacity: 0.4;
+//   transform: skewX(-30deg);
+//   transform-origin: 0 100%;
+//   background-color: #fff;
+//   animation: btn_before 4s infinite;
+// }
+// @keyframes btn_before {
+//   0% {
+//     left: -100%;
+//   }
+//   25% {
+//     left: -100%;
+//   }
+//   50% {
+//     left: 100%;
+//   }
+//   100% {
+//     left: 100%;
+//   }
+// }
 </style>
