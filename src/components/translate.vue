@@ -32,10 +32,12 @@ export default {
   0% {
     transform: translate3d(0, 100px, 0);
     opacity: 0;
+    filter: blur(2px);
   }
   100% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
+    filter: blur(0px);
   }
 }
 // 向下
@@ -46,10 +48,12 @@ export default {
   0% {
     transform: translate3d(0, -100px, 0);
     opacity: 0;
+    filter: blur(2px);
   }
   100% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
+    filter: blur(0px);
   }
 }
 // 向左
@@ -60,10 +64,12 @@ export default {
   0% {
     transform: translate3d(100px, 0, 0);
     opacity: 0;
+    filter: blur(2px);
   }
   100% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
+    filter: blur(0px);
   }
 }
 // 向右
@@ -74,10 +80,12 @@ export default {
   0% {
     transform: translate3d(-100px, 0, 0);
     opacity: 0;
+    filter: blur(2px);
   }
   100% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
+    filter: blur(0);
   }
 }
 // 无限上下交替
