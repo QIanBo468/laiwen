@@ -80,22 +80,20 @@
 
 ### 第三方插件推荐：
 
-  1. 二维码解析工具: [qrcode-decoder](https://github.com/yugasun/qrcode-decoder/blob/HEAD/README.zh-CN.md)
-
- ```
-
+1. 二维码解析工具: [qrcode-decoder](https://github.com/yugasun/qrcode-decoder/blob/HEAD/README.zh-CN.md)
 
 ### 多语言切换
-```javascript
-    changeLang() {
-      if (this.$i18n.locale === "zh") {
-        this.$i18n.locale = "en";
-        this.lang = "cn";
-        localStorage.setItem("lang", "en");
-      } else {
-        this.$i18n.locale = "zh";
-        this.lang = "rs";
-        localStorage.setItem("lang", "zh");
-      }
-    }
+
+```
+changeLang() {
+  if (this.$i18n.locale === "zh") {
+    this.$i18n.locale = "en";
+    this.lang = "cn";
+    localStorage.setItem("lang", "en");
+  } else {
+    this.$i18n.locale = "zh";
+    this.lang = "rs";
+    localStorage.setItem("lang", "zh");
+  }
+}
 ```
