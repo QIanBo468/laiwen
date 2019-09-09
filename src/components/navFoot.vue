@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       /**
-       * 配置底部导航默认图标、选中图标、路由名称、页面展示名称
+       * 配置底部导航 默认图标、选中图标、路由名称、导航名称
        * id 为底部for循环key值,不可重复
        */
       tabBarArr: [
@@ -46,7 +46,7 @@ export default {
   methods: {
     switchTo(routeName, id, e) {
       this.$_clickAnimate(this.$refs["btn" + id][0], e.pageX, e.pageY);
-      // 如果当前路由等于传入的路由则不触发跳转方法
+      // 如果重复点击则不触发跳转方法
       if (this.$route.name === routeName) return;
       this.$router.replace(routeName);
     }
