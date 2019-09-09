@@ -50,7 +50,6 @@
 # 基于 Vue-Cli3 公共模板文件
 
 > 1. axios 与后台交互封装在 src/request/http.js 文件
-
 > 2. 已实现自动注册页面路由自动注册自定义组件,[详情见](./src/router/remark.md)
 
 ### 傻瓜式操作 
