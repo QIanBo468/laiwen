@@ -15,22 +15,22 @@
 ```
 
 ### 页面路由备注
- 
+```
 views -> pages ->
 README.md: 说明文件
 ...
-
+```
 
 ### 底部导航路由备注
-
+```
 views -> tabbar -> 
 index: 首页
 mine: 个人中心
 ...
-
+```
 
 ### 组件路由备注
-
+```
 components -> 
 tabbar: 底部导航一级导航父组件
 navFoot: 底部导航子组件
@@ -47,3 +47,4 @@ translate: 页面进入滑动效果组件
         suspension: 无限上下交替, 悬浮按钮特效
     动画持续时间为0.5s;
 ...
+```
