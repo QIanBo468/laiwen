@@ -61,7 +61,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .bigItem {
-  border-radius: 50px;
   z-index: +1;
 }
 .bigItem > img {
