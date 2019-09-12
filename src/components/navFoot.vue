@@ -4,7 +4,7 @@
     <div class="navFoot">
       <div
         v-for="item in tabBarArr"
-        :ref="'btn'+item.id"
+        ref="btn"
         class="tab-item"
         :class="{ bigItem: item.routeName === $route.name }"
         :key="item.id"
@@ -45,13 +45,18 @@ export default {
   },
   methods: {
     switchTo(routeName, id, e) {
-      this.$_clickAnimate(this.$refs["btn" + id][0], e.pageX, e.pageY);
       // 如果重复点击则不触发跳转方法
       if (this.$route.name === routeName) return;
       this.$router.replace(routeName);
     }
   },
-  created() {}
+  mounted() {
+    this.$refs.btn.map(item => {
+      item.addEventListener("touchstart", e => {
+        this.$_clickAnimate(item, e.touches[0].pageX, e.touches[0].pageY);
+      });
+    });
+  }
 };
 </script>
 <style scoped lang="scss">

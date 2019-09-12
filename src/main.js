@@ -14,15 +14,15 @@ Vue.config.productionTip = false;
  * pageX : 鼠标/手指点击的x坐标
  * pageY : 鼠标/手指点击的y坐标
  */
-Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
+Vue.prototype.$_clickAnimate = function (target, pageX, pageY, isdown = true) {
+
     // 点击动画
-    const box = target,
-        canvas = document.createElement("canvas"),
-        w = box.offsetWidth,
-        h = box.offsetHeight,
-        x = pageX - box.getBoundingClientRect().x,
-        y = pageY - box.getBoundingClientRect().y;
-    let i = 5;
+    const canvas = document.createElement("canvas"),
+        w = target.offsetWidth,
+        h = target.offsetHeight,
+        x = pageX - target.getBoundingClientRect().x,
+        y = pageY - target.getBoundingClientRect().y;
+    let i = 0;
 
     canvas.width = w;
     canvas.height = h;
@@ -30,13 +30,15 @@ Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
     Object.assign(canvas.style, {
         position: "absolute",
         top: 0,
+        opacity: 1,
+        transition: "0.5s opacity",
         left: 0
     });
 
-    box.appendChild(canvas);
+    target.appendChild(canvas);
 
     let ctx = canvas.getContext("2d");
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
 
     (function draw() {
         ctx.clearRect(0, 0, w, h);
@@ -44,14 +46,18 @@ Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
         ctx.arc(x, y, i, 0, 2 * Math.PI, false);
         ctx.fill();
 
-        i += w / 100;
-        if (i < w)
-            setTimeout(() => {
+        i += w / 20;
+        const dim = w === h ? w * 1.412 : Math.sqrt((w * w) + (h * h))
+        if (i <= dim) {
+            window.requestAnimationFrame(() => {
                 draw();
-            });
-        else {
-            ctx.clearRect(0, 0, w, h);
-            box.removeChild(canvas);
+            })
+        } else {
+            canvas.style.opacity = 0
+            setTimeout(() => {
+                ctx.clearRect(0, 0, w, h);
+                target.removeChild(canvas);
+            }, 500)
         }
     })();
 };
