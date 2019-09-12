@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
  * pageX : 鼠标/手指点击的x坐标
  * pageY : 鼠标/手指点击的y坐标
  */
-Vue.prototype.$_clickAnimate = function (target, pageX, pageY, isdown = true) {
+Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
 
     // 点击动画
     const canvas = document.createElement("canvas"),
