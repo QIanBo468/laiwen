@@ -86,7 +86,7 @@
 
 ### 多语言切换
 
-```
+```html
 changeLang() {
   if (this.$i18n.locale === "zh") {
     this.$i18n.locale = "en";
@@ -100,7 +100,7 @@ changeLang() {
 }
 ```
 ### 1、clipboard2（复制粘贴）
-```
+```html
 <div id="app"></div>
 
 <template id="t">
@@ -134,7 +134,7 @@ new Vue({
 </script>
 ```
 ### 2、clipboard2（复制粘贴）
-```
+```html
 <div id="app"></div>
 
   <template id="t">
