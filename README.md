@@ -69,6 +69,7 @@
 5. qs 
 6. core-js
 7. 苹方字体
+8. clipboard2 （复制粘贴）
 
 ### 已集成功能：
 1. 页面过渡淡入、淡出
@@ -97,4 +98,72 @@ changeLang() {
     localStorage.setItem("lang", "zh");
   }
 }
+```
+### 1、clipboard2（复制粘贴）
+```
+<div id="app"></div>
+
+<template id="t">
+  <div class="container">
+    <input type="text" v-model="message">
+    <button type="button"
+      v-clipboard:copy="message"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError">Copy!</button>
+  </div>
+</template>
+
+<script>
+new Vue({
+  el: '#app',
+  template: '#t',
+  data: function () {
+    return {
+      message: 'Copy These Text'
+    }
+  },
+  methods: {
+    onCopy: function (e) {
+      alert('You just copied: ' + e.text)
+    },
+    onError: function (e) {
+      alert('Failed to copy texts')
+    }
+  }
+})
+</script>
+```
+### 2、clipboard2（复制粘贴）
+```
+<div id="app"></div>
+
+  <template id="t">
+    <div class="container">
+    <input type="text" v-model="message">
+    <button type="button" @click="doCopy">Copy!</button>
+    </div>
+  </template>
+
+  <script>
+  new Vue({
+    el: '#app',
+    template: '#t',
+    data: function () {
+      return {
+        message: 'Copy These Text'
+      }
+    },
+    methods: {
+      doCopy: function () {
+        this.$copyText(this.message).then(function (e) {
+          alert('Copied')
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
+      }
+    }
+  })
+  </script>
 ```
