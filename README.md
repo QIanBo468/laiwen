@@ -72,6 +72,7 @@
 8. clipboard2 
 9. vue-pdf
 10. qrcode-decoder
+11. sass
 
 ### 已集成功能：
 1. 页面过渡淡入、淡出
