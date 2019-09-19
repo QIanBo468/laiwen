@@ -5,7 +5,6 @@ import qs from 'qs';
 import Vant from 'vant';
 Vue.use(Vant);
 import VueClipboard from 'vue-clipboard2'
-
 Vue.use(VueClipboard)
 // axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
