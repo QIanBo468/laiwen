@@ -1,22 +1,20 @@
 <template>
-  <div class="translate" :class="returnPosition">
+  <div class="translate" :class="position">
     <slot></slot>
   </div>
 </template>
 <script>
 export default {
+  /**
+   * top 向上滑动
+   * bottom 向下滑动
+   * left 向左滑动
+   * right 向右滑动
+   * suspension 悬浮按钮上下漂浮效果
+   * flash 闪光,浮光掠影
+   */
   props: {
-    position: String,
-    time: { type: Number, default: 0.5 }
-  },
-  computed: {
-    returnPosition() {
-      if (this.position === "top") return "translateTop";
-      else if (this.position === "bottom") return "translateBtm";
-      else if (this.position === "left") return "translateLeft";
-      else if (this.position === "right") return "translateRight";
-      else if (this.position === "suspension") return "translateinfinite";
-    }
+    position: String
   }
 };
 </script>
@@ -25,10 +23,10 @@ export default {
   transform: translate3d(0, 0, 0);
 }
 // 向上
-.translateTop {
-  animation: translateTop 0.5s ease;
+.top {
+  animation: top 0.5s ease;
 }
-@keyframes translateTop {
+@keyframes top {
   0% {
     transform: translate3d(0, 100px, 0);
     opacity: 0;
@@ -41,10 +39,10 @@ export default {
   }
 }
 // 向下
-.translateBtm {
-  animation: translateBtm 0.5s ease;
+.bottom {
+  animation: bottom 0.5s ease;
 }
-@keyframes translateBtm {
+@keyframes bottom {
   0% {
     transform: translate3d(0, -100px, 0);
     opacity: 0;
@@ -57,10 +55,10 @@ export default {
   }
 }
 // 向左
-.translateLeft {
-  animation: translateLeft 0.5s ease;
+.left {
+  animation: left 0.5s ease;
 }
-@keyframes translateLeft {
+@keyframes left {
   0% {
     transform: translate3d(100px, 0, 0);
     opacity: 0;
@@ -73,10 +71,10 @@ export default {
   }
 }
 // 向右
-.translateRight {
-  animation: translateRight 0.5s ease;
+.right {
+  animation: right 0.5s ease;
 }
-@keyframes translateRight {
+@keyframes right {
   0% {
     transform: translate3d(-100px, 0, 0);
     opacity: 0;
@@ -89,10 +87,10 @@ export default {
   }
 }
 // 无限上下交替
-.translateinfinite {
-  animation: translateinfinite 2s ease-in-out infinite alternate;
+.suspension {
+  animation: suspension 2s ease-in-out infinite alternate;
 }
-@keyframes translateinfinite {
+@keyframes suspension {
   from {
     transform: translate3d(0, 2px, 0);
   }
@@ -101,30 +99,33 @@ export default {
   }
 }
 // 闪光
-// .btn_view::before {
-//   content: "";
-//   position: absolute;
-//   width: 20px;
-//   top: 0;
-//   height: 100%;
-//   opacity: 0.4;
-//   transform: skewX(-30deg);
-//   transform-origin: 0 100%;
-//   background-color: #fff;
-//   animation: btn_before 4s infinite;
-// }
-// @keyframes btn_before {
-//   0% {
-//     left: -100%;
-//   }
-//   25% {
-//     left: -100%;
-//   }
-//   50% {
-//     left: 100%;
-//   }
-//   100% {
-//     left: 100%;
-//   }
-// }
+.flash {
+  overflow: hidden;
+}
+.flash::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  top: 0;
+  height: 100%;
+  opacity: 0.4;
+  transform: skewX(-30deg);
+  transform-origin: 0 100%;
+  background-color: #fff;
+  animation: btn_before 4s infinite;
+}
+@keyframes btn_before {
+  0% {
+    left: -100%;
+  }
+  25% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
 </style>
