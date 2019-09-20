@@ -10,12 +10,12 @@ Vue.config.productionTip = false;
  * 
  * this.$_clickAnimate(target, pageX, pageY)
  * 
- * target : 需要加动画的元素Dom
- * pageX : 鼠标/手指点击的x坐标
- * pageY : 鼠标/手指点击的y坐标
+ * target : 需要加动画的元素 Dom
+ * pageX : 鼠标 / 手指点击的 x 坐标
+ * pageY : 鼠标 / 手指点击的 y 坐标
+ * click_color: 可选, 水纹颜色, 默认 rgba(0, 0, 0, 0.1)
  */
-Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
-
+Vue.prototype.$_clickAnimate = function (target, pageX, pageY, click_color = "rgba(0, 0, 0, 0.1)") {
     // 点击动画
     const canvas = document.createElement("canvas"),
         w = target.offsetWidth,
@@ -38,7 +38,7 @@ Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
     target.appendChild(canvas);
 
     let ctx = canvas.getContext("2d");
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillStyle = click_color;
 
     (function draw() {
         ctx.clearRect(0, 0, w, h);
@@ -48,11 +48,11 @@ Vue.prototype.$_clickAnimate = function (target, pageX, pageY) {
 
         i += w / 20;
         const dim = w === h ? w * 1.412 : Math.sqrt((w * w) + (h * h))
-        if (i <= dim) {
+        if (i <= dim)
             window.requestAnimationFrame(() => {
                 draw();
             })
-        } else {
+        else {
             canvas.style.opacity = 0
             setTimeout(() => {
                 ctx.clearRect(0, 0, w, h);
