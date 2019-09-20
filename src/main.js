@@ -8,20 +8,20 @@ Vue.config.productionTip = false;
 /**
  * 自点击处开始扩散水波纹效果
  * 
- * this.$_clickAnimate(target, pageX, pageY)
+ * this.$_clickAnimate(target, clientX, clientY)
  * 
  * target : 需要加动画的元素 Dom
- * pageX : 鼠标 / 手指点击的 x 坐标
- * pageY : 鼠标 / 手指点击的 y 坐标
+ * clientX : 鼠标 / 手指点击的 x 坐标
+ * clientY : 鼠标 / 手指点击的 y 坐标
  * click_color: 可选, 水纹颜色, 默认 rgba(0, 0, 0, 0.1)
  */
-Vue.prototype.$_clickAnimate = function (target, pageX, pageY, click_color = "rgba(0, 0, 0, 0.1)") {
+Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color = "rgba(0, 0, 0, 0.1)") {
     // 点击动画
     const canvas = document.createElement("canvas"),
         w = target.offsetWidth,
         h = target.offsetHeight,
-        x = pageX - target.getBoundingClientRect().x,
-        y = pageY - target.getBoundingClientRect().y;
+        x = clientX - target.getBoundingClientRect().x,
+        y = clientY - target.getBoundingClientRect().y;
     let i = 0;
 
     canvas.width = w;
