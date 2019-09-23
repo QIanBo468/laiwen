@@ -174,7 +174,7 @@ new Vue({
   })
   </script>
 ```
-#3 图形验证码
+### 3 slide-verify 图形验证码
 ```javascript
 <div id="app"></div>
   <template id="t">
