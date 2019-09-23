@@ -4,7 +4,9 @@ import 'vant/lib/index.css';
 import './assets/css/reset.css';
 
 Vue.config.productionTip = false;
-
+//图形验证
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 /**
  * 自点击处开始扩散水波纹效果
  * 
