@@ -174,3 +174,89 @@ new Vue({
   })
   </script>
 ```
+#3 图形验证码
+```javascript
+<div id="app"></div>
+  <template id="t">
+    <div class="container">
+    <van-popup v-model="show" style="width:80%;padding:20px">
+        <slide-verify :l="42"
+                    :r="10"
+                    :w="310"
+                    :h="155"
+                    @success="onSuccess"
+                    @fail="onFail"
+                    @refresh="onRefresh"
+                    :slider-text="text"
+                    v-if="code_show">
+        </slide-verify>
+    </van-popup>
+    </div>
+  </template>
+
+  <script>
+  new Vue({
+    el: '#app',
+    template: '#t',
+    data: function () {
+      return {
+        show: false,
+        msg: '',
+        code_show: false,
+        text: '向右滑动获取验证码',
+      }
+    },
+    methods: {
+      //成功
+    onSuccess () {
+      this.show = false;
+      this.code_show = false;
+      this.$toast.loading({
+        mask: true,
+        message: "正在发送中...."
+      });
+      this.$req("/index/Login/Icode", "post", {
+        account: this.tell,
+        type: 1
+      }).then(res => {
+        console.log("验证码", res);
+        this.$toast.clear();
+        if (res.code == 0) {
+          this.is_time = 2;
+          this.time = 60;
+          var timer = setInterval(() => {
+            this.time--;
+            if (this.time == 0) {
+              clearInterval(timer);
+              this.is_time = 1;
+            }
+          }, 1000);
+        } else {
+          this.$toast({
+            message: res.msg,
+            duration: 1500
+          });
+        }
+      });
+    },
+    //未匹配
+    onFail () {
+      this.$toast({
+        message: "匹配失败！",
+        duration: 400
+      });
+    },
+    //刷新
+    onRefresh () {
+      this.$toast({
+        message: "刷新成功！",
+        duration: 400
+      });
+    },
+    }
+  })
+  </script>
+
+    
+
+```
