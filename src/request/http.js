@@ -9,7 +9,7 @@ Vue.use(VueClipboard)
 // axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.timeout = 10000;
-const no_login_code = -2; // 未登录返回码
+const no_login_code = -2;
 
 if (process.env.NODE_ENV == 'development') {
     axios.defaults.baseURL = "";
@@ -45,7 +45,7 @@ Vue.prototype.$get = params => {
                 params.fail(err);
         })
 }
-
+// build powerful applications using modern open source code.
 Vue.prototype.$post = params => {
     let $axios;
     if (params.upload) {

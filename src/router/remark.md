@@ -6,9 +6,9 @@
 |__index.js                   // 主路由文件,
 |
 |__modules                    // 逻辑文件模块
-|   |__components.js          // 抛出 自定义组件 数组
-|   |__pages.js               // 自动注册页面文件
-|   |__tabbar.js              // 自动注册底部导航文件
+|   |__components.js          
+|   |__pages.js               
+|   |__tabbar.js              
 |
 |__remark.md                  // 页面路由备注、自定义组件用法备注、路由文件结构备注, 各种备注   
 ```
@@ -30,10 +30,7 @@ mine: 个人中心
 
 ### 组件路由备注
 ```
-components -> 
-tabbar: 底部导航一级导航父组件
-navFoot: 底部导航子组件
-translate: 页面进入滑动效果组件
+
 用法:
     <translate position="top">
         <div></div> //需要添加动画的元素

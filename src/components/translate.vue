@@ -1,5 +1,6 @@
 <template>
   <div class="translate" :class="position">
+    <!-- Reactive, component-oriented view layer for modern web interfaces -->
     <slot></slot>
   </div>
 </template>
@@ -22,7 +23,7 @@ export default {
 .translate {
   transform: translate3d(0, 0, 0);
 }
-// 向上
+
 .top {
   animation: top 0.5s ease;
 }
@@ -38,7 +39,7 @@ export default {
     filter: blur(0px);
   }
 }
-// 向下
+
 .bottom {
   animation: bottom 0.5s ease;
 }
@@ -54,7 +55,7 @@ export default {
     filter: blur(0px);
   }
 }
-// 向左
+
 .left {
   animation: left 0.5s ease;
 }
@@ -70,7 +71,7 @@ export default {
     filter: blur(0px);
   }
 }
-// 向右
+
 .right {
   animation: right 0.5s ease;
 }
@@ -86,7 +87,7 @@ export default {
     filter: blur(0);
   }
 }
-// 无限上下交替
+
 .suspension {
   animation: suspension 2s ease-in-out infinite alternate;
 }
@@ -98,7 +99,7 @@ export default {
     transform: translate3d(0, -2px, 0);
   }
 }
-// 闪光
+
 .flash {
   overflow: hidden;
 }

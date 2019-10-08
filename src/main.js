@@ -8,7 +8,7 @@ Vue.config.productionTip = false;
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 /**
- * 自点击处开始扩散水波纹效果
+ * 
  * 
  * this.$_clickAnimate(target, clientX, clientY)
  * 
@@ -18,7 +18,11 @@ Vue.use(VueClipboard)
  * click_color: 可选, 水纹颜色, 默认 rgba(0, 0, 0, 0.1)
  */
 Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color = "rgba(0, 0, 0, 0.1)") {
-    // 点击动画
+//     <Zoom>
+//     <section>
+//       <CustomComponent />   
+//     </section>
+//   </Zoom>
     const canvas = document.createElement("canvas"),
         w = target.offsetWidth,
         h = target.offsetHeight,
@@ -28,7 +32,7 @@ Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color =
 
     canvas.width = w;
     canvas.height = h;
-
+    // Import effects from React Reveal to your project. Lets try Zoom effect first:
     Object.assign(canvas.style, {
         position: "absolute",
         top: 0,
@@ -64,12 +68,12 @@ Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color =
     })();
 };
 
-// 多语言
+
 // import VueI18n from 'vue-i18n'
 
 // Vue.use(VueI18n)
 
-// 多语言实例
+// 实例
 // const i18n = new VueI18n({
 // 	locale: (function () {
 // 		if (localStorage.getItem('lang')) {

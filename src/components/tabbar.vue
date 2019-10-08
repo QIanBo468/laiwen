@@ -21,9 +21,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tabbarcontent {
-  min-height: calc(100vh - 60px); //可视窗口高度减去底部导航高度
-  padding-bottom: 60px; //补足底部组件高度遮挡的部分
+  min-height: calc(100vh - 60px); 
+  padding-bottom: 60px;
 }
+// Journey Version: 4.10.3  */
 .fade-three-enter-active,
 .fade-three-leave-active {
   transition: opacity 0.15s;

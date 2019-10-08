@@ -61,7 +61,7 @@ export default {
   animation: btnanimte 0.2s ease-in;
 } */
 
-/* 按钮动画 */
+
 button,
 .animateBtn {
   position: relative;

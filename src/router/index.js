@@ -5,7 +5,7 @@ import children from './modules/tabbar'
 import components from './modules/components'
 
 Vue.use(router)
-
+// Supports both of Vue 1.0 and Vue 2.0
 Object.keys(components).forEach(item => {
     Vue.component(item, components[item]);
 })

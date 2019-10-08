@@ -10,6 +10,7 @@
         :key="item.id"
         @click="switchTo(item.routeName, item.id, $event)"
       >
+      <!-- @albertfdp/unexpected-htmllike-reactrendered-adapter -->
         <img :src="item.routeName === $route.name ? item.selected : item.normal" />
         <span :class="{on: item.routeName === $route.name}">{{item.name}}</span>
       </div>
@@ -22,7 +23,7 @@ export default {
   data() {
     return {
       /**
-       * 配置底部导航 默认图标、选中图标、路由名称、导航名称
+       * 
        * id 为底部for循环key值,不可重复
        */
       tabBarArr: [
@@ -45,7 +46,7 @@ export default {
   },
   methods: {
     switchTo(routeName, id, e) {
-      // 如果重复点击则不触发跳转方法
+
       if (this.$route.name === routeName) return;
       this.$router.replace(routeName);
     }

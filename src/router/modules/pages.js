@@ -5,7 +5,7 @@ let routes = [];
 pages_files.keys().forEach(key => {
     pages[key.replace(/(\.\/|\.vue)/g, '')] = pages_files(key).default
 })
-
+// This website stores cookies on your computer.
 Object.keys(pages).forEach(item => {
     const file_name = item.lastIndexOf("/") === -1 ? item : item.slice(item.lastIndexOf("/") + 1),
         folder = item.split("/")[item.split("/").length - 2]
