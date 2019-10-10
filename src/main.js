@@ -7,9 +7,7 @@ Vue.config.productionTip = false;
 //图形验证
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
-/**
- * 
- * 
+/** 
  * this.$_clickAnimate(target, clientX, clientY)
  * 
  * target : 需要加动画的元素 Dom
@@ -18,11 +16,6 @@ Vue.use(VueClipboard)
  * click_color: 可选, 水纹颜色, 默认 rgba(0, 0, 0, 0.1)
  */
 Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color = "rgba(0, 0, 0, 0.1)") {
-//     <Zoom>
-//     <section>
-//       <CustomComponent />   
-//     </section>
-//   </Zoom>
     const canvas = document.createElement("canvas"),
         w = target.offsetWidth,
         h = target.offsetHeight,
@@ -69,29 +62,29 @@ Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color =
 };
 
 
-// import VueI18n from 'vue-i18n'
+import VueI18n from 'vue-i18n'
 
-// Vue.use(VueI18n)
+Vue.use(VueI18n)
 
 // 实例
-// const i18n = new VueI18n({
-// 	locale: (function () {
-// 		if (localStorage.getItem('lang')) {
-// 			return localStorage.getItem('lang')
-// 		}
-// 		return 'zh'
-// 	}()),
-// 	// eslint-disable-next-line no-dupe-keys
-// 	locale: 'zh',
-// 	messages: {
-// 		'zh': require('./assets/i18n/zh'),   // 中文语言包
-// 		'en': require('./assets/i18n/en')    // 英文语言包 
-// 	}
-// })
+const i18n = new VueI18n({
+    locale: (function () {
+        if (localStorage.getItem('lang')) {
+            return localStorage.getItem('lang')
+        }
+        return 'zh'
+    }()),
+    // eslint-disable-next-line no-dupe-keys
+    // locale: 'en',
+    messages: {
+        'zh': require('./assets/i18n/zh'),   // 中文语言包
+        'en': require('./assets/i18n/en')    // 英文语言包 
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({
-    // i18n,
+    i18n,
     router,
     render: h => h(App),
 }).$mount('#app')

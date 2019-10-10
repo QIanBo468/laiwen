@@ -17,6 +17,9 @@
 ```
 views -> pages ->
 README.md: 说明文件
+login: 登录
+register: 注册
+forgetPwd: 忘记密码
 ...
 ```
 

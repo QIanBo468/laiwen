@@ -22,6 +22,10 @@ export default {
 </script>
 
 <style>
+#app{
+  min-height: 100vh;
+  background-color: #0d0900;
+}
 @import './assets/font/font.css';
 .van-nav-bar .van-icon {
   color: black !important;
@@ -62,7 +66,7 @@ export default {
 } */
 
 
-button,
+/* button,
 .animateBtn {
   position: relative;
   overflow: hidden;
@@ -103,5 +107,5 @@ button:active,
   50% {
     transform: scale(0.85);
   }
-}
+} */
 </style>

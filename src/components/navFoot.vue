@@ -29,24 +29,37 @@ export default {
       tabBarArr: [
         {
           id: 0, //ID号
-          name: "首页", //名称
+          name: this.$t('navbar.首页'), //名称
           routeName: "/", //路由名称
-          normal: require("@/assets/img/1.png"), //未选中时图标
-          selected: require("@/assets/img/1-00.png") //选中时图标
+          normal: require("@/assets/img/home (2).png"), //未选中时图标
+          selected: require("@/assets/img/home.png") //选中时图标
         },
         {
           id: 1, //ID号
-          name: "第二页", //名称
+          name: this.$t('navbar.投资'), //名称
+          routeName: "investment", //路由名称
+          normal: require("@/assets/img/taocan.png"), //未选中时图标
+          selected: require("@/assets/img/taocan (2).png") //选中时图标
+        },
+        {
+          id: 2, //ID号
+          name: this.$t('navbar.资产'), //名称
+          routeName: "assets", //路由名称
+          normal: require("@/assets/img/qianbao.png"), //未选中时图标
+          selected: require("@/assets/img/qianbao (2).png") //选中时图标
+        },
+        {
+          id: 3, //ID号
+          name: this.$t('navbar.我的'), //名称
           routeName: "mine", //路由名称
-          normal: require("@/assets/img/2.png"), //未选中时图标
-          selected: require("@/assets/img/2-00.png") //选中时图标
+          normal: require("@/assets/img/WD 1.png"), //未选中时图标
+          selected: require("@/assets/img/WD 1 (2).png") //选中时图标
         }
       ]
     };
   },
   methods: {
-    switchTo(routeName, id, e) {
-
+    switchTo(routeName, id) {
       if (this.$route.name === routeName) return;
       this.$router.replace(routeName);
     }
@@ -54,7 +67,7 @@ export default {
   mounted() {
     this.$refs.btn.map(item => {
       item.addEventListener("touchstart", e => {
-        this.$_clickAnimate(item, e.touches[0].pageX, e.touches[0].pageY);
+        this.$_clickAnimate(item, e.touches[0].pageX, e.touches[0].pageY, "rgba(74, 51, 0, 0.2)");
       });
     });
   }
@@ -91,7 +104,7 @@ export default {
 }
 .navFoot {
   width: 100%;
-  background: rgba(255, 255, 255, 1);
+  background: #161102;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -103,25 +116,11 @@ export default {
   border: none;
   flex: 1;
   padding: 6px 0;
-  background: #fff;
+  background: #161102;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.tab-item:active {
-  // animation: tabAnimate 0.15s ease-in;
-  // transform: scale(0.9);
-}
-@keyframes tabAnimate {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.95);
-  }
 }
 .tab-item > img {
   height: 24px;
