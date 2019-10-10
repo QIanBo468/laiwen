@@ -17,9 +17,17 @@
 ```
 views -> pages ->
 README.md: 说明文件
+
 login: 登录
 register: 注册
 forgetPwd: 忘记密码
+
+feedback: 问题反馈
+inCome: 我的收益
+notice: 公告详情
+noticeList: 公告列表
+
+
 ...
 ```
 
@@ -27,6 +35,8 @@ forgetPwd: 忘记密码
 ```
 views -> tabbar -> 
 index: 首页
+assets: 资产
+investment: 投资
 mine: 个人中心
 ...
 ```
