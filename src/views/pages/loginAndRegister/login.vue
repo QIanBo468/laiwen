@@ -17,16 +17,21 @@
     </div>
 
     <div class="forget_pwd">
-      <router-link class="animate" to>{{$t('login.忘记密码')}}？</router-link>
+      <router-link class="animate" to="forgetPwd">{{$t('login.忘记密码')}}？</router-link>
     </div>
 
-    <button class="login_btn">{{$t('login.登录')}}</button>
+    <button @click="loginFun" class="login_btn">{{$t('login.登录')}}</button>
 
     <router-link tag="div" class="animate register_btn" to="register">{{$t("login.立即注册")}}</router-link>
   </div>
 </template>
 <script>
 export default {
+  methods: {
+    loginFun() {
+      this.$router.push("/");
+    }
+  },
   mounted() {
     let item = document.querySelectorAll(".animate"),
       _this = this;

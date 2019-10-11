@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "app",
-  data () {
+  data() {
     return {
       show: true
     };
@@ -22,11 +22,12 @@ export default {
 </script>
 
 <style>
-#app{
+#app {
   min-height: 100vh;
+  overflow: hidden;
   background-color: #0d0900;
 }
-@import './assets/font/font.css';
+@import "./assets/font/font.css";
 .van-nav-bar .van-icon {
   color: black !important;
 }
@@ -64,7 +65,6 @@ export default {
 /* input框动画 input:active {
   animation: btnanimte 0.2s ease-in;
 } */
-
 
 /* button,
 .animateBtn {

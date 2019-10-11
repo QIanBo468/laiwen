@@ -58,7 +58,8 @@
     <button class="register_btn">{{$t('login.注册')}}</button>
 
     <div class="protocol">
-      <van-checkbox v-model="checked" checked-color="#C8A871">{{$t('login.协议')}}</van-checkbox>
+      <van-checkbox v-model="checked" checked-color="#C8A871"></van-checkbox>
+      <span>{{$t('login.协议')}}</span>
     </div>
   </div>
 </template>
@@ -176,5 +177,9 @@ export default {
   display: flex;
   padding: 13px 0;
   justify-content: center;
+
+  span {
+    margin-left: 10px;
+  }
 }
 </style>

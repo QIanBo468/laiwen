@@ -10,7 +10,7 @@
         :key="item.id"
         @click="switchTo(item.routeName, item.id, $event)"
       >
-      <!-- @albertfdp/unexpected-htmllike-reactrendered-adapter -->
+        <!-- @albertfdp/unexpected-htmllike-reactrendered-adapter -->
         <img :src="item.routeName === $route.name ? item.selected : item.normal" />
         <span :class="{on: item.routeName === $route.name}">{{item.name}}</span>
       </div>
@@ -23,34 +23,34 @@ export default {
   data() {
     return {
       /**
-       * 
+       *
        * id 为底部for循环key值,不可重复
        */
       tabBarArr: [
         {
           id: 0, //ID号
-          name: this.$t('navbar.首页'), //名称
+          name: this.$t("navbar.首页"), //名称
           routeName: "/", //路由名称
           normal: require("@/assets/img/home (2).png"), //未选中时图标
           selected: require("@/assets/img/home.png") //选中时图标
         },
         {
           id: 1, //ID号
-          name: this.$t('navbar.投资'), //名称
+          name: this.$t("navbar.投资"), //名称
           routeName: "investment", //路由名称
           normal: require("@/assets/img/taocan.png"), //未选中时图标
           selected: require("@/assets/img/taocan (2).png") //选中时图标
         },
         {
           id: 2, //ID号
-          name: this.$t('navbar.资产'), //名称
+          name: this.$t("navbar.资产"), //名称
           routeName: "assets", //路由名称
           normal: require("@/assets/img/qianbao.png"), //未选中时图标
           selected: require("@/assets/img/qianbao (2).png") //选中时图标
         },
         {
           id: 3, //ID号
-          name: this.$t('navbar.我的'), //名称
+          name: this.$t("navbar.我的"), //名称
           routeName: "mine", //路由名称
           normal: require("@/assets/img/WD 1.png"), //未选中时图标
           selected: require("@/assets/img/WD 1 (2).png") //选中时图标
@@ -67,7 +67,12 @@ export default {
   mounted() {
     this.$refs.btn.map(item => {
       item.addEventListener("touchstart", e => {
-        this.$_clickAnimate(item, e.touches[0].pageX, e.touches[0].pageY, "rgba(74, 51, 0, 0.2)");
+        this.$_clickAnimate(
+          item,
+          e.touches[0].clientX,
+          e.touches[0].clientY,
+          "rgba(74, 51, 0, 0.2)"
+        );
       });
     });
   }

@@ -16,25 +16,25 @@
 
     <div class="items">
       <router-link to="inCome" tag="div" class="item">
-        <translate position="right">
+        <translate position="right" time="0.4s">
           <span>{{$t('index.我的收益')}}</span>
           <img src="@/assets/img/in.png" />
         </translate>
       </router-link>
       <router-link to class="item">
-        <translate position="right">
+        <translate position="left" time="0.4s">
           <span>{{$t('index.注册会员')}}</span>
           <img src="@/assets/img/in.png" />
         </translate>
       </router-link>
-      <router-link to class="item">
-        <translate position="right">
+      <router-link to="Feedback" class="item">
+        <translate position="right" time="0.6s">
           <span>{{$t('index.问题反馈')}}</span>
           <img src="@/assets/img/in.png" />
         </translate>
       </router-link>
-      <router-link to class="item">
-        <translate position="right">
+      <router-link to="CompanyProfile" class="item">
+        <translate position="left" time="0.6s">
           <span>{{$t('index.公司简介')}}</span>
           <img src="@/assets/img/in.png" />
         </translate>

@@ -22,11 +22,18 @@ login: 登录
 register: 注册
 forgetPwd: 忘记密码
 
-feedback: 问题反馈
+Feedback: 问题反馈
 inCome: 我的收益
 notice: 公告详情
 noticeList: 公告列表
+FeedbackRecord: 反馈记录
+CompanyProfile: 公司简介
 
+PurchasePackage: 购买套餐
+investmentRecord: 投资记录
+
+Ethereum: 以太坊
+USDT: USDT
 
 ...
 ```

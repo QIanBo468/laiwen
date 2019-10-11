@@ -5,13 +5,15 @@
       <span>{{$t('index.公告')}}</span>
     </div>
 
-    <router-link tag="div" to="notice" class="item" v-for="item in 4">
-      <div class="text">
-        <div>MED平台正式上线了！敬请期待</div>
-        <div>2019.06.12 14:12:45</div>
-      </div>
-      <img src="@/assets/img/gonggao_more.png" />
-    </router-link>
+    <translate position="top">
+      <router-link tag="div" to="notice" class="item" v-for="item in 4">
+        <div class="text">
+          <div>MED平台正式上线了！敬请期待</div>
+          <div>2019.06.12 14:12:45</div>
+        </div>
+        <img src="@/assets/img/gonggao_more.png" />
+      </router-link>
+    </translate>
   </div>
 </template>
 
