@@ -16,78 +16,73 @@ Vue.use(VueClipboard)
  * click_color: 可选, 水纹颜色, 默认 rgba(0, 0, 0, 0.1)
  */
 Vue.prototype.$_clickAnimate = function (target, clientX, clientY, click_color = "rgba(0, 0, 0, 0.1)") {
-    const canvas = document.createElement("canvas"),
-        w = target.offsetWidth,
-        h = target.offsetHeight,
-        x = clientX - target.getBoundingClientRect().x,
-        y = clientY - target.getBoundingClientRect().y;
-    let i = 0;
+  const canvas = document.createElement("canvas"),
+    w = target.offsetWidth,
+    h = target.offsetHeight,
+    x = clientX - target.getBoundingClientRect().x,
+    y = clientY - target.getBoundingClientRect().y;
+  let i = 0;
 
-    canvas.width = w;
-    canvas.height = h;
-    // Import effects from React Reveal to your project. Lets try Zoom effect first:
-    Object.assign(canvas.style, {
-        position: "absolute",
-        top: 0,
-        opacity: 1,
-        transition: "0.5s opacity",
-        left: 0
-    });
+  canvas.width = w;
+  canvas.height = h;
+  // Import effects from React Reveal to your project. Lets try Zoom effect first:
+  Object.assign(canvas.style, {
+    position: "absolute",
+    top: 0,
+    opacity: 1,
+    transition: "0.5s opacity",
+    left: 0
+  });
 
-    target.appendChild(canvas);
+  target.appendChild(canvas);
 
-    let ctx = canvas.getContext("2d");
-    ctx.fillStyle = click_color;
+  let ctx = canvas.getContext("2d");
+  ctx.fillStyle = click_color;
 
-    (function draw() {
+  (function draw () {
+    ctx.clearRect(0, 0, w, h);
+    ctx.beginPath();
+    ctx.arc(x, y, i, 0, 2 * Math.PI, false);
+    ctx.fill();
+
+    i += w / 20;
+    const dim = w === h ? w * 1.412 : Math.sqrt((w * w) + (h * h))
+    if (i <= dim)
+      window.requestAnimationFrame(() => {
+        draw();
+      })
+    else {
+      canvas.style.opacity = 0
+      setTimeout(() => {
         ctx.clearRect(0, 0, w, h);
-        ctx.beginPath();
-        ctx.arc(x, y, i, 0, 2 * Math.PI, false);
-        ctx.fill();
-
-        i += w / 20;
-        const dim = w === h ? w * 1.412 : Math.sqrt((w * w) + (h * h))
-        if (i <= dim)
-            window.requestAnimationFrame(() => {
-                draw();
-            })
-        else {
-            canvas.style.opacity = 0
-            setTimeout(() => {
-                ctx.clearRect(0, 0, w, h);
-                target.removeChild(canvas);
-            }, 500)
-        }
-    })();
+        target.removeChild(canvas);
+      }, 500)
+    }
+  })();
 };
-
-
 import VueI18n from 'vue-i18n'
-
 Vue.use(VueI18n)
-
 // 实例
 const i18n = new VueI18n({
-    locale: (function () {
-        if (localStorage.getItem('lang')) {
-            return localStorage.getItem('lang')
-        }
-        return "zh"
-
-    }()),
-    // eslint-disable-next-line no-dupe-keys
-    // locale: 'en',
-    messages: {
-        'zh': require('./assets/i18n/zh'),   // 中文语言包
-        'en': require('./assets/i18n/en')    // 英文语言包 
+  locale: (function () {
+    if (localStorage.getItem('lang')) {
+      return localStorage.getItem('lang')
     }
+    return "zh"
+  }()),
+  // eslint-disable-next-line no-dupe-keys
+  // locale: 'en',
+  messages: {
+    'zh': require('./assets/i18n/zh'),   // 中文语言包
+    'en': require('./assets/i18n/en')    // 英文语言包 
+  }
 })
 
 /* eslint-disable no-new */
 new Vue({
-    i18n,
-    router,
-    render: h => h(App),
+  i18n,
+  router,
+  render: h => h(App),
 }).$mount('#app')
 
 

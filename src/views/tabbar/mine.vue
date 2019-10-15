@@ -1,10 +1,11 @@
 <template>
   <div>
     <div class="nav">{{$t('navbar.我的')}}</div>
-
-    <div class="user_data">
+    <router-link to='user_list'
+                 class="user_data">
       <div class="img">
-        <img src="@/assets/img/code.png" alt />
+        <img src="@/assets/img/code.png"
+             alt />
         <div class="type">A 套餐</div>
       </div>
       <div class="user_txt">
@@ -14,7 +15,87 @@
         </div>
         <div class="content">ID:1234375@qq.com</div>
       </div>
-      <img src="@/assets/img/more_small.png" alt />
+      <img src="@/assets/img/more_small.png"
+           alt />
+    </router-link>
+    <div class="nav_box">
+      <router-link to=''
+                   class="nav_list">
+        <img src="@/assets/img/vip.png"
+             alt="">
+        <p>{{$t('my.注册会员')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to='Invitation'
+                   class="nav_list">
+        <img src="@/assets/img/yaoqing@2x.png"
+             alt="">
+        <p>{{$t('my.邀请好友')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to=''
+                   class="nav_list">
+        <img src="@/assets/img/touzi@2x.png"
+             alt="">
+        <p>{{$t('my.我的投资')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to='payment'
+                   class="nav_list">
+        <img src="@/assets/img/shoukuan@2x.png"
+             alt="">
+        <p>{{$t('my.收款方式')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to='My-investment'
+                   class="nav_list">
+        <img src="@/assets/img/futou@2x.png"
+             alt="">
+        <p>{{$t('my.我的复投')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to='my_team'
+                   class="nav_list">
+        <img src="@/assets/img/wodetuandui@2x.png"
+             alt="">
+        <p>{{$t('my.我的团队')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to='address_book'
+                   class="nav_list">
+        <img src="@/assets/img/dizhi@2x.png"
+             alt="">
+        <p>{{$t('my.地址簿')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+      <router-link to='account'
+                   class="nav_list">
+        <img src="@/assets/img/zhanghuyuanquan@2x.png"
+             alt="">
+        <p>{{$t('my.账号安全')}}</p>
+        <p style="justify-content: flex-end;padding:2px;">
+          <span></span>
+          {{$t('my.暂未绑定手机')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
+    </div>
+    <div class="nav_box">
+      <router-link to=''
+                   class="nav_list">
+        <img src="@/assets/img/tuichu@2x.png"
+             alt="">
+        <p>{{$t('my.退出登录')}}</p>
+        <img src="@/assets/img/more_small.png"
+             alt="">
+      </router-link>
     </div>
   </div>
 </template>
@@ -30,7 +111,6 @@ export default {};
   font-size: 18px;
   background-color: #0c0c0c;
 }
-
 .user_data {
   display: flex;
   align-items: center;
@@ -82,7 +162,40 @@ export default {};
   > img {
     width: 24px;
     height: 24px;
-    margin-right: 26px;
+    margin-right: 15px;
+  }
+}
+.nav_box {
+  padding-top: 20px;
+  .nav_list {
+    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    align-items: center;
+    background: #161102;
+    color: #fff;
+    img {
+      width: 25px;
+      height: 25px;
+    }
+    p {
+      flex: 1;
+      padding: 0 10px;
+      text-align: left;
+      color: #ffffff;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      span {
+        margin-right: 5px;
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: red;
+        border-radius: 50%;
+      }
+    }
   }
 }
 </style>
