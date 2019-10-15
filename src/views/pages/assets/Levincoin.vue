@@ -3,28 +3,30 @@
   <div>
     <div class="nav">
       <img src="@/assets/img/back.png" @click="$router.go(-1)" />
-      <span>USDT</span>
+      <span>{{$t('assets.莱文币')}}</span>
     </div>
 
     <div class="card">
       <div class="title">
         <span>{{$t('assets.余额')}}</span>
-        <translate position="flash" class="recharge">{{$t('assets.充币')}}</translate>
+        <router-link to="FillMoney" tag="div">
+          <translate position="flash" class="recharge">{{$t('assets.充值')}}</translate>
+        </router-link>
       </div>
       <div class="money">232323</div>
       <div class="option">
-        <div>
+        <router-link to="withdraw" tag="div">
           <img src="@/assets/img/tixian_icon.png" />
-          <span>{{$t('assets.提币')}}</span>
-        </div>
-        <div>
+          <span>{{$t('assets.提现')}}</span>
+        </router-link>
+        <router-link to="LevinExchange" tag="div">
           <img src="@/assets/img/duihuan_icon.png" />
           <span>{{$t('assets.兑换')}}</span>
-        </div>
-        <div>
+        </router-link>
+        <router-link to="Transfer" tag="div">
           <img src="@/assets/img/zhuanzhang_icon.png" />
           <span>{{$t('assets.转账')}}</span>
-        </div>
+        </router-link>
       </div>
     </div>
 
@@ -70,14 +72,28 @@
         </translate>
       </van-tab>
     </van-tabs>
+
+    <van-popup :style="{width: '70%'}" :close-on-click-overlay="false" v-model="isShow">
+      <div class="van_body">
+        <div class="title">{{$t("assets.绑定手机号")}}</div>
+        <div class="content" v-html="$t('assets.为保护您的账户安全,请先绑定手机号')"></div>
+        <button class="btn" @click="isShow=false">{{$t('assets.立即绑定')}}</button>
+        <div class="recharge">{{$t("public.取消")}}</div>
+      </div>
+    </van-popup>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      active: 0
+      active: 0,
+      isShow: false
     };
+  },
+
+  created() {
+    this.isShow = true;
   }
 };
 </script>
@@ -109,8 +125,8 @@ export default {
   margin: 15px auto;
   background: linear-gradient(
     89deg,
-    rgba(74, 102, 250, 1) 0%,
-    rgba(116, 130, 252, 1) 100%
+    rgba(254, 116, 116, 1) 0%,
+    rgba(253, 170, 115, 1) 100%
   );
   border-radius: 6px;
 
@@ -143,7 +159,7 @@ export default {
 
   .option {
     display: flex;
-    background-color: #6379fa;
+    background-color: #fda07e;
     border-radius: 6px;
 
     div {
@@ -199,6 +215,48 @@ export default {
       color: #fff;
       font-size: 16px;
     }
+  }
+}
+
+/deep/ .van-popup {
+  background-color: transparent;
+}
+.van_body {
+  background: linear-gradient(
+    137deg,
+    rgba(233, 215, 177, 1) 0%,
+    rgba(200, 168, 113, 1) 100%
+  );
+  padding: 28px 20px 20px;
+  border-radius: 6px;
+  text-align: center;
+
+  .title {
+    color: #705827;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .content {
+    color: #705827;
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  .btn {
+    color: #705827;
+    background-color: #fff7de;
+    border-radius: 50px;
+    width: 100%;
+    font-size: 15px;
+    margin-top: 15px;
+    padding: 5px 0;
+  }
+  .recharge {
+    color: #fff;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 5px;
+    margin-top: 15px;
+    font-size: 14px;
   }
 }
 </style>

@@ -15,30 +15,38 @@
       </div>
 
       <div>
-        <router-link tag="div" to="Ethereum" class="option">
-          <img src="@/assets/img/yitai.png" />
-          <div class="text">
-            <div>{{$t('assets.以太坊')}}</div>
-            <div>82214.12</div>
-          </div>
-          <img src="@/assets/img/in.png" alt />
+        <router-link to="Ethereum">
+          <translate position="top" time="0.4s" class="option one_item">
+            <img src="@/assets/img/yitai.png" />
+            <div class="text">
+              <div>{{$t('assets.以太坊')}}</div>
+              <div>82214.12</div>
+            </div>
+            <img src="@/assets/img/in.png" alt />
+          </translate>
         </router-link>
-        <router-link tag="div" to="USDT" class="option">
-          <img src="@/assets/img/usdt.png" />
-          <div class="text">
-            <div>USDT</div>
-            <div>847333232.12</div>
-          </div>
-          <img src="@/assets/img/in.png" alt />
+
+        <router-link to="USDT">
+          <translate position="top" time="0.5s" class="option two_item">
+            <img src="@/assets/img/usdt.png" />
+            <div class="text">
+              <div>USDT</div>
+              <div>847333232.12</div>
+            </div>
+            <img src="@/assets/img/in.png" alt />
+          </translate>
         </router-link>
-        <div class="option">
-          <img src="@/assets/img/laiwen.png" />
-          <div class="text">
-            <div>{{$t('assets.莱文币')}}</div>
-            <div>843.12</div>
-          </div>
-          <img src="@/assets/img/in.png" alt />
-        </div>
+
+        <router-link to="Levincoin">
+          <translate position="top" time="0.6s" class="option three_item">
+            <img src="@/assets/img/laiwen.png" />
+            <div class="text">
+              <div>{{$t('assets.莱文币')}}</div>
+              <div>843.12</div>
+            </div>
+            <img src="@/assets/img/in.png" alt />
+          </translate>
+        </router-link>
       </div>
     </div>
   </div>
@@ -153,27 +161,48 @@ export default {};
       }
     }
 
-    &:first-child {
+    .one_item {
       background: linear-gradient(
         89deg,
         rgba(74, 102, 250, 1) 0%,
         rgba(116, 130, 252, 1) 100%
       );
     }
-    &:nth-child(2) {
+    .two_item {
       background: linear-gradient(
         89deg,
         rgba(129, 94, 253, 1) 0%,
         rgba(183, 117, 255, 1) 100%
       );
     }
-    &:last-child {
+    .three_item {
       background: linear-gradient(
         89deg,
         rgba(254, 116, 116, 1) 0%,
         rgba(253, 170, 115, 1) 100%
       );
     }
+  }
+  .one_item {
+    background: linear-gradient(
+      89deg,
+      rgba(74, 102, 250, 1) 0%,
+      rgba(116, 130, 252, 1) 100%
+    );
+  }
+  .two_item {
+    background: linear-gradient(
+      89deg,
+      rgba(129, 94, 253, 1) 0%,
+      rgba(183, 117, 255, 1) 100%
+    );
+  }
+  .three_item {
+    background: linear-gradient(
+      89deg,
+      rgba(254, 116, 116, 1) 0%,
+      rgba(253, 170, 115, 1) 100%
+    );
   }
 }
 </style>

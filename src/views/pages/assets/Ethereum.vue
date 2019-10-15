@@ -8,18 +8,20 @@
     <div class="card">
       <div class="title">
         <span>{{$t('assets.余额')}}</span>
-        <translate position="flash" class="recharge">{{$t('assets.充币')}}</translate>
+        <router-link to="rechargePage">
+          <translate position="flash" class="recharge">{{$t('assets.充币')}}</translate>
+        </router-link>
       </div>
       <div class="money">232323</div>
       <div class="option">
-        <div>
+        <router-link to="getCoin" tag="div">
           <img src="@/assets/img/tixian_icon.png" />
           <span>{{$t('assets.提币')}}</span>
-        </div>
-        <div>
+        </router-link>
+        <router-link to="exchange" tag="div">
           <img src="@/assets/img/duihuan_icon.png" />
           <span>{{$t('assets.兑换')}}</span>
-        </div>
+        </router-link>
         <div>
           <img src="@/assets/img/zhuanzhang_icon.png" />
           <span>{{$t('assets.转账')}}</span>

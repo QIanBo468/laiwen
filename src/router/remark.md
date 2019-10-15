@@ -34,7 +34,18 @@ investmentRecord: 投资记录
 
 Ethereum: 以太坊
 USDT: USDT
-
+Levincoin: 莱文币
+rechargePage: 充币页面
+FillMoney: 充值页面
+withdraw: 提现页面
+getCoin: 提币页面
+getCoinList: 提币列表
+myBankCard: 我的银行卡
+addressBook: 地址簿
+exchange: 兑换
+exchangeList: 兑换记录
+LevinExchange: 兑换莱文币
+Transfer: 转账记录
 ...
 ```
 
