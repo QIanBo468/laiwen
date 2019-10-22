@@ -73,10 +73,28 @@
 <script>
 export default {
     data() {
-        return {};
+        return {
+
+        };
+    },
+    mounted() {
+        this.user();
     },
     methods: {
-      // 退出登录
+        // 用户基本信息
+        user(){
+            this.$post({
+                module: "User",
+                interface: 1000,
+                success: res => {
+                    console.log("用户基本信息", res);
+                    if (res.data.code == 0) {
+                        
+                    }
+                }
+            });
+        },
+        // 退出登录
         quit() {
             this.$post({
                 module: "Account",
