@@ -2,28 +2,32 @@ import Vue from 'vue'
 import axios from 'axios';
 import router from './../router'
 import qs from 'qs';
+Vue.use(qs);
 import Vant from 'vant';
 Vue.use(Vant);
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
+Vue.prototype.$axios = axios 
 // axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.timeout = 10000;
-const no_login_code = -2;
+const no_login_code = 4700; // 未登录返回码
 
 if (process.env.NODE_ENV == 'development') {
-    axios.defaults.baseURL = "";
-    Vue.prototype.httpPath = "";
+    axios.defaults.baseURL = "http://laiwen.qdunzi.com/portal";
+    Vue.prototype.httpPath = "http://laiwen.qdunzi.com/portal";
 } else if (process.env.NODE_ENV == 'debug') {
-    axios.defaults.baseURL = "";
-    Vue.prototype.httpPath = "";
+    axios.defaults.baseURL = "http://laiwen.qdunzi.com/portal";
+    Vue.prototype.httpPath = "http://laiwen.qdunzi.com/portal";
 } else if (process.env.NODE_ENV == 'production') {
-    axios.defaults.baseURL = "";
-    Vue.prototype.httpPath = "";
+    axios.defaults.baseURL = "http://laiwen.qdunzi.com/portal";
+    Vue.prototype.httpPath = "http://laiwen.qdunzi.com/portal";
 }
+
 const token = localStorage.getItem("token") || "";
 
 Vue.prototype.$get = params => {
+
     axios
         .get(params.url, { params: Object.assign({}, params.data, token ? { token } : "") })
         .then(res => {
@@ -45,18 +49,25 @@ Vue.prototype.$get = params => {
                 params.fail(err);
         })
 }
-// build powerful applications using modern open source code.
+
 Vue.prototype.$post = params => {
     let $axios;
     if (params.upload) {
         params.data.append('token', token ? token : "")
         let config = {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 'Content-Type': 'application/json' }
         };
         $axios = axios.post(params.url, params.data, config)
     } else {
-        let data = qs.stringify(Object.assign({}, params.data, token ? { token } : {}))
-        $axios = axios.post(params.url, data)
+        let config = {
+            headers: { 'Authorization': "Bearer "+localStorage.getItem("Bearer") }
+        };
+
+        let data = {
+            source: "web", version: "v1", data: params.data, module: params.module, interface: params.interface
+        }
+
+        $axios = axios.post(Vue.prototype.httpPath, data,config)
     }
 
     $axios
