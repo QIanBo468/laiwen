@@ -136,6 +136,9 @@ module.exports = {
     "兑换USDT": "Exchange of USDT",
     "兑换数量": "Quantity of exchange",
     "转账记录": "Transfer record",
+    "重新获取": "Regain",
+    "您已获取,无须重复点击": "You have obtained it,no need to click again",
+    "手机号码错误":"Wrong mobile number",
   },
   my: {
     "注册会员": "Registered member",

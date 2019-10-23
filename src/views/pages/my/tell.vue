@@ -23,7 +23,7 @@
         <input type="text"
                :placeholder="$t('login.验证码')"
                v-model="code">
-        <button class="btn">{{$t('assets.获取')}}</button>
+        <button class="btn" @click="getCode()">{{showTitle}}</button>
       </div>
       <div class="btn_outer">
         <button class="btn">{{$t('my.确定')}}</button>
@@ -37,10 +37,60 @@ export default {
     return {
       tell: '',
       code: '',
+      sendStatus: 0,
+      showTitle:'',
+      timeout:60,
     }
   },
+  mounted() {
+      this.init();
+  },
   methods: {
-
+    init(){
+      this.showTitle = this.$t('assets.获取');
+    },
+    getCode(){
+      console.log(this.sendStatus)
+      if(this.sendStatus == 1){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('assets.您已获取,无须重复点击')
+        });
+        return ;
+      }
+      if(this.tell){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('assets.手机号码错误')
+        });
+        return ;
+      }
+      //设置为已发放
+      this.sendStatus = 1
+      this.$post({
+          module: "Account",
+          interface: 1005,
+          data: {
+              account: this.tell
+          },
+          success: res => {
+              console.log("获取短信验证码", res);
+              if (res.data.code == 0) {
+                  
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          },
+          complete: res=>{
+              //返回接果处理的
+              this.sendStatus == 0;
+          }
+      });
+    }
   }
 };
 </script>
