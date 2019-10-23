@@ -20,7 +20,7 @@
                 <img src="@/assets/img/jihuoma.png" />
                 <div class="code">
                     <input type="text" :placeholder="$t('login.请输入验证码')" v-model="captcha" />
-                    <button @click="code">{{$t('login.获取验证码')}}</button>
+                    <button @click="code">{{show == true?$t('login.获取验证码'):time+'S'}}</button>
                 </div>
             </div>
 
@@ -75,7 +75,9 @@ export default {
             safeword: "", //二级密码
             safewords: "", //确认二级密码
             recommend: "", //推荐人邮箱
-            place: "" //安置人邮箱
+            place: "", //安置人邮箱
+            show: true, //获取验证码是否显示
+            time: 60 //验证码间隔时间
         };
     },
     methods: {
@@ -193,7 +195,41 @@ export default {
         },
         // 获取验证码
         code(){
-
+            if (this.account == "") {
+                this.$toast({
+                    duration: 1000,
+                    message: this.$t('login.请输入邮箱')
+                });
+                return;
+            }
+            if (!this.show) {
+                return;
+            }
+            this.$post({
+                module: "Account",
+                interface: 1001,
+                data: {
+                    account: this.account
+                },
+                success: res => {
+                    console.log("获取验证码", res);
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
+                    if (res.data.code == 0) {
+                        this.show = false;
+                        let time = setInterval(() => {
+                            this.time--;
+                            if (this.time == 0) {
+                                clearInterval(time);
+                                this.time = 60;
+                                this.show = true;
+                            }
+                        }, 1000);
+                    }
+                }
+            });
         }
     }
 };

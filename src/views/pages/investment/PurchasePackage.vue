@@ -31,14 +31,14 @@
             <van-popup :style="{width: '70%'}" :close-on-click-overlay="false" v-model="isShow">
                 <div class="van_body" v-show="status">
                     <div class="title">{{$t("investment.投资成功")}}！</div>
-                    <div class="content">{{$t("investment.消耗莱文币")}}10000</div>
+                    <div class="content">{{$t("investment.消耗莱文币")}}{{amount}}</div>
                     <button class="btn" @click="isShow=false">{{$t('public.确定')}}</button>
                 </div>
                 <div class="van_body" v-show="!status">
                     <div class="title">{{$t("investment.投资失败")}}！</div>
                     <div class="content">{{$t("investment.莱文币不足")}}</div>
                     <button class="btn" @click="isShow=false">{{$t('public.取消')}}</button>
-                    <div class="recharge">{{$t("investment.立即充值")}}</div>
+                    <div class="recharge" @click="$router.push('FillMoney')">{{$t("investment.立即充值")}}</div>
                 </div>
             </van-popup>
         </div>
@@ -78,11 +78,16 @@ export default {
     methods: {
         // 提交
         investmentFun() {
-            if (100 % this.amount != 0) {
+            if (
+                this.amount < this.$route.query.min - 1 ||
+                this.amount > this.$route.query.max ||
+                this.amount % 100 != 0
+            ) {
                 this.$toast({
-                    duration: 1000,
-                    message: ''
+                    duration: 1500,
+                    message: this.placeholders
                 });
+                return;
             }
             this.$post({
                 module: "Investment",
@@ -93,11 +98,12 @@ export default {
                     type: 0
                 },
                 success: res => {
-                    console.log("投资列表", res);
+                    this.isShow = true;
+                    console.log("购买套餐", res);
                     if (res.data.code == 0) {
-                        this.list = res.data.data.list;
+                        this.status = true;
                     } else {
-                        this.isShow = true;
+                        this.status = false;
                     }
                 }
             });

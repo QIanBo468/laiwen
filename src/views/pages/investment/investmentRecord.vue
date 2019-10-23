@@ -23,7 +23,7 @@
     </div>
 
     <translate position="top">
-      <div class="item" v-for="item in 4">
+      <div class="item" v-for="item in 4" :key="item">
         <div class="title">投资</div>
         <div class="num_box">
           <div>
