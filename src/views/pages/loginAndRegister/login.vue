@@ -38,14 +38,14 @@ export default {
             if (this.account == "") {
                 this.$toast({
                     duration: 1000,
-                    message: "请输入邮箱"
+                    message: this.$t('login.请输入邮箱')
                 });
                 return;
             }
             if (this.password == "") {
                 this.$toast({
                     duration: 1000,
-                    message: "请输入密码"
+                    message: this.$t('login.请输入密码')
                 });
                 return;
             }
@@ -66,7 +66,7 @@ export default {
                         console.log(localStorage.getItem("Bearer"));
                         this.$toast({
                             duration: 1000,
-                            message: '登录成功'
+                            message: this.$t('login.登录成功')
                         });
                         this.$router.replace("/");
                     } else {
