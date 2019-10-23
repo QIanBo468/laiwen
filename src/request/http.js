@@ -24,6 +24,7 @@ if (process.env.NODE_ENV == 'development') {
     Vue.prototype.httpPath = "http://laiwen.qdunzi.com/portal";
 }
 
+Vue.prototype.httpPaths = "http://laiwen.qdunzi.com/upload";
 const token = localStorage.getItem("token") || "";
 
 Vue.prototype.$get = params => {

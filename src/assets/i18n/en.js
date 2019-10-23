@@ -85,6 +85,8 @@ module.exports = {
   // 资产
   assets: {
     "复制": "copy",
+    "复制成功": "Copied successfully",
+    "复制失败": "Copy failed",
     "我的钱包地址": "My wallet address",
     "以太坊": "Ether square",
     "莱文币": "Levin coin",
