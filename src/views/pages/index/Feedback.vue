@@ -17,7 +17,10 @@
     </div>
 
     <div class="upload">
-      <van-uploader v-model="fileList" multiple :max-count="9" />
+      <label for="file" class="pull-id">
+        <input type="file" style="display:none;" @change="uploads($event)" ref="front" id="file" />
+        <img :src="isHttp" alt class="head-portrait" ref="goodsImg" />
+      </label>
     </div>
 
     <button>{{$t('index.提交')}}</button>
@@ -30,6 +33,53 @@ export default {
     return {
       fileList: []
     };
+  },
+  methods: {
+    //上传图片
+    uploads(event) {
+      var paths = this.$refs.front.value; //源文件路径
+      var fileType = this.getFileType(paths); //获取文件的后缀名
+      if (
+        "jpg" != fileType &&
+        "jpeg" != fileType &&
+        "png" != fileType &&
+        "gif" != fileType
+      ) {
+        this.$toast("请上传JPG,JPEG,PNG,GIF格式的图片");
+        return false;
+      }
+      this.submit();
+    },
+
+    submit() {
+      var DOM = this.$refs.front; //获取input dom节点
+      var file = DOM.files[0]; //获取文件详细信息
+      var param = new FormData();
+      param.append("avatar", file);
+      this.uploadImg(param);
+    },
+    //上传头像
+    uploadImg(param) {
+      // alert(param);
+      this.$post({
+        module: "Account",
+        interface: 1000,
+        data: param
+      })
+        .then(res => {
+          if (res.data.code == 0) {
+            this.img = res.data.data.avatar; //上传成功显示图片
+          } else {
+            this.$toast(res.data.msg); //失败走这里
+            this.img = res.data.data;
+            this.$refs.goodsImg.src = res.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      // 一直到这里 上面是修改的
+    }
   }
 };
 </script>
@@ -76,6 +126,19 @@ export default {
     background: rgba(40, 26, 0, 1);
     border: none;
     padding: 10px;
+
+    &:-ms-input-placeholder {
+      color: #ffffff;
+    }
+    &::-webkit-input-placeholder {
+      color: #ffffff;
+    }
+    &:-moz-placeholder {
+      color: #ffffff;
+    }
+    &::-moz-placeholder {
+      color: #ffffff;
+    }
   }
 
   div {
@@ -112,9 +175,12 @@ export default {
 .upload {
   padding: 7px 15px;
 
-  /deep/ .van-uploader__upload {
-    background-color: #281a00;
-    border: 1px dashed rgba(67, 46, 0, 1);
+  label {
+    width: 80px;
+    height: 80px;
+    display: block;
+    background: url("../../../assets/img/tianjia.png") no-repeat center center;
+    background-size: 100% 100%;
   }
 }
 button {

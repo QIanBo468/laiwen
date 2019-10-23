@@ -3,14 +3,14 @@
     <div class="nav"></div>
 
     <van-swipe :autoplay="3000" indicator-color="white" :height="160">
-      <van-swipe-item v-for="item in 4">
-        <img src="@/assets/img/banner.png" width="100%" height="100%" />
+      <van-swipe-item v-for="(item,index) in carouselList" :key="index">
+        <img :src="item.src" width="100%" height="100%" />
       </van-swipe-item>
     </van-swipe>
 
     <div class="my_notice">
       <img src="@/assets/img/tz.png" />
-      <span>我是公告我是公告我是公告我是公告我是公告我是公告我是公告我是公告</span>
+      <span>{{news}}</span>
       <router-link tag="div" to="noticeList" class="more">{{$t('index.更多')}}></router-link>
     </div>
 
@@ -45,9 +45,53 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      carouselList:[], //轮播图数据
+      news: '', //最新公告
+    };
   },
-  methods: {}
+  methods: {
+    //获取轮播图
+    getCarousel() {
+      this.$post({
+        module: "Content",
+        interface: 1000,
+        success: res => {
+          console.log("获取轮播图", res);
+          if (res.data.code == 0) {
+            this.carouselList = res.data.data.list;
+          } else {
+            this.$toast({
+              duration: 1000,
+              message: res.data.message
+            });
+          }
+        }
+      });
+    },
+    //获取公告最新数据
+    getNews(){
+      this.$post({
+        module: "Content",
+        interface: 3002,
+        success: res => {
+          console.log("获取公告最新数据", res);
+          if (res.data.code == 0) {
+            this.news = res.data.data.info.title;
+          } else {
+            this.$toast({
+              duration: 1000,
+              message: res.data.message
+            });
+          }
+        }
+      });
+    }
+  },
+  created() {
+    this.getCarousel();
+    this.getNews();
+  },
 };
 </script>
 <style lang="scss" scoped>
