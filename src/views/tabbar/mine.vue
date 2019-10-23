@@ -3,15 +3,15 @@
         <div class="nav">{{$t('navbar.我的')}}</div>
         <router-link to="user_list" class="user_data">
             <div class="img">
-                <img src="@/assets/img/code.png" alt />
-                <div class="type">A 套餐</div>
+                <img :src="userInfo.avatar" alt />
+                <div class="type" v-if="userInfo.icon != ''">{{userInfo.icon}}</div>
             </div>
             <div class="user_txt">
                 <div class="title">
-                    <span>咸蛋</span>
-                    <div class="tag">资深总监</div>
+                    <span>{{userInfo.nickname}}</span>
+                    <div class="tag">{{userInfo.level}}</div>
                 </div>
-                <div class="content">ID:1234375@qq.com</div>
+                <div class="content">ID:{{userInfo.account}}</div>
             </div>
             <img src="@/assets/img/more_small.png" alt />
         </router-link>
@@ -54,7 +54,7 @@
             <router-link to="account" class="nav_list">
                 <img src="@/assets/img/zhanghuyuanquan@2x.png" alt />
                 <p>{{$t('my.账号安全')}}</p>
-                <p style="justify-content: flex-end;padding:2px;">
+                <p style="justify-content: flex-end;padding:2px;" v-if="userInfo.mobile == ''">
                     <span></span>
                     {{$t('my.暂未绑定手机')}}
                 </p>
@@ -74,7 +74,15 @@
 export default {
     data() {
         return {
-
+            userInfo:{
+                account: "",
+                avatar: "",
+                icon: "",
+                id: 0,
+                level: "",
+                mobile: "*",
+                nickname: ""
+            }
         };
     },
     mounted() {
@@ -89,7 +97,13 @@ export default {
                 success: res => {
                     console.log("用户基本信息", res);
                     if (res.data.code == 0) {
-                        
+                        this.userInfo = res.data.data;
+                    }
+                    else{
+                        this.$toast({
+                            duration: 1000,
+                            message: res.data.message
+                        });
                     }
                 }
             });
