@@ -56,28 +56,28 @@ export default {
             if (this.account == "") {
                 this.$toast({
                     duration: 1000,
-                    message: "请输入邮箱"
+                    message: this.$t('login.请输入邮箱')
                 });
                 return;
             }
             if (this.captcha == "") {
                 this.$toast({
                     duration: 1000,
-                    message: "请输入验证码密码"
+                    message: this.$t('login.请输入验证码')
                 });
                 return;
             }
             if (this.password == "") {
                 this.$toast({
                     duration: 1000,
-                    message: "请输入新密码"
+                    message: this.$t('login.请输入新密码')
                 });
                 return;
             }
             if (this.password != this.passwords) {
                 this.$toast({
                     duration: 1000,
-                    message: "两次密码不同"
+                    message: this.$t('login.两次密码不同')
                 });
                 return;
             }
@@ -120,7 +120,7 @@ export default {
                         );
                         this.$toast({
                             duration: 1000,
-                            message: "登录成功"
+                            message: this.$t('login.登录成功')
                         });
                         this.$router.replace("/");
                     } else {
@@ -137,7 +137,7 @@ export default {
             if (this.account == "") {
                 this.$toast({
                     duration: 1000,
-                    message: "请输入邮箱"
+                    message: this.$t('login.请输入邮箱')
                 });
                 return;
             }
