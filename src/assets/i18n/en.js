@@ -32,6 +32,7 @@ module.exports = {
     '请输入新密码': 'Please enter a new password',
     '请再次输入新密码': 'Please enter a new password again',
     '保存并登录': 'Save and log in',
+    '请输入旧密码': 'Please enter the old password',
   },
 
   // 底部导航

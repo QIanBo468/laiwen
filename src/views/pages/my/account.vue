@@ -6,11 +6,11 @@
       <span>{{$t('my.账号安全')}}</span>
     </div>
     <div class="nav_box"
-         v-if="!is_tell">
+         v-if="userInfo.mobile ==''">
       <router-link to='tell'
                    class="nav_list">
         <p>{{$t('my.手机号')}}</p>
-        <p style="justify-content: flex-end;padding:2px;" v-if="userInfo.mobile ==''">
+        <p style="justify-content: flex-end;padding:2px;" >
           <span></span>
           {{$t('my.暂未绑定手机')}}</p>
         <img src="@/assets/img/more_small.png"
@@ -18,14 +18,14 @@
       </router-link>
     </div>
     <div class="nav_box"
-         v-if="is_tell">
+         v-if="userInfo.mobile !=''">
       <div class="nav_list">
         <p>{{$t('my.手机号')}}</p>
-        <p style="justify-content: flex-end;padding:10px;">1111111111</p>
+        <p style="justify-content: flex-end;padding:10px;">{{userInfo.mobile}}</p>
       </div>
     </div>
     <div class="nav_box">
-      <router-link to='password'
+      <router-link :to="'password?mobile='+userInfo.mobile"
                    class="nav_list">
         <p>{{$t('my.修改登录密码')}}</p>
         <img src="@/assets/img/more_small.png"
