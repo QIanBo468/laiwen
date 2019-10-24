@@ -139,6 +139,7 @@ module.exports = {
     "重新获取": "Regain",
     "您已获取,无须重复点击": "You have obtained it,no need to click again",
     "手机号码错误":"Wrong mobile number",
+    "验证码错误":"Verification code error",
   },
   my: {
     "注册会员": "Registered member",

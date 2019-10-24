@@ -26,7 +26,7 @@
         <button class="btn" @click="getCode()">{{showTitle}}</button>
       </div>
       <div class="btn_outer">
-        <button class="btn">{{$t('my.确定')}}</button>
+        <button class="btn" @click="sub_charge()">{{$t('my.确定')}}</button>
       </div>
     </div>
   </div>
@@ -50,7 +50,11 @@ export default {
       this.showTitle = this.$t('assets.获取');
     },
     getCode(){
-      console.log(this.sendStatus)
+      var that  = this;
+      console.log('发送状态',this.sendStatus)
+      if(this.timeout != 60){
+        return ;
+      }
       if(this.sendStatus == 1){
         this.$toast({
             duration: 1000,
@@ -58,7 +62,7 @@ export default {
         });
         return ;
       }
-      if(this.tell){
+      if(!(/^1[3456789]\d{9}$/.test(this.tell))){
         this.$toast({
             duration: 1000,
             message: this.$t('assets.手机号码错误')
@@ -68,15 +72,30 @@ export default {
       //设置为已发放
       this.sendStatus = 1
       this.$post({
-          module: "Account",
-          interface: 1005,
+          module: "User",
+          interface: 6001,
           data: {
-              account: this.tell
+              mobile: that.tell
           },
           success: res => {
-              console.log("获取短信验证码", res);
+              that.sendStatus = 0;
+              
               if (res.data.code == 0) {
-                  
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+                  var timeoutId = setInterval(function () {
+                    if(that.timeout>0){
+                      that.showTitle = that.timeout+'S';
+                      that.timeout = that.timeout-1;
+                    }
+                    else{
+                      clearInterval(timeoutId);
+                      that.timeout = 60;
+                      that.showTitle = that.$t('assets.重新获取');
+                    }
+                  }, 1000);
               }
               else{
                   this.$toast({
@@ -87,8 +106,50 @@ export default {
           },
           complete: res=>{
               //返回接果处理的
-              this.sendStatus == 0;
+              // that.sendStatus = 0;
           }
+      });
+    },
+    //更新手机号绑定
+    sub_charge(){
+      var that = this;
+      if(!(/^1[3456789]\d{9}$/.test(this.tell))){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('assets.手机号码错误')
+        });
+        return ;
+      }
+      if(this.code == ''){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('assets.验证码错误')
+        });
+        return ;
+      }
+      this.$post({
+        module: "User",
+        interface: 6000,
+        data: {
+            mobile: that.tell,
+            captcha: that.code
+        },
+        success: res => {
+            
+            if (res.data.code == 0) {
+                this.$toast({
+                    duration: 1000,
+                    message: res.data.message
+                });
+                this.$router.replace("/mine");
+            }
+            else{
+                this.$toast({
+                    duration: 1000,
+                    message: res.data.message
+                });
+            }
+        }
       });
     }
   }
