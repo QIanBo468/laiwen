@@ -186,7 +186,7 @@ export default {
       }
       this.$post({
         module: "User",
-        interface: 2001,
+        interface: 2005,
         data: {
             captcha: that.code,
             oldPassword: that.oldPassword,
