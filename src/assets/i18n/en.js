@@ -209,5 +209,6 @@ module.exports = {
     "安全验证": "Security verification",
     "原始密码": "Original password",
     "请输入原始密码": "Please enter the original password",
+    "无须重复点击": "No need to click again",
   }
 }

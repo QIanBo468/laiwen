@@ -7,27 +7,30 @@
       <span style="text-align: right;"
             @click="nav_link">{{$t('my.添加')}}</span>
     </div>
-    <van-swipe-cell :on-close="onClose"
-                    class="item">
-      <img src="@/assets/img/code.png"
-           alt="">
+    <van-swipe-cell  class="item"  v-for="item in list">
+      <!-- <img src="@/assets/img/code.png"
+           alt=""> -->
       <div class="coll">
-        <p>王小闹</p>
-        <p>sjdhffkj27364829hdjkfhfkdj</p>
+        <p>{{item.name}}</p>
+        <p>{{item.address}}</p>
       </div>
       <template slot="right">
         <van-button square
                     type="danger"
-                    :text="$t('my.立即删除')" />
+                    :text="$t('my.立即删除')" @click="del(item.id)"/>
       </template>
     </van-swipe-cell>
-    <div v-if="is_show"
-         class="back_add">
+    <!-- 加载完毕提示 -->
+    <van-swipe-cell v-if="isEndShow == 1">
+      <p class="jzwb">已全部加载完毕</p>
+    </van-swipe-cell>
+
+    <div v-if="is_show" class="back_add">
       <div class="box">
         <p>{{$t('my.删除地址')}}</p>
         <p>{{$t('my.确认删除此地址')}}</p>
         <button class="btn"
-                @click="add_send">{{$t('my.确定')}}</button>
+                @click="add_unset">{{$t('my.确定')}}</button>
         <p style="color:#FFF7DE;padding-top:10px;"
            @click="is_show=false;">{{$t('my.取消')}}</p>
       </div>
@@ -39,25 +42,118 @@ export default {
   data () {
     return {
       is_show: false,
+      list:[],
+      lastId:0,
+      page:1,
+      isEnd:0,
+      isEndShow:0,
+      id:0,
     }
   },
+  mounted() {
+      this.getlist();
+      window.addEventListener('scroll', this.scrollEvent,false);
+  },
   methods: {
+    //获取列表
+    getlist(){
+      var that = this;
+      this.$post({
+          module: "UserAddress",
+          interface: 1000,
+          data: {
+              lastId: that.lastId,
+              page: that.page
+          },
+          success: res => {
+              
+              if (res.data.code == 0) {
+                  if(res.data.data.list.length == 0){
+                    that.isEnd = 1;
+                    that.isEndShow = 1;
+                    return ;
+                  }
+                  that.list = that.list.concat(res.data.data.list)
+                  that.lastId = res.data.data.lastId
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          },
+          complete: res=>{
+              //返回接果处理的
+              // that.sendStatus = 0;
+          }
+      });
+    },
+    scrollEvent(){
+      if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight) {
+        if(this.isEnd == 0){
+          console.log('加载下一页',this.isEnd,this.page)
+          this.page =  parseInt(this.page)+1
+          this.getlist()
+        }
+      }
+    },
     nav_link () {
       this.$router.push({ name: 'addres' })
     },
-    onClose (clickPosition, instance) {
-      switch (clickPosition) {
-        case 'left':
-        case 'cell':
-        case 'outside':
-          instance.close();
-          break;
-        case 'right':
-          this.is_show = true;
-          break;
-      }
+    // onClose (clickPosition, instance) {
+    //   console.log('删除滑动',clickPosition, instance);
+    //   switch (clickPosition) {
+    //     case 'left':
+    //     case 'cell':
+    //     case 'outside':
+    //       instance.close();
+    //       break;
+    //     case 'right':
+    //       this.is_show = true;
+    //       break;
+    //   }
+    // },
+    del(id){
+      this.id=id;
+      this.is_show = true;
     },
-    add_send () { },
+    add_unset () {
+      var that = this;
+      this.$post({
+          module: "UserAddress",
+          interface: 1002,
+          data: {
+              id: that.id
+          },
+          success: res => {
+              this.is_show = false;
+              if (res.data.code == 0) {
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+                  this.page = 1;
+                  this.lastId = 0;
+                  this.list = [];
+                  this.isEnd = 0;
+                  this.isEndShow=0;
+                  this.id=0;
+                  this.getlist();
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          },
+          complete: res=>{
+              //返回接果处理的
+              // that.sendStatus = 0;
+          }
+      });
+    },
   }
 };
 </script>
@@ -144,5 +240,9 @@ export default {
       border-radius: 20px;
     }
   }
+}
+.jzwb{
+  text-align:center;
+  color:#ccc;
 }
 </style>
