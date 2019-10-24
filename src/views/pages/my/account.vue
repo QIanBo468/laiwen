@@ -31,7 +31,7 @@
         <img src="@/assets/img/more_small.png"
              alt="">
       </router-link>
-      <router-link to='paypass'
+      <router-link :to="'paypass?mobile='+userInfo.mobile"
                    class="nav_list">
         <p>{{$t('my.修改二级密码')}}</p>
         <img src="@/assets/img/more_small.png"

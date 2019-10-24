@@ -70,12 +70,20 @@ export default {
     showMobile(){
       this.showTitle = this.$t('assets.获取');
       var mobile = this.$route.query.mobile
+      if(!(/^1[3456789]\d{9}$/.test(mobile))){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('assets.为保护您的账户安全,请先绑定手机号')
+        });
+        this.$router.replace("/account");
+        return ;
+      }
       this.tell = mobile;
       this.tellShow = mobile.substr(0, 3) + '****' + mobile.substr(7);
     },
     passInp(){
       if(this.password!='' && this.new_pass!=''){
-        
+
         if(this.password != this.new_pass){
           this.oldPasswordText = this.$t('login.两次密码不同');
         }
