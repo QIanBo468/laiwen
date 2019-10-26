@@ -189,6 +189,8 @@ module.exports = {
     "莱文资本邀请您注册及下载": "Levin capital invites you to register and download",
     "投资记录": "Bearing",
     "金额": "Amount of money",
+    "请输入": "Please enter a multiple of ",
+    "的倍数": "",
     "请输入100的倍数": "Please enter a multiple of 100",
     "已获得推广收益": "Promotion gains have been made",
     "团队总人数": "Total team size",

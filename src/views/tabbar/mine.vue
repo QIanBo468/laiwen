@@ -26,7 +26,7 @@
                 <p>{{$t('my.邀请好友')}}</p>
                 <img src="@/assets/img/more_small.png" alt />
             </router-link>
-            <router-link to class="nav_list">
+            <router-link to="InvestmentRecord" class="nav_list">
                 <img src="@/assets/img/touzi@2x.png" alt />
                 <p>{{$t('my.我的投资')}}</p>
                 <img src="@/assets/img/more_small.png" alt />

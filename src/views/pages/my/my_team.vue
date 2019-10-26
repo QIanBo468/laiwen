@@ -7,15 +7,15 @@
     </div>
     <div class="user_data">
       <div class="img">
-        <img src="@/assets/img/code.png"
+        <img :src="userInfo.avatar"
              alt />
       </div>
       <div class="user_txt">
         <div class="title">
-          <span>咸蛋</span>
-          <div class="tag">资深总监</div>
+          <span>{{userInfo.nickname}}</span>
+          <div class="tag">{{userInfo.level}}</div>
         </div>
-        <div class="content">ID:1234375@qq.com</div>
+        <div class="content">ID:{{userInfo.account}}</div>
       </div>
     </div>
     <div class="list_box">
@@ -50,10 +50,40 @@
 export default {
   data () {
     return {
+      userInfo:{
+          account: "",
+          avatar: "",
+          icon: "",
+          id: 0,
+          level: "",
+          mobile: "*",
+          nickname: ""
+      }
     }
   },
+  mounted() {
+    this.user();
+  },
   methods: {
-
+    // 用户基本信息
+    user(){
+        this.$post({
+            module: "User",
+            interface: 1000,
+            success: res => {
+                if (res.data.code == 0) {
+                    this.userInfo = res.data.data;
+                    this.getQrcode();
+                }
+                else{
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
+                }
+            }
+        });
+    }
   }
 };
 </script>

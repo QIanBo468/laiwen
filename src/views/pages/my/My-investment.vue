@@ -15,7 +15,7 @@
       <div class="inp_box">
         <p>￥</p>
         <input type="text"
-               :placeholder="$t('my.请输入100的倍数')"
+               :placeholder="basenumtxt"
                v-model="name">
         <img src="@/assets/img/guanbi.png"
              alt=""
@@ -23,7 +23,7 @@
              @click="name=''">
       </div>
       <div class="btn_outer">
-        <button class="btn">{{$t('index.提交')}}</button>
+        <button class="btn" @click="sub()" >{{$t('index.提交')}}</button>
       </div>
     </div>
   </div>
@@ -33,12 +33,61 @@ export default {
   data () {
     return {
       name: '',
+      basenum: 0,
+      basenumtxt: '',
     }
   },
+  mounted() {
+      this.init();
+  },
+
   methods: {
     nav_link () {
-      // this.is_add = true;
+      this.$router.push({path:'/investmentRecord'})
     },
+    init(){
+      this.$post({
+          module: "Investment",
+          interface: 3001,
+          success: res => {
+              this.basenum = res.data.data.base_num
+              this.basenumtxt = this.$t('my.请输入')+ res.data.data.base_num+ this.$t('my.的倍数')
+          }
+      });
+    },
+    sub(){
+      if(this.name == '' || this.name == 0){
+        this.$toast({
+            duration: 1000,
+            message: this.basenumtxt
+        });
+        return ;
+      }
+      console.log()
+      if(this.name%100 >0){
+        this.$toast({
+            duration: 1000,
+            message: this.basenumtxt
+        });
+        return ;
+      }
+      this.$post({
+          module: "Investment",
+          interface: 3000,
+          data:{
+            id:1,
+            amount:this.name,
+            type:1
+          },
+          success: res => {
+            this.$toast({
+                duration: 1000,
+                message: res.data.message
+            });
+          }
+      });
+
+    }
   }
 };
 </script>
