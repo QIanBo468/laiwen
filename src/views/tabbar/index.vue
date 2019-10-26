@@ -21,7 +21,7 @@
                     <img src="@/assets/img/in.png" />
                 </translate>
             </router-link>
-            <router-link to class="item">
+            <router-link to="register"  class="item">
                 <translate position="left" time="0.4s">
                     <span>{{$t('index.注册会员')}}</span>
                     <img src="@/assets/img/in.png" />
