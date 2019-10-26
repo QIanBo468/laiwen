@@ -77,8 +77,8 @@
       <div class="van_body">
         <div class="title">{{$t("assets.绑定手机号")}}</div>
         <div class="content" v-html="$t('assets.为保护您的账户安全,请先绑定手机号')"></div>
-        <button class="btn" @click="isShow=false">{{$t('assets.立即绑定')}}</button>
-        <div class="recharge">{{$t("public.取消")}}</div>
+        <button class="btn" @click="$router.push('tell')">{{$t('assets.立即绑定')}}</button>
+        <div class="recharge" @click="isShow=false">{{$t("public.取消")}}</div>
       </div>
     </van-popup>
   </div>

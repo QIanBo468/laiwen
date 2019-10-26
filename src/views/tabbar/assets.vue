@@ -32,28 +32,6 @@
                         <img src="@/assets/img/in.png" alt />
                     </translate>
                 </div>
-
-                <!-- <router-link to="USDT">
-                    <translate position="top" time="0.5s" class="option two_item">
-                        <img src="@/assets/img/usdt.png" />
-                        <div class="text">
-                            <div>USDT</div>
-                            <div>{{list[2].value}}</div>
-                        </div>
-                        <img src="@/assets/img/in.png" alt />
-                    </translate>
-                </router-link>
-
-                <router-link to="Levincoin">
-                    <translate position="top" time="0.6s" class="option three_item">
-                        <img src="@/assets/img/laiwen.png" />
-                        <div class="text">
-                            <div>{{$t('assets.莱文币')}}</div>
-                            <div>843.12</div>
-                        </div>
-                        <img src="@/assets/img/in.png" alt />
-                    </translate>
-                </router-link>-->
             </div>
         </div>
     </div>
@@ -63,7 +41,7 @@ export default {
     data() {
         return {
             list: [], //商品余额
-            purse: "2df4fdar4d4" //钱包地址
+            purse: "" //钱包地址
         };
     },
     mounted() {
@@ -94,13 +72,14 @@ export default {
                     console.log("资产信息", res);
                     if (res.data.code == 0) {
                         this.list = res.data.data.list;
+                        this.purse = res.data.data.address;
                     }
                 }
             });
         },
         // 跳转页面
         route(name) {
-            if (name == '余额') {
+            if (name == '莱文币') {
                 this.$router.push("Levincoin");
             } else if (name == 'ETH') {
                 this.$router.push("Ethereum");
