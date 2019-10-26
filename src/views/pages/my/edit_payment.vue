@@ -3,7 +3,7 @@
     <div class="nav">
       <img src="@/assets/img/back.png"
            @click="$router.go(-1)" />
-      <span>{{$t('my.添加收款方式')}}</span>
+      <span>{{$t('my.修改收款方式')}}</span>
     </div>
     <div class="box">
       <!-- 银行卡 -->
@@ -103,6 +103,7 @@
 export default {
   data () {
     return {
+      id: 0,
       owner: '',
       cardNo: '',
       bankCode: '',
@@ -111,7 +112,37 @@ export default {
       is_type: this.$route.query.type,//1 银行卡 2 微信支付宝
     }
   },
+  mounted() {
+    this.init();
+  },
   methods: {
+    init(){
+      var id = this.$route.query.id
+      this.id = id;
+      this.$post({
+          module: "Finance",
+          interface: 1004,
+          data: {
+            id:id
+          },
+          success: res => {
+              if (res.data.code == 0) {
+                this.is_type = res.data.data.cardType;
+                this.owner = res.data.data.owner;
+                this.cardNo = res.data.data.cardNo;
+                this.bankCode = res.data.data.bankCode;
+                this.bankSubbranch = res.data.data.bankSubbranch;
+                this.logo = res.data.data.logo;
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          }
+      });
+    },
     //上传图片
     uploads() {
         let file = this.$refs.front.files[0]; //获取文件详细信息
@@ -150,8 +181,9 @@ export default {
     sub_bank(){
       this.$post({
         module: "Finance",
-        interface: 1001,
+        interface: 1005,
         data: {
+            id: this.id,
             owner: this.owner,
             cardNo: this.cardNo,
             bankCode: this.bankCode,
@@ -164,7 +196,7 @@ export default {
             if (res.data.code == 0) {
                 this.$toast({
                     duration: 1000,
-                    message: this.$t('my.添加账号成功')
+                    message: this.$t('my.修改账号成功')
                 });
                 this.$router.replace("/payment");
             }

@@ -9,10 +9,10 @@
       <p>{{$t('my.莱文资本邀请您注册及下载')}}</p>
       <div>
         <p style="font-size: 16px;">{{$t('my.注册邀请码')}}</p>
-        <p>19388887364@163.com</p>
-        <button>{{$t('assets.复制')}}</button>
+        <p>{{mail}}</p>
+        <button v-clipboard:copy="mail"  v-clipboard:success="onCopy" v-clipboard:error="onError">{{$t('assets.复制')}}</button>
         <p class="xian"></p>
-        <img src="@/assets/img/code.png"
+        <img :src="src"
              alt="">
         <button>{{$t('my.邀请好友')}}</button>
       </div>
@@ -23,10 +23,44 @@
 export default {
   data () {
     return {
+      mail:"",
+      src:""
     }
   },
+  mounted() {
+    this.info();
+  },
   methods: {
-
+    info(){
+      this.$post({
+          module: "User",
+          interface: 4001,
+          success: res => {
+              if (res.data.code == 0) {
+                  this.mail = res.data.data.email;
+                  this.src = res.data.data.src;
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          }
+      });
+    },
+    onCopy(){
+      this.$toast({
+          duration: 1000,
+          message: this.$t('assets.复制成功')
+      });
+    },
+    onError(){
+      this.$toast({
+          duration: 1000,
+          message: this.$t('assets.复制失败')
+      });
+    },
   }
 };
 </script>

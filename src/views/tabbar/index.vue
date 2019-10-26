@@ -1,7 +1,8 @@
 <template>
     <div class="index">
-        <div class="nav"></div>
-
+        <div class="nav">
+            <button @click="localchange">{{localStorage}}</button>
+        </div>
         <van-swipe :autoplay="3000" indicator-color="white" :height="160">
             <van-swipe-item v-for="(item,index) in carouselList" :key="index">
                 <img :src="item.src" width="100%" height="100%" />
@@ -21,7 +22,7 @@
                     <img src="@/assets/img/in.png" />
                 </translate>
             </router-link>
-            <router-link to="register"  class="item">
+            <router-link to="register" class="item">
                 <translate position="left" time="0.4s">
                     <span>{{$t('index.注册会员')}}</span>
                     <img src="@/assets/img/in.png" />
@@ -46,11 +47,26 @@
 export default {
     data() {
         return {
+            localStorage: "中文",
             carouselList: [], //轮播图数据
             news: "" //最新公告
         };
     },
+    computed: {
+        checked() {
+            if (localStorage.getItem("lang") == "en") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
     methods: {
+        localchange() {
+            if (this.checked) localStorage.setItem("lang", "en");
+            else localStorage.setItem("lang", "zh");
+            this.$router.go(0);
+        },
         //获取轮播图
         getCarousel() {
             this.$post({
@@ -89,6 +105,8 @@ export default {
         }
     },
     created() {
+        if (localStorage.getItem("lang") == "en") this.localStorage = "中文";
+        else this.localStorage = "English";
         this.getCarousel();
         this.getNews();
     }
@@ -100,8 +118,18 @@ export default {
     margin: 0 auto;
 }
 .nav {
-    height: 46px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 15px;
     background-color: #0c0c0c;
+    button {
+        font-size: 14px;
+        color: #ffffff;
+        border: 1px solid #fefefe;
+        padding: 0 10px;
+        border-radius: 50px;
+    }
 }
 
 .my_notice {

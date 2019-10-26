@@ -25,7 +25,7 @@
                v-model="addres">
       </div>
       <div class="btn_outer">
-        <button class="btn">{{$t('my.保存')}}</button>
+        <button class="btn" @click="sub_add()">{{$t('my.保存')}}</button>
       </div>
     </div>
   </div>
@@ -36,10 +36,61 @@ export default {
     return {
       name: '',
       addres: '',
+      isclick:0,
     }
   },
   methods: {
-
+    sub_add(){
+      var that = this;
+      if(this.isclick == 1){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('my.无须重复点击')
+        });
+        return ;
+      }
+      if(this.name == ''){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('my.请输入姓名')
+        });
+        return ;
+      }
+      if(this.addres == ''){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('my.请输入有效地址')
+        });
+        return ;
+      }
+      //设置为已发放
+      this.isclick = 1
+      this.$post({
+          module: "UserAddress",
+          interface: 1001,
+          data: {
+              name: that.name,
+              address: that.addres
+          },
+          success: res => {
+              that.isclick = 0;
+              
+              if (res.data.code == 0) {
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+                  this.$router.replace("/address_book");
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          }
+      });
+    }
   }
 };
 </script>

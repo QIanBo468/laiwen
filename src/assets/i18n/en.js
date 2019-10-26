@@ -32,6 +32,7 @@ module.exports = {
     '请输入新密码': 'Please enter a new password',
     '请再次输入新密码': 'Please enter a new password again',
     '保存并登录': 'Save and log in',
+    '请输入旧密码': 'Please enter the old password',
   },
 
   // 底部导航
@@ -136,6 +137,10 @@ module.exports = {
     "兑换USDT": "Exchange of USDT",
     "兑换数量": "Quantity of exchange",
     "转账记录": "Transfer record",
+    "重新获取": "Regain",
+    "您已获取,无须重复点击": "You have obtained it,no need to click again",
+    "手机号码错误":"Wrong mobile number",
+    "验证码错误":"Verification code error",
   },
   my: {
     "注册会员": "Registered member",
@@ -165,8 +170,9 @@ module.exports = {
     "暂无收款方式": "No way to collect money for the time being",
     "账户名称": "title of account",
     "账号": "account",
-    "开户行": "Opening bank",
+    "开户行": "    ` bank",
     "添加收款方式": "Adding Payment Method",
+    "修改收款方式": "Modify Payment Method",
     "选择收款方式": "Choose the way to collect money",
     "支付宝": "Alipay",
     "微信": "WeChat",
@@ -176,6 +182,7 @@ module.exports = {
     "新增收款方式将会进行重新审核!": "Reexamine!",
     "输入账户名称": "Real name",
     "输入账号": "Bank Card Account",
+    "输入开户行": "Enter account bank",
     "微信/支付宝名称": "WeChat / Alipay name",
     "微信/支付宝账号": "WeChat / Alipay account",
     "请输入对应的账号": "Corresponding account numbe",
@@ -184,6 +191,8 @@ module.exports = {
     "莱文资本邀请您注册及下载": "Levin capital invites you to register and download",
     "投资记录": "Bearing",
     "金额": "Amount of money",
+    "请输入": "Please enter a multiple of ",
+    "的倍数": "",
     "请输入100的倍数": "Please enter a multiple of 100",
     "已获得推广收益": "Promotion gains have been made",
     "团队总人数": "Total team size",
@@ -204,5 +213,8 @@ module.exports = {
     "安全验证": "Security verification",
     "原始密码": "Original password",
     "请输入原始密码": "Please enter the original password",
+    "无须重复点击": "No need to click again",
+    "添加账号成功": "Account added successfully",
+    "修改账号成功": "Account modified successfully",
   }
 }
