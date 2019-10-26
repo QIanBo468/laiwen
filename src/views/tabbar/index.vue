@@ -1,7 +1,12 @@
 <template>
   <div class="index">
     <div class="nav">
-      <button @click="localchange">{{localStorage}}</button>
+      <van-switch v-model="checked"
+                  size="20px"
+                  active-color="#D5AB64"
+                  inactive-color="#0C0C0C"
+                  @change="localchange" />
+      <p>{{localStorage}}</p>
     </div>
     <van-swipe :autoplay="3000"
                indicator-color="white"
@@ -63,14 +68,14 @@
 export default {
   data () {
     return {
-      localStorage: '中文',
+      localStorage: '中',
       carouselList: [], //轮播图数据
       news: "" //最新公告
     };
   },
   computed: {
     checked () {
-      if (localStorage.getItem("lang") == "en") {
+      if (localStorage.getItem("lang") == "zh") {
         return false
       } else {
         return true
@@ -79,8 +84,8 @@ export default {
   },
   methods: {
     localchange () {
-      if (this.checked) localStorage.setItem('lang', "en")
-      else localStorage.setItem('lang', "zh")
+      if (this.checked) localStorage.setItem('lang', "zh")
+      else localStorage.setItem('lang', "en")
       this.$router.go(0)
     },
     //获取轮播图
@@ -121,8 +126,8 @@ export default {
     }
   },
   created () {
-    if (localStorage.getItem("lang") == "en") this.localStorage = "中文"
-    else this.localStorage = "English"
+    if (localStorage.getItem("lang") == "en") this.localStorage = "En"
+    else this.localStorage = "中"
     this.getCarousel();
     this.getNews();
   }
@@ -139,12 +144,13 @@ export default {
   align-items: center;
   padding: 10px 15px;
   background-color: #0c0c0c;
-  button {
+  p {
     font-size: 14px;
     color: #ffffff;
-    border: 1px solid #fefefe;
-    padding: 0 10px;
-    border-radius: 50px;
+    margin-left: 10px;
+  }
+  /deep/.van-switch {
+    border: 1px solid#D5AD69;
   }
 }
 

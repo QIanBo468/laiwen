@@ -1,7 +1,12 @@
 <template>
   <div class="login">
     <div class="nav">
-      <button @click="localchange">{{localStorage}}</button>
+      <van-switch v-model="checked"
+                  size="20px"
+                  active-color="#D5AB64"
+                  inactive-color="#0C0C0C"
+                  @change="localchange" />
+      <p>{{localStorage}}</p>
     </div>
     <div class="title">{{$t('login.登录')}}</div>
     <div class="input_box">
@@ -39,7 +44,7 @@ export default {
     return {
       account: "", //账号
       password: "", //密码
-      localStorage: '中文'
+      localStorage: '中'
     };
   },
   computed: {
@@ -103,8 +108,8 @@ export default {
     }
   },
   mounted () {
-    if (localStorage.getItem("lang") == "en") this.localStorage = "中文"
-    else this.localStorage = "English"
+    if (localStorage.getItem("lang") == "en") this.localStorage = "中"
+    else this.localStorage = "En"
 
     let item = document.querySelectorAll(".animate"),
       _this = this;
@@ -129,12 +134,13 @@ export default {
   align-items: center;
   padding: 10px 15px;
   background-color: #0c0c0c;
-  button {
+  p {
     font-size: 14px;
     color: #ffffff;
-    border: 1px solid #fefefe;
-    padding: 0 10px;
-    border-radius: 50px;
+    margin-left: 10px;
+  }
+  /deep/.van-switch {
+    border: 1px solid #fff;
   }
 }
 

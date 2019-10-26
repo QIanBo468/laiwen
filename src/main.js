@@ -68,7 +68,7 @@ const i18n = new VueI18n({
     if (localStorage.getItem('lang')) {
       return localStorage.getItem('lang')
     }
-    return "zh"
+    return "en"
   }()),
   // eslint-disable-next-line no-dupe-keys
   // locale: 'en',
