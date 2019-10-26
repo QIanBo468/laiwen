@@ -170,7 +170,7 @@ module.exports = {
     "暂无收款方式": "No way to collect money for the time being",
     "账户名称": "title of account",
     "账号": "account",
-    "开户行": "Opening bank",
+    "开户行": "    ` bank",
     "添加收款方式": "Adding Payment Method",
     "选择收款方式": "Choose the way to collect money",
     "支付宝": "Alipay",
@@ -181,6 +181,7 @@ module.exports = {
     "新增收款方式将会进行重新审核!": "Reexamine!",
     "输入账户名称": "Real name",
     "输入账号": "Bank Card Account",
+    "输入开户行": "Enter account bank",
     "微信/支付宝名称": "WeChat / Alipay name",
     "微信/支付宝账号": "WeChat / Alipay account",
     "请输入对应的账号": "Corresponding account numbe",
@@ -212,5 +213,6 @@ module.exports = {
     "原始密码": "Original password",
     "请输入原始密码": "Please enter the original password",
     "无须重复点击": "No need to click again",
+    "添加账号成功": "Account added successfully",
   }
 }

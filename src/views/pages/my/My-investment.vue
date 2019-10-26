@@ -80,10 +80,19 @@ export default {
             type:1
           },
           success: res => {
-            this.$toast({
-                duration: 1000,
-                message: res.data.message
-            });
+            if (res.data.code == 0) {
+
+              this.$toast({
+                  duration: 1000,
+                  message: this.$t('investment.投资成功')
+              });
+            }
+            else{
+              this.$toast({
+                  duration: 1000,
+                  message: res.data.message
+              });
+            }
           }
       });
 
