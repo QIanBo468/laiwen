@@ -37,7 +37,7 @@
           <img src="@/assets/img/in.png" />
         </translate>
       </router-link>
-      <router-link to
+      <router-link to="register"
                    class="item">
         <translate position="left"
                    time="0.4s">
@@ -68,25 +68,25 @@
 export default {
   data () {
     return {
-      localStorage: '中',
+      localStorage: "En",
       carouselList: [], //轮播图数据
       news: "" //最新公告
     };
   },
   computed: {
     checked () {
-      if (localStorage.getItem("lang") == "zh") {
-        return false
+      if (localStorage.getItem("lang") == "en") {
+        return true;
       } else {
-        return true
+        return false;
       }
     }
   },
   methods: {
     localchange () {
-      if (this.checked) localStorage.setItem('lang', "zh")
-      else localStorage.setItem('lang', "en")
-      this.$router.go(0)
+      if (this.checked) localStorage.setItem("lang", "zh");
+      else localStorage.setItem("lang", "en");
+      this.$router.go(0);
     },
     //获取轮播图
     getCarousel () {
@@ -126,8 +126,8 @@ export default {
     }
   },
   created () {
-    if (localStorage.getItem("lang") == "en") this.localStorage = "En"
-    else this.localStorage = "中"
+    if (localStorage.getItem("lang") == "en") this.localStorage = "En";
+    else this.localStorage = "中";
     this.getCarousel();
     this.getNews();
   }
@@ -150,7 +150,7 @@ export default {
     margin-left: 10px;
   }
   /deep/.van-switch {
-    border: 1px solid#D5AD69;
+    border: 1px solid #d5ab64;
   }
 }
 

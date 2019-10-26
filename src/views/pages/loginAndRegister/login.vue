@@ -44,23 +44,23 @@ export default {
     return {
       account: "", //账号
       password: "", //密码
-      localStorage: '中'
+      localStorage: "En",
     };
   },
   computed: {
     checked () {
       if (localStorage.getItem("lang") == "en") {
-        return false
+        return true;
       } else {
-        return true
+        return false;
       }
     }
   },
   methods: {
     localchange () {
-      if (this.checked) localStorage.setItem('lang', "en")
-      else localStorage.setItem('lang', "zh")
-      this.$router.go(0)
+      if (this.checked) localStorage.setItem("lang", "zh");
+      else localStorage.setItem("lang", "en");
+      this.$router.go(0);
     },
     loginFun () {
       if (this.account == "") {
@@ -108,8 +108,8 @@ export default {
     }
   },
   mounted () {
-    if (localStorage.getItem("lang") == "en") this.localStorage = "中"
-    else this.localStorage = "En"
+    if (localStorage.getItem("lang") == "en") this.localStorage = "En";
+    else this.localStorage = "中";
 
     let item = document.querySelectorAll(".animate"),
       _this = this;
@@ -140,7 +140,7 @@ export default {
     margin-left: 10px;
   }
   /deep/.van-switch {
-    border: 1px solid #fff;
+    border: 1px solid #d5ab64;
   }
 }
 

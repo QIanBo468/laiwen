@@ -172,6 +172,7 @@ module.exports = {
     "账号": "account",
     "开户行": "    ` bank",
     "添加收款方式": "Adding Payment Method",
+    "修改收款方式": "Modify Payment Method",
     "选择收款方式": "Choose the way to collect money",
     "支付宝": "Alipay",
     "微信": "WeChat",
@@ -214,5 +215,6 @@ module.exports = {
     "请输入原始密码": "Please enter the original password",
     "无须重复点击": "No need to click again",
     "添加账号成功": "Account added successfully",
+    "修改账号成功": "Account modified successfully",
   }
 }

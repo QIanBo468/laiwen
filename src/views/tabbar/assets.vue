@@ -101,9 +101,9 @@ export default {
         // 跳转页面
         route(name) {
             if (name == '余额') {
-                this.$router.push("Ethereum");
-            } else if (name == 'ETH') {
                 this.$router.push("Levincoin");
+            } else if (name == 'ETH') {
+                this.$router.push("Ethereum");
             } else {
                 this.$router.push("USDT");
             }
