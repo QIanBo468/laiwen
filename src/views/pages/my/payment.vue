@@ -14,7 +14,7 @@
       <p>{{$t('my.暂无收款方式')}}</p>
     </div>
     <div class="list_box" v-if="!is_show">
-      <div v-for="item in list">
+      <div v-for="(item,index) in list" @click="edit_payment(item.id)" :key="index">
 
         <img v-if="item.cardType == 3" src="@/assets/img/bank@2x.png" alt="">
         <img v-else :src="item.logo" alt="">
@@ -22,13 +22,18 @@
           <div>
             <p v-if="item.cardType == 3">{{item.bankCode}}</p>
             <p v-else>{{item.cardTypeCn}}</p>
+            <div @click.stop="1">
             <van-switch v-if="item.cardType == 3" class="switch_btn" size="22px"
                         active-color="#A1937D"
                         inactive-color="#281a00"
                         :value="item.state==1?true:false"
                         @change="onInput(item.id, item.state)" />
+            </div>
           </div>
-          <p>{{$t('my.账户名称')}}：{{item.owner}}</p>
+          <div>
+            <p>{{$t('my.账户名称')}}：{{item.owner}}</p>
+            <button v-if="item.cardType == 3" class="remove_btn" @click.stop="remove(index,item.id)">删除</button>
+          </div>
           <p>{{$t('my.账号')}}：{{item.cardNo}}</p>
           <p  v-if="item.cardType == 3">{{$t('my.开户行')}}：{{item.bankSubbranch}}</p>
         </div>
@@ -120,6 +125,35 @@ export default {
     this.getData();
   },
   methods: {
+    edit_payment(id){
+
+      this.$router.push({path:'/edit_payment','query':{'id':id}})
+    },
+    remove(index,id){
+
+      this.$post({
+          module: "Finance",
+          interface: 1002,
+          data: {
+            id:id
+          },
+          success: res => {
+              if (res.data.code == 0) {
+                this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+                this.list.splice(index)
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          }
+      });
+    },
     nav_link () {
       this.is_add = true;
     },
@@ -140,9 +174,8 @@ export default {
         title: '提醒',
         message: '是否切换开关？'
       }).then(() => {
-        console.log('前',id,state);
         state  = state==1?0:1;
-        console.log('后',id,state);
+
         this.$post({
           module: "Finance",
           interface: 1003,
@@ -202,6 +235,16 @@ export default {
 <style lang="scss" scoped>
   .switch_btn{
     border:2px solid #A1937D;
+  }
+  .remove_btn{
+    width:48px;
+    height:24px;
+    line-height: 24px;
+    background:linear-gradient(137deg,rgba(246,180,109,1) 0%,rgba(236,128,24,1) 100%);
+    opacity:1;
+    border-radius:36px;
+    font-weight:400;
+    color:#fff;
   }
   .nav {
     height: 46px;
@@ -341,6 +384,7 @@ export default {
         border-radius: 20px;
         font-size:15px;
       }
+
     }
   }
 </style>
