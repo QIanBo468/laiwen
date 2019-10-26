@@ -9,7 +9,7 @@
       <div class="nav_list"
            @click="show=true">
         <p>{{$t('my.头像')}}</p>
-        <img src="@/assets/img/code.png"
+        <img :src="userInfo.avatar"
              class="header_img">
         <img src="@/assets/img/more_small.png"
              alt="">
@@ -17,12 +17,13 @@
       <router-link to='user_name'
                    class="nav_list">
         <p>{{$t('my.昵称')}}</p>
+        <span>{{userInfo.nickname}}</span>
         <img src="@/assets/img/more_small.png"
              alt="">
       </router-link>
       <div class="nav_list">
         <p>{{$t('my.邮箱')}}</p>
-        <p>19388887364@163.com</p>
+        <span>{{userInfo.account}}</span>
       </div>
     </div>
     <div class="nav_box">
@@ -48,11 +49,41 @@ export default {
   data () {
     return {
       show: false,
-      actions: ['拍照', '从相册中选择']
+      actions: ['拍照', '从相册中选择'],
+      userInfo:{
+        account: "",
+        avatar: "",
+        icon: "",
+        id: 0,
+        level: "",
+        mobile: "*",
+        nickname: ""
+      }
     }
   },
+  mounted() {
+      this.user();
+  },
   methods: {
-
+    // 用户基本信息
+    user(){
+        this.$post({
+            module: "User",
+            interface: 1000,
+            success: res => {
+                console.log("用户基本信息", res);
+                if (res.data.code == 0) {
+                    this.userInfo = res.data.data;
+                }
+                else{
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
+                }
+            }
+        });
+    },
   }
 };
 </script>

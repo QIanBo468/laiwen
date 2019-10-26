@@ -24,7 +24,8 @@
 
     <translate position="top">
       <div class="item" v-for="item in list" :key="it">
-        <div class="title">投资</div>
+        <div class="title" v-if="item.type == 0">{{$t('index.投资')}}</div>
+        <div class="title" v-else>{{$t('index.复投')}}</div>
         <div class="num_box">
           <div>
             <div class="num">{{item.amount}}</div>
@@ -53,7 +54,7 @@
     </translate>
     <!-- 加载完毕提示 -->
     <div v-if="isEndShow == 1">
-      <p class="jzwb">已全部加载完毕</p>
+      <p class="jzwb">{{$t('my.已全部加载完毕')}}</p>
     </div>
   </div>
 </template>
