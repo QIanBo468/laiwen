@@ -46,7 +46,7 @@
     </div>
     <!-- 加载完毕提示 -->
     <div v-if="isEndShow == 1">
-      <p class="jzwb">已全部加载完毕</p>
+      <p class="jzwb">{{$t('my.已全部加载完毕')}}</p>
     </div>
   </div>
 </template>

@@ -65,6 +65,7 @@ module.exports = {
     "答": "Answer",
     "套餐": "Package",
     "投资": "Investment",
+    "复投": "Repeated investment",
     "年利率": "Annual interest rate",
     "投资金额": "Investment amount",
     "莱文币": "Levincoin",
@@ -82,6 +83,14 @@ module.exports = {
     "消耗莱文币": "Consume Levincoin",
     "莱文币不足": "Lack of Levin",
     "立即充值": "Instant recharge",
+    "投资记录": "Investment record",
+    "总投资金额": "Total investment amount",
+    "总收益金额": "Total income amount",
+    "投资金额": "Investment amount",
+    "累计收益": "Accumulated income",
+    "累计天数": "Accumulated days",
+    "投资时间": "Investment time",
+    "结束时间": "End time",
   },
   // 资产
   assets: {
@@ -170,7 +179,7 @@ module.exports = {
     "暂无收款方式": "No way to collect money for the time being",
     "账户名称": "title of account",
     "账号": "account",
-    "开户行": "    ` bank",
+    "开户行": "bank",
     "添加收款方式": "Adding Payment Method",
     "修改收款方式": "Modify Payment Method",
     "选择收款方式": "Choose the way to collect money",
@@ -216,5 +225,6 @@ module.exports = {
     "无须重复点击": "No need to click again",
     "添加账号成功": "Account added successfully",
     "修改账号成功": "Account modified successfully",
+    "已全部加载完毕": "All loaded",
   }
 }

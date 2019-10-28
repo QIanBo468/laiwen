@@ -22,7 +22,7 @@
     </van-swipe-cell>
     <!-- 加载完毕提示 -->
     <van-swipe-cell v-if="isEndShow == 1">
-      <p class="jzwb">已全部加载完毕</p>
+      <p class="jzwb">{{$t('my.已全部加载完毕')}}</p>
     </van-swipe-cell>
 
     <div v-if="is_show" class="back_add">

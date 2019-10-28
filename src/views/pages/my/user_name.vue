@@ -20,7 +20,7 @@
              @click="name=''">
       </div>
       <div class="btn_outer">
-        <button class="btn">{{$t('my.确定')}}</button>
+        <button class="btn"  @click="sub_change()">{{$t('my.确定')}}</button>
       </div>
     </div>
   </div>
@@ -35,7 +35,37 @@ export default {
     }
   },
   methods: {
-
+    sub_change(){
+      if(this.name == ''){
+        this.$toast({
+          duration: 1000,
+          message: this.$t('my.请输入昵称')
+        });
+        return ;
+      }
+      this.$post({
+        module: "User",
+        interface: 1001,
+        data: {
+            nickname: this.name
+        },
+        success: res => {  
+          if (res.data.code == 0) {
+            this.$toast({
+                duration: 1000,
+                message: res.data.message
+            });
+            this.$router.replace("/mine");
+          }
+          else{
+            this.$toast({
+                duration: 1000,
+                message: res.data.message
+            });
+          }
+        }
+      });
+    }
   }
 };
 </script>
