@@ -84,7 +84,7 @@ export default {
         },
         //图片进行上传
         file(val) {
-            console.log(val);
+            this.show = false; 
             let file;
             if (val == 1) {
                 file = this.$refs.inputFile.files[0]; //获取文件详细信息
@@ -109,6 +109,7 @@ export default {
                 .then(res => {
                     if (res.data.code == 0) {
                         this.userInfo.avatar = res.data.data.avatar;
+                        this.avatar(res.data.data.avatar);
                     } else {
                         this.$toast({
                             message: res.data.message,
@@ -116,6 +117,21 @@ export default {
                         });
                     }
                 });
+        },
+        avatar(val) {
+            this.$post({
+                module: "User",
+                interface: 1001,
+                data: {
+                    avatar: val
+                },
+                success: res => {
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
+                }
+            });
         }
     }
 };
