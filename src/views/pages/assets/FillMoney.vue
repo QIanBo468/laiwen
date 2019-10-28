@@ -12,23 +12,27 @@
           <span>{{$t('assets.充值收款账号')}}</span>
         </div>
         <div class="card_box">
-          <div class="card">
-            <img src="@/assets/img/code.png" alt />
+          <div class="card" v-for="(item,index) in list" :key="index">
+            <img :src="item.pic" alt />
             <div class="content">
-              <div class="content_title">微信支付</div>
+              <div class="content_title">{{item.type | type(item.bankType)}}</div>
               <div class="content_data_box">
                 <div>
                   <span>{{$t("assets.账户名称")}}：</span>
-                  <span>ddd</span>
+                  <span>{{item.accountName}}</span>
                 </div>
                 <div>
                   <span>{{$t("assets.账号")}}：</span>
-                  <span>622212345678945</span>
+                  <span>{{item.accountNo}}</span>
+                </div>
+                <div v-if="item.type == 3">
+                  <span>{{$t("assets.开户行")}}：</span>
+                  <span>{{item.bankName}}</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card">
+          <!-- <div class="card">
             <img src="@/assets/img/bank.png" alt />
             <div class="content">
               <div class="content_title">
@@ -50,14 +54,43 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      list:'',
+    }
+  },
+  filters:{
+    type(val,type){
+      if(val == 1){
+        return '支付宝支付'
+      }else if(val == 2){
+        return '微信支付'
+      }else if(val == 3){
+        return type
+      }
+    }
+  },
+  mounted() {
+    this.$post({
+            module: "User",
+            interface: 7000,
+            success: res => {
+                console.log("莱文币充值", res);
+                if (res.data.code == 0) {
+                  this.list = res.data.data.list;
+                }
+            }
+        });
+  },
+};
 </script>
 <style scoped lang="scss">
 .nav {

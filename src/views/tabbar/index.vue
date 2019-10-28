@@ -76,9 +76,11 @@ export default {
   computed: {
     checked () {
       if (localStorage.getItem("lang") == "en") {
-        return true;
+        this.lang(0);
+        return true
       } else {
-        return false;
+        this.lang(1);
+        return false
       }
     }
   },
@@ -115,6 +117,26 @@ export default {
           console.log("获取公告最新数据", res);
           if (res.data.code == 0) {
             this.news = res.data.data.info.title;
+          } else {
+            this.$toast({
+              duration: 1000,
+              message: res.data.message
+            });
+          }
+        }
+      });
+    },
+    lang(val){
+      this.$post({
+        module: "User",
+        interface: 7001,
+        data:{
+          language:val
+        },
+        success: res => {
+          console.log("获取语言", res);
+          if (res.data.code == 0) {
+
           } else {
             this.$toast({
               duration: 1000,

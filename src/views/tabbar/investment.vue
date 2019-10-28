@@ -24,42 +24,6 @@
                     class="btn"
                 >{{$t("index.投资")}}</router-link>
             </div>
-
-            <!-- <div class="item">
-        <div class="item_top">B {{$t("index.套餐")}}</div>
-        <div class="content">
-          <div>
-            <div class="txt">{{$t("index.年利率")}}：</div>
-            <div class="num">10%~30%</div>
-          </div>
-          <div>
-            <div class="txt">{{$t("index.投资金额")}}：</div>
-            <div class="num">
-              1000~9900
-              <span>{{$t("index.莱文币")}}</span>
-            </div>
-          </div>
-        </div>
-        <router-link to="PurchasePackage?package=B 套餐" tag="button" class="btn">{{$t("index.投资")}}</router-link>
-      </div>
-
-      <div class="item">
-        <div class="item_top">C {{$t("index.套餐")}}</div>
-        <div class="content">
-          <div>
-            <div class="txt">{{$t("index.年利率")}}：</div>
-            <div class="num">10%~30%</div>
-          </div>
-          <div>
-            <div class="txt">{{$t("index.投资金额")}}：</div>
-            <div class="num">
-              1000~9900
-              <span>{{$t("index.莱文币")}}</span>
-            </div>
-          </div>
-        </div>
-        <router-link to="PurchasePackage?package=C 套餐" tag="button" class="btn">{{$t("index.投资")}}</router-link>
-            </div>-->
         </div>
     </div>
 </template>

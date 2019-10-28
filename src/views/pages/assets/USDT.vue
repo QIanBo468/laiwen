@@ -8,10 +8,10 @@
 
     <div class="card">
       <div class="title">
-        <span>{{$t('assets.余额')}}</span>
+        <span>{{name}}</span>
         <translate position="flash" class="recharge">{{$t('assets.充币')}}</translate>
       </div>
-      <div class="money">232323</div>
+      <div class="money">{{number}}</div>
       <div class="option">
         <div>
           <img src="@/assets/img/tixian_icon.png" />
@@ -37,38 +37,59 @@
       animated
     >
       <van-tab :title="$t('assets.全部')">
-        <translate position="top" class="tab_box">
-          <div class="item" v-for="item in 14">
-            <div class="text">
-              <div>静态收益</div>
-              <div>2019.06.12 14:12:45</div>
-            </div>
-            <span>+21323</span>
-          </div>
-        </translate>
-      </van-tab>
-      <van-tab :title="$t('assets.收入')">
-        <translate position="top" class="tab_box">
-          <div class="item" v-for="item in 14">
-            <div class="text">
-              <div>静态收益</div>
-              <div>2019.06.12 14:12:45</div>
-            </div>
-            <span>+21323</span>
-          </div>
-        </translate>
-      </van-tab>
-      <van-tab :title="$t('assets.支出')">
-        <translate position="top" class="tab_box">
-          <div class="item" v-for="item in 14">
-            <div class="text">
-              <div>静态收益</div>
-              <div>2019.06.12 14:12:45</div>
-            </div>
-            <span>+21323</span>
-          </div>
-        </translate>
-      </van-tab>
+                <van-list
+                    v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    @load="onLoad"
+                >
+                    <translate position="top" class="tab_box">
+                        <div class="item" v-for="(item,index) in list" :key="index">
+                            <div class="text">
+                                <div>{{item.remark}}</div>
+                                <div>{{item.createdAt}}</div>
+                            </div>
+                            <span>{{item.num}}</span>
+                        </div>
+                    </translate>
+                </van-list>
+            </van-tab>
+            <van-tab :title="$t('assets.收入')">
+                <van-list
+                    v-model="loading1"
+                    :finished="finished1"
+                    finished-text="没有更多了"
+                    @load="onLoad1"
+                >
+                    <translate position="top" class="tab_box">
+                        <div class="item" v-for="(item,index) in list1" :key="index">
+                            <div class="text">
+                                <div>{{item.remark}}</div>
+                                <div>{{item.createdAt}}</div>
+                            </div>
+                            <span>{{item.num}}</span>
+                        </div>
+                    </translate>
+                </van-list>
+            </van-tab>
+            <van-tab :title="$t('assets.支出')">
+                <van-list
+                    v-model="loading2"
+                    :finished="finished2"
+                    finished-text="没有更多了"
+                    @load="onLoad2"
+                >
+                    <translate position="top" class="tab_box">
+                        <div class="item" v-for="(item,index) in list2" :key="index">
+                            <div class="text">
+                                <div>{{item.remark}}</div>
+                                <div>{{item.createdAt}}</div>
+                            </div>
+                            <span>{{item.num}}</span>
+                        </div>
+                    </translate>
+                </van-list>
+            </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -76,9 +97,148 @@
 export default {
   data() {
     return {
-      active: 0
+      name: "", //名称
+            number: "", //数量
+            active: 0,
+            list: [], //全部数据
+            finished: false, //加载状态
+            loading: false, //加载状态
+            page: 1, //页码
+            lastId: 0, //最新id
+            direction: 0, //状态
+            list1: [], //全部数据
+            finished1: false, //加载状态
+            loading1: false, //加载状态
+            page1: 1, //页码
+            lastId1: 0, //最新id
+            direction1: 0, //状态
+            list2: [], //全部数据
+            finished2: false, //加载状态
+            loading2: false, //加载状态
+            page2: 1, //页码
+            lastId2: 0, //最新id
+            direction2: 0 //状态
     };
-  }
+  },
+    methods: {
+        // 获取莱文币信息
+        onLoad() {
+            this.$post({
+                module: "Finance",
+                interface: 2100,
+                data: {
+                    lastId: this.lastId,
+                    page: this.page,
+                    creditType: "credit_14",
+                    direction: ""
+                },
+                success: res => {
+                    console.log("莱文币信息全部", res);
+                    if (res.data.code == 0) {
+                        this.name = res.data.data.creditName;
+                        this.number = res.data.data.creditValue;
+                        this.lastId = res.data.data.lastId;
+                        if (res.data.data.lastPage == 1) {
+                            this.list = res.data.data.list;
+                            this.loading = false;
+                            this.finished = true;
+                        } else {
+                            this.list = this.list.concat(res.data.data.list);
+                            this.loading = false;
+                            this.page++;
+                            if (
+                                res.data.data.lastPage ==
+                                res.data.data.currentPage
+                            ) {
+                                this.finished = true;
+                            }
+                        }
+                    } else {
+                        this.loading = false;
+                        this.finished = true;
+                    }
+                }
+            });
+        },
+        // 获取莱文币信息
+        onLoad1() {
+            this.$post({
+                module: "Finance",
+                interface: 2100,
+                data: {
+                    lastId: this.lastId1,
+                    page: this.page1,
+                    creditType: "credit_14",
+                    direction: 1
+                },
+                success: res => {
+                    console.log("莱文币信息收入", res);
+                    if (res.data.code == 0) {
+                        this.name = res.data.data.creditName;
+                        this.number = res.data.data.creditValue;
+                        this.lastId1 = res.data.data.lastId;
+                        if (res.data.data.lastPage == 1) {
+                            this.list1 = res.data.data.list;
+                            this.loading1 = false;
+                            this.finished1 = true;
+                        } else {
+                            this.list1 = this.list1.concat(res.data.data.list);
+                            this.loading1 = false;
+                            this.page1++;
+                            if (
+                                res.data.data.lastPage ==
+                                res.data.data.currentPage
+                            ) {
+                                this.finished1 = true;
+                            }
+                        }
+                    } else {
+                        this.loading1 = false;
+                        this.finished1 = true;
+                    }
+                }
+            });
+        },
+        // 获取莱文币信息
+        onLoad2() {
+            this.$post({
+                module: "Finance",
+                interface: 2100,
+                data: {
+                    lastId: this.lastId2,
+                    page: this.page2,
+                    creditType: "credit_14",
+                    direction: -1
+                },
+                success: res => {
+                    console.log("莱文币信息支出", res);
+                    if (res.data.code == 0) {
+                        this.name = res.data.data.creditName;
+                        this.number = res.data.data.creditValue;
+                        this.lastId2 = res.data.data.lastId;
+                        if (res.data.data.lastPage == 1) {
+                            this.list2 = res.data.data.list;
+                            this.loading2 = false;
+                            this.finished2 = true;
+                        } else {
+                            this.list2 = this.list2.concat(res.data.data.list);
+                            this.loading2 = false;
+                            this.page2++;
+                            if (
+                                res.data.data.lastPage ==
+                                res.data.data.currentPage
+                            ) {
+                                this.finished2 = true;
+                            }
+                        }
+                    } else {
+                        this.loading2 = false;
+                        this.finished2 = true;
+                    }
+                }
+            });
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

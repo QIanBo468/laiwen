@@ -8,11 +8,11 @@
         <div class="income_box">
             <div class="income_left">
                 <div>{{$t('index.静态收益总和')}}:</div>
-                <div>12439054</div>
+                <div>{{staticState}}</div>
             </div>
             <div class="income_right">
                 <div>{{$t('index.动态收益总和')}}:</div>
-                <div>12439054</div>
+                <div>{{dynamic}}</div>
             </div>
         </div>
 
@@ -77,7 +77,9 @@ export default {
             lastId: 0, //最新数据
             currentPage: 1, //当前页
             loading: false,
-            finished: false
+            finished: false,
+            staticState:'',//静态
+            dynamic:'',//动态
         };
     },
     watch: {
@@ -94,11 +96,11 @@ export default {
             let creditTypes = "";
 
             if (this.radio == "1") {
-                creditTypes = 1;
+                creditTypes = 'credit_6';
             } else if (this.radio == "2") {
-                creditTypes = 8;
+                creditTypes = 'credit_8';
             } else if (this.radio == "3") {
-                creditTypes = 7;
+                creditTypes = 'credit_7';
             }
             this.$post({
                 module: "Finance",
@@ -112,6 +114,8 @@ export default {
                     console.log("获取我的收益", res);
                     if (res.data.code == 0) {
                         this.lastId = res.data.data.lastId;
+                        this.dynamic = res.data.data.dynamic;
+                        this.staticState = res.data.data.staticState;
                         if (res.data.data.lastPage == 1) {
                             this.list = res.data.data.list;
                             this.loading = false;
