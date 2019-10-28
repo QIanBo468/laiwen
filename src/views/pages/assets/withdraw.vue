@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="nav">
-            <img src="@/assets/img/back.png" @click="$router.go(-1)" />
+            <img src="@/assets/img/back.png" @click="retur" />
             <span>{{$t('assets.提现')}}</span>
         </div>
 
@@ -46,15 +46,15 @@
                 </div>
                 <div class="input">
                     <input type="number" :placeholder="$t('assets.请输入提现金额')" v-model="money"/>
-                    <span @click="money = number">全部</span>
+                    <span @click="money = number">{{$t('assets.全部')}}</span>
                 </div>
 
                 <div class="remark">
-                    <span>手续费</span>
+                    <span>{{$t('assets.手续费')}}</span>
                     <span>{{service_charge}}</span>
                 </div>
                 <div class="remark">
-                    <span>实际到账</span>
+                    <span>{{$t('assets.实际到账')}}</span>
                     <span>{{arrival}}</span>
                 </div>
             </div>
@@ -72,15 +72,15 @@
             <div class="item">
                 <div class="title">
                     <i></i>
-                    <span>{{$t('assets.安全验证')}}（{{mobile}}）</span>
+                    <span>{{$t('assets.安全验证')}}（{{mobile | mobiles}}）</span>
                 </div>
                 <div class="input">
-                    <input type="text" :placeholder="$t('login.请输入验证码')" />
-                    <button>{{$t('assets.获取')}}</button>
+                    <input type="text" :placeholder="$t('login.请输入验证码')" v-model="code"/>
+                    <button @click="verification">{{$t('assets.获取')}}</button>
                 </div>
             </div>
 
-            <button class="save_login">{{$t('assets.提现')}}</button>
+            <button class="save_login" @click="withdraw">{{show == true?$t('assets.提现'):time+'S'}}</button>
         </div>
         <van-popup :style="{width: '70%'}" :close-on-click-overlay="false" v-model="isShow">
             <div class="van_body">
@@ -101,23 +101,32 @@ export default {
             number: "", //数量
             mobile: "", //手机号
             password: "", //密码
-            money: "", //
-            code: "", //
-            service_charge: "",
-            list:[],
-            arrival:0,
-            wx:'',
-            zfb:'',
+            money: "", //金额
+            code: "", //验证码
+            service_charge: "",//手续费
+            list:[],//银行卡列表
+            arrival:0,//实际金额
+            wx:'',//微信
+            zfb:'',//支付宝
+            time:60,//验证码 时间
+            show: true, //获取验证码是否显示
         };
     },
     watch: {
-      money(val){
+      money(val){//计算金额
         this.arrival = this.money * this.service_charge;
         this.arrival = this.money - this.arrival.toFixed(2);
       },
-      radio(val){
+      radio(val){//选择提现方式
         sessionStorage.setItem("radio", this.radio);
       }
+    },
+    filters:{//手机号码处理
+        mobiles(value){
+          let start = value.slice(0, 3)
+          let end = value.slice(-4)
+          return `${start}****${end}`
+        }
     },
     mounted() {
         this.radio = Number(sessionStorage.getItem("radio"));
@@ -141,6 +150,112 @@ export default {
                 }
             }
         });
+    },
+    methods: {
+      //返回
+      retur(){
+        sessionStorage.clear();
+        this.$router.go(-1);
+      },
+      //验证码
+      verification(){
+        if(this.mobile == null || this.mobile == undefined || this.mobile == ''){
+          this.isShow = true;
+          return
+        }
+        if (!this.show) {
+          return;
+        }
+        this.$post({
+                module: "Account",
+                interface: 1005,
+                data: {
+                    account: this.mobile
+                },
+                success: res => {
+                    console.log("获取密码验证码", res);
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
+                    if (res.data.code == 0) {
+                        this.show = false;
+                        let time = setInterval(() => {
+                            this.time--;
+                            if (this.time == 0) {
+                                clearInterval(time);
+                                this.time = 60;
+                                this.show = true;
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+      },
+      //提现
+      withdraw(){
+        if(this.money == ''){
+          this.$toast({
+            duration: 1000,
+            message: this.$t('assets.请输入提现金额')
+          });
+          return
+        }
+        if(this.password == ''){
+          this.$toast({
+            duration: 1000,
+            message: this.$t('assets.请输入二级密码')
+          });
+          return
+        }
+        if(this.code == ''){
+          this.$toast({
+            duration: 1000,
+            message: this.$t('login.请输入验证码')
+          });
+          return
+        }
+        if(this.radio == ''){
+          this.$toast({
+            duration: 1000,
+            message: this.$t('assets.请选择提现方式')
+          });
+          return
+        }
+        let data = {name:'',account:''};
+        if(this.radio == this.wx.id){
+          data.name = 20;
+          data.account = this.wx.cardNo
+        }else if(this.radio == this.zfb.id){
+          data.name = 10;
+          data.account = this.wx.cardNo
+        }else{
+          data.name = 30;
+          data.account = Number(sessionStorage.getItem("card"));
+        }
+         this.$post({
+            module: "Finance",
+            interface: 4001,
+            data:{
+              creditType:'credit_1',
+              accountType:data.name,
+              account:data.account,
+              amount:this.money,
+              safeword:this.password,
+              code:this.code,
+            },
+            success: res => {
+                console.log("提现参数", res);
+                this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                    });
+                if (res.data.code == 0) {
+                   this.retur();
+                }
+            }
+        });
+      }
     }
 };
 </script>

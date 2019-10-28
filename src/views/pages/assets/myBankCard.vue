@@ -63,6 +63,11 @@ export default {
     watch:{
       radio(val){
         sessionStorage.setItem("radio", this.radio);
+        this.list.forEach(item=>{
+            if(item.id == val){
+                sessionStorage.setItem("card", item.cardNo);
+            }
+        })
       }
     },
     methods: {

@@ -122,7 +122,7 @@ export default {
         };
     },
     methods: {
-        // 获取莱文币信息
+        // 获取信息
         onLoad() {
             this.$post({
                 module: "Finance",
@@ -134,7 +134,7 @@ export default {
                     direction: ""
                 },
                 success: res => {
-                    console.log("莱文币信息全部", res);
+                    console.log("信息全部", res);
                     if (res.data.code == 0) {
                         this.name = res.data.data.creditName;
                         this.number = res.data.data.creditValue;
@@ -161,7 +161,7 @@ export default {
                 }
             });
         },
-        // 获取莱文币信息
+        // 获取信息
         onLoad1() {
             this.$post({
                 module: "Finance",
@@ -173,7 +173,7 @@ export default {
                     direction: 1
                 },
                 success: res => {
-                    console.log("莱文币信息收入", res);
+                    console.log("信息收入", res);
                     if (res.data.code == 0) {
                         this.name = res.data.data.creditName;
                         this.number = res.data.data.creditValue;
@@ -200,7 +200,7 @@ export default {
                 }
             });
         },
-        // 获取莱文币信息
+        // 获取信息
         onLoad2() {
             this.$post({
                 module: "Finance",
@@ -212,7 +212,7 @@ export default {
                     direction: -1
                 },
                 success: res => {
-                    console.log("莱文币信息支出", res);
+                    console.log("信息支出", res);
                     if (res.data.code == 0) {
                         this.name = res.data.data.creditName;
                         this.number = res.data.data.creditValue;

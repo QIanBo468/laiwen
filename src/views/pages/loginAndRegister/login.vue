@@ -45,14 +45,17 @@ export default {
       account: "", //账号
       password: "", //密码
       localStorage: "En",
+      lang: '',
     };
   },
   computed: {
     checked () {
       if (localStorage.getItem("lang") == "en") {
-        return true;
+        this.lang = 0;
+        return true
       } else {
-        return false;
+        this.lang = 1;
+        return false
       }
     }
   },
@@ -82,7 +85,8 @@ export default {
         interface: 1000,
         data: {
           account: this.account,
-          password: this.password
+          password: this.password,
+          language: this.lang,
         },
         success: res => {
           console.log("登录成功", res);
