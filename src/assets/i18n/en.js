@@ -137,6 +137,8 @@ module.exports = {
     "提币记录": "Record of withdrawal",
     "钱包地址": "Wallet address",
     "请输入钱包地址": "Please enter the wallet address",
+    "转账数量": "Transfer volume",
+    "请输入转账数量": "Please enter the transfer quantity",
     "提币数量": "Amount of money raised",
     "请输入提币数量": "Please enter the withdrawal amount",
     "地址簿": "Address book",

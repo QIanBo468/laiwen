@@ -23,7 +23,7 @@
                     <img src="@/assets/img/duihuan_icon.png" />
                     <span>{{$t('assets.兑换')}}</span>
                 </router-link>
-                <router-link to="Transfer" tag="div">
+                <router-link to="TransferLaiwen" tag="div">
                     <img src="@/assets/img/zhuanzhang_icon.png" />
                     <span>{{$t('assets.转账')}}</span>
                 </router-link>
