@@ -97,6 +97,7 @@ module.exports = {
     "复制": "copy",
     "复制成功": "Copied successfully",
     "复制失败": "Copy failed",
+    "长按二维码识别":"Long a two-dimensional code recognition",
     "我的钱包地址": "My wallet address",
     "以太坊": "Ether square",
     "莱文币": "Levin coin",

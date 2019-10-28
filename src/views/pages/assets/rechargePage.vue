@@ -6,13 +6,13 @@
     </div>
 
     <div class="card">
-      <div class="title">我的钱包地址</div>
-      <div class="card_content">sjkhg4jkad3</div>
-      <button>{{$t('assets.复制')}}</button>
+      <div class="title">{{$t('assets.我的钱包地址')}}</div>
+      <div class="card_content">{{purse}}</div>
+      <button  v-clipboard:copy="purse" v-clipboard:success="onCopy" v-clipboard:error="onError">{{$t('assets.复制')}}</button>
       <div class="code_img">
         <img src="@/assets/img/code.png" alt />
       </div>
-      <div class="remark">长按二维码识别</div>
+      <div class="remark">{{$t('assets.长按二维码识别')}}</div>
     </div>
 
     <div class="money_type">
@@ -29,7 +29,29 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      purse:'123',
+    }
+  },
+  methods: {
+    //复制成功
+        onCopy() {
+            this.$toast({
+                duration: 1000,
+                message: this.$t('assets.复制成功')
+            });
+        },
+        // 复制失败
+        onError(){
+          this.$toast({
+                duration: 1000,
+                message: this.$t('assets.复制失败')
+            });
+        }
+  }
+};
 </script>
 <style lang="scss" scoped>
 .nav {

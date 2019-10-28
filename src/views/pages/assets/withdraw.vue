@@ -76,11 +76,11 @@
                 </div>
                 <div class="input">
                     <input type="text" :placeholder="$t('login.请输入验证码')" v-model="code"/>
-                    <button @click="verification">{{$t('assets.获取')}}</button>
+                    <button @click="verification">{{show == true?$t('assets.获取'):time+'S'}}</button>
                 </div>
             </div>
 
-            <button class="save_login" @click="withdraw">{{show == true?$t('assets.提现'):time+'S'}}</button>
+            <button class="save_login" @click="withdraw">{{$t('assets.提现')}}</button>
         </div>
         <van-popup :style="{width: '70%'}" :close-on-click-overlay="false" v-model="isShow">
             <div class="van_body">
@@ -245,7 +245,7 @@ export default {
               code:this.code,
             },
             success: res => {
-                console.log("提现参数", res);
+                console.log("提现", res);
                 this.$toast({
                       duration: 1000,
                       message: res.data.message

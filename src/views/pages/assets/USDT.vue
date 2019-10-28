@@ -9,7 +9,9 @@
     <div class="card">
       <div class="title">
         <span>{{name}}</span>
-        <translate position="flash" class="recharge">{{$t('assets.充币')}}</translate>
+         <router-link to="rechargePage">
+            <translate position="flash" class="recharge">{{$t('assets.充币')}}</translate>
+          </router-link>
       </div>
       <div class="money">{{number}}</div>
       <div class="option">
