@@ -6,18 +6,18 @@
     </div>
 
     <translate position="top">
-      <div class="item">
+      <div class="item" v-for="item in list">
         <div class="title">
-          <span>矿机收益</span>
-          <span>审核中</span>
+          <span>{{item.creditName}}</span>
+          <span v-if="item.status == 0">{{$t('assets.审核中')}}</span>
         </div>
         <div class="txt">
-          <span>矿机收益</span>
-          <span>10000</span>
+          <span>{{item.account}}</span>
+          <span>{{item.money}}</span>
         </div>
         <div class="time">
-          <span>2019.07.12 13:45:12</span>
-          <span>手续费：123</span>
+          <span>{{item.createdAt}}</span>
+          <span>{{$t('assets.手续费')}}：{{item.fee}}</span>
         </div>
       </div>
     </translate>
@@ -25,7 +25,66 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data () {
+    return {
+      is_show: false,
+      list:[],
+      lastId:0,
+      page:1,
+      isEnd:0,
+      isEndShow:0,
+      id:0,
+    }
+  },
+  mounted() {
+      this.getlist();
+      window.addEventListener('scroll', this.scrollEvent,false);
+  },
+  methods: {
+    //获取列表
+    getlist(){
+      var that = this;
+      this.$request({
+          module: "Wallet",
+          interface: 2002,
+          data: {
+              lastId: that.lastId,
+              page: that.page,
+              creditType: "credit_13"
+          },
+          success: res => {
+              
+              if (res.data.code == 0) {
+                  if(res.data.data.list.length == 0){
+                    that.isEnd = 1;
+                    that.isEndShow = 1;
+                    return ;
+                  }
+                  that.list = that.list.concat(res.data.data.list)
+
+                  that.lastId = res.data.data.lastId
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          }
+      });
+    },
+    scrollEvent(){
+      if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight) {
+        if(this.isEnd == 0){
+          console.log('加载下一页',this.isEnd,this.page)
+          this.page =  parseInt(this.page)+1
+          this.getlist()
+        }
+      }
+    },
+  }
+};
 </script>
 <style lang="scss" scoped>
 .nav {

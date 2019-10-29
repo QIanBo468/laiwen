@@ -2,14 +2,14 @@
   <div>
     <div class="nav">
       <img src="@/assets/img/back.png" @click="$router.go(-1)" />
-      <div>{{$t('assets.转账')}}</div>
-      <router-link tag="span" to="Transfer">{{$t('assets.转账记录')}}</router-link>
+      <div>{{$t('assets.兑换')}}</div>
+      <router-link tag="span" to="exchangeusdtList">{{$t('assets.兑换记录')}}</router-link>
     </div>
 
     <div class="card">
       <div class="title">
-        <span>{{$t('assets.莱文币')}}</span>
-      </div> 
+        <span>USDT</span>
+      </div>
       <div class="money">{{money}}</div>
     </div>
 
@@ -17,25 +17,16 @@
       <div class="item">
         <div class="title">
           <i></i>
-          <span>{{$t('my.邮箱')}}</span>
+          <span>{{$t('assets.提币数量')}}</span>
         </div>
         <div class="input">
-          <input type="text" v-model="account" :placeholder="$t('login.请输入邮箱')" />
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="title">
-          <i></i>
-          <span>{{$t('assets.转账数量')}}</span>
-        </div>
-        <div class="input">
-          <input type="number" v-model="number" :placeholder="$t('assets.请输入转账数量')" :change="inp_number()"/>
+          <input type="number" v-model="number" :placeholder="$t('assets.请输入兑换数量')"  :change="inp_number()"/>
+          <span @click="all_in()">{{$t('assets.全部')}}</span>
         </div>
 
         <div class="remark">
-          <span>{{$t('assets.手续费')}}</span>
-          <span>{{rate}}%</span>
+          <span>{{$t('assets.当前实时价格')}}</span>
+          <span>1USDT ≈ {{rate}}LEVIN</span>
         </div>
         <div class="remark">
           <span>{{$t('assets.实际到账')}}</span>
@@ -43,17 +34,7 @@
         </div>
       </div>
 
-      <div class="item">
-        <div class="title">
-          <i></i>
-          <span>{{$t('assets.二级密码')}}</span>
-        </div>
-        <div class="input">
-          <input v-model="safePass" type="password" :placeholder="$t('assets.请输入二级密码')" />
-        </div>
-      </div>
-
-      <button class="save_login" @click="sub_trans()">{{$t('assets.转账')}}</button>
+      <button class="save_login" @click="sub_exchange()">{{$t('assets.兑换')}}</button>
     </div>
   </div>
 </template>
@@ -61,84 +42,69 @@
 export default {
   data() {
     return {
-      money:0,
-      account:'',
-      number:'',
+      money: 0,
+      number: "",
       rate:0,
       daozhang:0,
-      safePass:''
     };
   },
+
   mounted() {
-      this.getdata();
+    this.getData();
   },
-  methods:{
-    getdata(){
+  methods: {
+    getData(){
+      // 获取个人信息 确定是否绑定手机号
       this.$post({
-          module: "Finance",
-          interface: 4003,
-          success: res => {
-            if (res.data.code == 0) {
-              this.rate = res.data.data.transfer_fee;
-              this.money = res.data.data.credit_1;
-            }
-            else{
-              this.$toast({
-                duration: 1000,
-                message: res.data.message
-              });
-            }
-          }
+        module: "Finance",
+        interface: 6000,
+        success: res => {
+          this.rate = res.data.data.usdtTransLaiwen
+          this.money = res.data.data.USDT
+        }
       });
     },
     inp_number(){
-      this.daozhang = (this.number * (100-this.rate)/100).toFixed(2);
+      this.daozhang = (this.number * this.rate).toFixed(2);
     },
-    sub_trans(){
-      if(this.account == ''){
+    all_in(){
+      this.number = this.money
+      this.inp_number();
+    },
+    sub_exchange(){
+      if(this.number=='' || this.number<=0){
         this.$toast({
           duration: 1000,
-          message: this.$t('login.请输入邮箱')
+          message: this.$t('assets.请输入兑换数量')
         });
         return ;
       }
-      if(this.number == ''){
-        this.$toast({
-          duration: 1000,
-          message: this.$t('assets.请输入转账数量')
-        });
-        return ;
-      }
-      if(this.safePass == ''){
-        this.$toast({
-          duration: 1000,
-          message: this.$t('assets.请输入二级密码')
-        });
-        return ;
-      }
+      // 获取个人信息 确定是否绑定手机号
       this.$post({
-          module: "Finance",
-          interface: 5001,
-          data:{
-            account:this.account,
-            amount:this.number,
-            safeword:this.safePass,
-          },
-          success: res => {
-            if (res.data.code == 0) {
-              this.$toast({
-                duration: 1000,
-                message: res.data.message
-              });
-              this.$router.replace("/Levincoin");
-            }
-            else{
-              this.$toast({
-                duration: 1000,
-                message: res.data.message
-              });
-            }
+        module: "Finance",
+        interface: 6001,
+        data:{
+          amount:this.number,
+          creditType:'credit_14',
+        },
+        success: res => {
+          if(res.data.code == 0){
+            this.$toast({
+              duration: 1000,
+              message: this.$t('assets.兑换成功')
+            });
+            this.getData();
+            this.number = ''
+            this.daozhang = 0
           }
+          else{
+            this.$toast({
+              duration: 1000,
+              message: res.data.message
+            });
+            return ;
+          }
+        }
       });
     }
   }
@@ -308,7 +274,7 @@ export default {
       justify-content: space-between;
       margin-bottom: 5px;
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 1);
       font-weight: 300;
     }
   }
@@ -325,7 +291,7 @@ export default {
     );
     opacity: 1;
     border-radius: 6px;
-    margin-top: 50px;
+    margin-top: 150px;
   }
 }
 </style>

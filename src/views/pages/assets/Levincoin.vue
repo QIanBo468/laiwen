@@ -19,10 +19,10 @@
                     <img src="@/assets/img/tixian_icon.png" />
                     <span>{{$t('assets.提现')}}</span>
                 </router-link>
-                <router-link to="LevinExchange" tag="div">
+                <!-- <router-link to="LevinExchange" tag="div">
                     <img src="@/assets/img/duihuan_icon.png" />
                     <span>{{$t('assets.兑换')}}</span>
-                </router-link>
+                </router-link> -->
                 <router-link to="TransferLaiwen" tag="div">
                     <img src="@/assets/img/zhuanzhang_icon.png" />
                     <span>{{$t('assets.转账')}}</span>
@@ -283,8 +283,8 @@ export default {
     margin: 15px auto;
     background: linear-gradient(
         89deg,
-        rgba(254, 116, 116, 1) 0%,
-        rgba(253, 170, 115, 1) 100%
+        #4a66fa 0%,
+        #7482fc 100%
     );
     border-radius: 6px;
 
@@ -317,7 +317,7 @@ export default {
 
     .option {
         display: flex;
-        background-color: #fda07e;
+        background-color: #6379fa;
         border-radius: 6px;
 
         div {

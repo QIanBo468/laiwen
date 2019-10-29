@@ -10,7 +10,7 @@
       <div class="title">
         <span>{{$t('assets.以太坊')}}</span>
       </div>
-      <div class="money">232323</div>
+      <div class="money">{{money}}</div>
     </div>
 
     <div class="items">
@@ -20,21 +20,21 @@
           <span>{{$t('assets.提币数量')}}</span>
         </div>
         <div class="input">
-          <input type="number" v-model="number" :placeholder="$t('assets.请输入兑换数量')" />
-          <span>{{$t('assets.全部')}}</span>
+          <input type="number" v-model="number" :placeholder="$t('assets.请输入兑换数量')" :change="inp_number()"/>
+          <span @click="all_in()">{{$t('assets.全部')}}</span>
         </div>
 
         <div class="remark">
           <span>{{$t('assets.当前实时价格')}}</span>
-          <span>4%</span>
+          <span>1ETH ≈ {{rate}}LEVIN</span>
         </div>
         <div class="remark">
           <span>{{$t('assets.实际到账')}}</span>
-          <span>0</span>
+          <span>{{daozhang}}</span>
         </div>
       </div>
 
-      <button class="save_login">{{$t('assets.兑换')}}</button>
+      <button class="save_login" @click="sub_exchange()">{{$t('assets.兑换')}}</button>
     </div>
   </div>
 </template>
@@ -42,11 +42,71 @@
 export default {
   data() {
     return {
-      active: 0,
-      radio: "2",
-      address: "哈哈哈哈",
-      number: "122"
+      money: 0,
+      number: "",
+      rate:0,
+      daozhang:0,
     };
+  },
+
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData(){
+      // 获取个人信息 确定是否绑定手机号
+      this.$post({
+        module: "Finance",
+        interface: 6000,
+        success: res => {
+          this.rate = res.data.data.ethTransLaiwen
+          this.money = res.data.data.ETH
+        }
+      });
+    },
+    inp_number(){
+      this.daozhang = (this.number * this.rate).toFixed(2);
+    },
+    all_in(){
+      this.number = this.money
+      this.inp_number();
+    },
+    sub_exchange(){
+      if(this.number=='' || this.number<=0){
+        this.$toast({
+          duration: 1000,
+          message: this.$t('assets.请输入兑换数量')
+        });
+        return ;
+      }
+      // 获取个人信息 确定是否绑定手机号
+      this.$post({
+        module: "Finance",
+        interface: 6001,
+        data:{
+          amount:this.number,
+          creditType:'credit_13',
+        },
+        success: res => {
+          if(res.data.code == 0){
+            this.$toast({
+              duration: 1000,
+              message: this.$t('assets.兑换成功')
+            });
+            this.getData();
+            this.number = ''
+            this.daozhang = 0
+          }
+          else{
+            this.$toast({
+              duration: 1000,
+              message: res.data.message
+            });
+            return ;
+          }
+        }
+      });
+    }
   }
 };
 </script>

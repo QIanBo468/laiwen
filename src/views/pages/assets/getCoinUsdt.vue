@@ -8,7 +8,7 @@
 
     <div class="card">
       <div class="title">
-        <span>{{$t('assets.以太坊')}}</span>
+        <span>USDT</span>
       </div> 
       <div class="money">{{money}}</div>
     </div>
@@ -108,8 +108,8 @@ export default {
         module: "Finance",
         interface: 6000,
         success: res => {
-          this.rate = res.data.data.ethWithdrawMoney
-          this.money = res.data.data.ETH
+          this.rate = res.data.data.usdtWithdrawMoney
+          this.money = res.data.data.USDT
           this.mobile = res.data.data.mobile
           this.mobileShow = res.data.data.mobile.replace(/^(\d{3})\d{4}(\d{4})$/, "$1****$2");
         }
@@ -122,7 +122,7 @@ export default {
       this.number = this.money
       this.inp_number();
     },
-    
+
     getCode(){
       var that  = this;
       console.log('发送状态',this.sendStatus)
@@ -225,8 +225,8 @@ export default {
                 module: "Wallet",
                 interface: 2001,
                 data: {
-                  creditType: 'credit_13',
-                  contract: '1',
+                  creditType: 'credit_14',
+                  contract: '2',
                   address: that.address,
                   amount: that.number,
                   safeword: that.safepass,

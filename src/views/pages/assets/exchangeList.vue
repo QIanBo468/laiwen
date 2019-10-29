@@ -6,22 +6,89 @@
     </div>
 
     <translate position="top">
-      <div class="item">
+      <div class="item"  v-for="items in list" key="it">
         <div class="txt">
-          <span>矿机收益</span>
-          <span>10000</span>
+          <span>{{items.creditName}} {{$t('assets.兑换')}} LEVIN</span>
+          <span>{{items.num}}</span>
         </div>
         <div class="time">
-          <span>2019.07.12 13:45:12</span>
-          <span>{{$t("assets.实际到账")}}：123</span>
+          <span>{{items.createdAt}}</span>
+          <span>{{$t("assets.实际到账")}}：{{items.actualArrival}}</span>
         </div>
       </div>
     </translate>
+    <!-- 加载完毕提示 -->
+    <div v-if="isEndShow == 1">
+      <p class="jzwb">{{$t('my.已全部加载完毕')}}</p>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data () {
+    return {
+      is_show: false,
+      list:[],
+      lastId:0,
+      page:1,
+      isEnd:0,
+      isEndShow:0,
+      id:0,
+    }
+  },
+  mounted() {
+      this.getlist();
+      window.addEventListener('scroll', this.scrollEvent,false);
+  },
+  methods: {
+    //获取列表
+    getlist(){
+      var that = this;
+      this.$post({
+          module: "Finance",
+          interface: 6002,
+          data: {
+              lastId: that.lastId,
+              page: that.page,
+              creditType: "credit_13"
+          },
+          success: res => {
+              
+              if (res.data.code == 0) {
+                  if(res.data.data.list.length == 0){
+                    that.isEnd = 1;
+                    that.isEndShow = 1;
+                    return ;
+                  }
+                  that.list = that.list.concat(res.data.data.list)
+
+                  that.lastId = res.data.data.lastId
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          },
+          complete: res=>{
+              //返回接果处理的
+              // that.sendStatus = 0;
+          }
+      });
+    },
+    scrollEvent(){
+      if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight) {
+        if(this.isEnd == 0){
+          console.log('加载下一页',this.isEnd,this.page)
+          this.page =  parseInt(this.page)+1
+          this.getlist()
+        }
+      }
+    },
+  }
+};
 </script>
 <style lang="scss" scoped>
 .nav {
@@ -81,5 +148,9 @@ export default {};
       }
     }
   }
+}
+.jzwb{
+  text-align:center;
+  color:#ccc;
 }
 </style>

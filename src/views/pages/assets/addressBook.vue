@@ -3,28 +3,101 @@
     <div class="nav">
       <img src="@/assets/img/back.png" @click="$router.go(-1)" />
       <div>{{$t('assets.地址簿')}}</div>
-      <span>{{$t('public.确定')}}</span>
+      <span @click="com_addr()">{{$t('public.确定')}}</span>
     </div>
 
-    <translate position="top">
-      <van-radio-group v-model="radio" checked-color="#C8A871">
-        <div class="item" v-for="item in 2">
-          <img src="@/assets/img/gonggao_more.png" alt />
+    <translate position="top" v-if="list.length > 0">
+      <van-radio-group v-model="index" checked-color="#C8A871" >
+        <div class="item" v-for="(item,index) in list">
+          <!-- <img src="@/assets/img/gonggao_more.png" alt /> -->
           <div class="text">
-            <div>MED平台正式上线了！敬请期待</div>
-            <div>2019.06.12 14:12:45</div>
+            <div>{{item.name}}</div>
+            <div>{{item.address}}</div>
           </div>
-          <van-radio name="1"></van-radio>
+          <van-radio :name="index"></van-radio>
         </div>
       </van-radio-group>
+    </translate>
+    <!-- 空数据的时候 -->
+    <translate position="top" v-else>
+      <div class="tip">{{$t('my.您的地址簿为空,快去添加吧')}}</div>
     </translate>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return { radio: "0" };
+  data () {
+    return {
+      is_show: false,
+      list:[],
+      lastId:0,
+      page:1,
+      isEnd:0,
+      isEndShow:0,
+      index:0,
+    }
+  },
+  mounted() {
+      this.getlist();
+      window.addEventListener('scroll', this.scrollEvent,false);
+  },
+  methods: {
+    //获取列表
+    getlist(){
+      var that = this;
+      this.$post({
+          module: "UserAddress",
+          interface: 1000,
+          data: {
+              lastId: that.lastId,
+              page: that.page
+          },
+          success: res => {
+              
+              if (res.data.code == 0) {
+                  if(res.data.data.list.length == 0){
+                    that.isEnd = 1;
+                    that.isEndShow = 1;
+                    return ;
+                  }
+                  that.list = that.list.concat(res.data.data.list)
+                  that.lastId = res.data.data.lastId
+              }
+              else{
+                  this.$toast({
+                      duration: 1000,
+                      message: res.data.message
+                  });
+              }
+          },
+          complete: res=>{
+              //返回接果处理的
+              // that.sendStatus = 0;
+          }
+      });
+    },
+    scrollEvent(){
+      if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight) {
+        if(this.isEnd == 0){
+          console.log('加载下一页',this.isEnd,this.page)
+          this.page =  parseInt(this.page)+1
+          this.getlist()
+        }
+      }
+    },
+    com_addr(){
+      if(this.index < 0){
+        this.$toast({
+            duration: 1000,
+            message: this.$t('my.您的地址簿为空,快去添加吧')
+        });
+      }
+      var info = this.list[this.index]
+      console.log('选中的',info);
+      this.$router.push({ path: '/getCoin', query: {address: info.address} })
+    }
+
   }
 };
 </script>
@@ -83,5 +156,9 @@ export default {
     height: 33px;
     border-radius: 50px;
   }
+}
+.tip{
+  color:#fff;
+  text-align:center;
 }
 </style>

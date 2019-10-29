@@ -22,10 +22,10 @@
                     <img src="@/assets/img/duihuan_icon.png" />
                     <span>{{$t('assets.兑换')}}</span>
                 </router-link>
-                <div>
+                <!-- <div>
                     <img src="@/assets/img/zhuanzhang_icon.png" />
                     <span>{{$t('assets.转账')}}</span>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -270,8 +270,8 @@ export default {
     margin: 15px auto;
     background: linear-gradient(
         89deg,
-        rgba(74, 102, 250, 1) 0%,
-        rgba(116, 130, 252, 1) 100%
+        #fe7474 0%,
+        #fdaa73 100%
     );
     border-radius: 6px;
 
@@ -304,7 +304,7 @@ export default {
 
     .option {
         display: flex;
-        background-color: #6379fa;
+        background-color: #fea473;
         border-radius: 6px;
 
         div {

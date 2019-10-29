@@ -2,21 +2,18 @@
   <div>
     <div class="nav">
       <img src="@/assets/img/back.png" @click="$router.go(-1)" />
-      <span>{{$t('assets.转账记录')}}</span>
+      <span>{{$t('assets.兑换记录')}}</span>
     </div>
 
     <translate position="top">
       <div class="item"  v-for="items in list" key="it">
-        <div class="title">
-          <span>{{items.creditName}}</span>
-        </div>
         <div class="txt">
-          <span>{{items.toUser.account}}</span>
-          <span>{{items.money}}</span>
+          <span>{{items.creditName}} {{$t('assets.兑换')}} LEVIN</span>
+          <span>{{items.num}}</span>
         </div>
         <div class="time">
           <span>{{items.createdAt}}</span>
-          <span>{{$t("assets.手续费")}}：{{items.fee}}</span>
+          <span>{{$t("assets.实际到账")}}：{{items.actualArrival}}</span>
         </div>
       </div>
     </translate>
@@ -50,12 +47,11 @@ export default {
       var that = this;
       this.$post({
           module: "Finance",
-          interface: 3100,
+          interface: 6002,
           data: {
               lastId: that.lastId,
               page: that.page,
-              // creditType: "credit_1",
-              isOut:true
+              creditType: "credit_14"
           },
           success: res => {
               
@@ -66,7 +62,7 @@ export default {
                     return ;
                   }
                   that.list = that.list.concat(res.data.data.list)
-                  console.log(that.list)
+
                   that.lastId = res.data.data.lastId
               }
               else{
@@ -95,82 +91,66 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-  .nav {
-    height: 46px;
-    background-color: #0c0c0c;
+.nav {
+  height: 46px;
+  background-color: #0c0c0c;
+  display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 35px;
+
+  img {
+    width: 24px;
+    height: 24px;
+    margin-left: 11px;
+  }
+  span {
+    color: #ffffff;
+    font-size: 18px;
+    flex: 1;
+    text-align: center;
+  }
+}
+.item {
+  background-color: #281a00;
+  margin-top: 10px;
+  padding: 11px 26px;
+
+  .txt {
     display: flex;
     align-items: center;
-    display: flex;
     justify-content: space-between;
-    padding-right: 35px;
-
-    img {
-      width: 24px;
-      height: 24px;
-      margin-left: 11px;
-    }
     span {
-      color: #ffffff;
-      font-size: 18px;
-      flex: 1;
-      text-align: center;
-    }
-  }
-  .item {
-    background-color: #281a00;
-    margin-top: 10px;
-    padding: 11px 26px;
-
-    .title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      span {
-        &:first-child {
-          color: #d8c2a1;
-          font-size: 14px;
-        }
-
-        &:last-child {
-          color: #ec8018;
-          font-size: 14px;
-        }
+      &:first-child {
+        color: #fff;
+        font-size: 14px;
       }
-    }
 
-    .txt {
-      @extend .title;
-      span {
-        &:first-child {
-          color: #fff;
-          font-size: 14px;
-        }
-
-        &:last-child {
-          color: #fff;
-          font-size: 16px;
-        }
-      }
-    }
-
-    .time {
-      @extend .title;
-      span {
-        &:first-child {
-          color: #d8c2a1;
-          font-size: 11px;
-        }
-
-        &:last-child {
-          color: #d8c2a1;
-          font-size: 11px;
-        }
+      &:last-child {
+        color: #fff;
+        font-size: 16px;
       }
     }
   }
-  .jzwb{
-    text-align:center;
-    color:#ccc;
+
+  .time {
+    @extend .txt;
+    span {
+      &:first-child {
+        color: #d8c2a1;
+        font-size: 11px;
+      }
+
+      &:last-child {
+        color: #d8c2a1;
+        font-size: 11px;
+      }
+    }
   }
+}
+.jzwb{
+  text-align:center;
+  color:#ccc;
+}
 </style>

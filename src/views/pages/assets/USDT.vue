@@ -15,18 +15,18 @@
       </div>
       <div class="money">{{number}}</div>
       <div class="option">
-        <div>
+        <router-link  to="getCoinUsdt" tag="div">
           <img src="@/assets/img/tixian_icon.png" />
           <span>{{$t('assets.提币')}}</span>
-        </div>
-        <div>
+        </router-link>
+        <router-link  to="exchangeusdt" tag="div">
           <img src="@/assets/img/duihuan_icon.png" />
           <span>{{$t('assets.兑换')}}</span>
-        </div>
-        <div>
+        </router-link>
+        <!-- <div>
           <img src="@/assets/img/zhuanzhang_icon.png" />
           <span>{{$t('assets.转账')}}</span>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -271,9 +271,10 @@ export default {
   margin: 15px auto;
   background: linear-gradient(
     89deg,
-    rgba(74, 102, 250, 1) 0%,
-    rgba(116, 130, 252, 1) 100%
+    #815efd 0%,
+    #b775ff 100%
   );
+
   border-radius: 6px;
 
   .title {
@@ -305,7 +306,7 @@ export default {
 
   .option {
     display: flex;
-    background-color: #6379fa;
+    background-color: #b881ff;
     border-radius: 6px;
 
     div {
