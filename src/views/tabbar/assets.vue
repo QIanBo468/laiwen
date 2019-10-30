@@ -21,7 +21,7 @@
             <div>
                 <div v-for="(item,index) in list" :key="index" @click="route(item.name)">
                     <translate position="top" time="0.4s" class="option" :class="index | bgcolor">
-                        <img src="@/assets/img/yitai.png" v-if="item.name == '余额'"/>
+                        <img src="@/assets/img/yitai.png" v-if="item.name == 'ETH'"/>
                         <img src="@/assets/img/usdt.png" v-else-if="item.name == 'USDT'"/>
                         <img src="@/assets/img/laiwen.png" v-else/>
                         <div class="text">
@@ -79,12 +79,12 @@ export default {
         },
         // 跳转页面
         route(name) {
-            if (name == '莱文币') {
-                this.$router.push("Levincoin");
+            if (name == 'USDT') {
+                this.$router.push("USDT");
             } else if (name == 'ETH') {
                 this.$router.push("Ethereum");
             } else {
-                this.$router.push("USDT");
+                this.$router.push("Levincoin");
             }
         },
         //复制成功

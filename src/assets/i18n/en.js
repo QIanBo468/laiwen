@@ -116,7 +116,7 @@ module.exports = {
     "提现": "Cash withdrawal",
     "请选择提现方式": "Please select Withdraw way",
     "绑定手机号": "Binding Mobile Phone Number",
-    "为保护您的账户安全,请先绑定手机号": "To protect the security of your account,<br/>please bind your cell phone number first",
+    "为保护您的账户安全,请先绑定手机号": "To protect the security of your account,please bind your cell phone number first",
     "立即绑定": "Bind immediately",
     "提现至": "Cash withdrawal",
     "提现金额": "Cash withdrawal amount",

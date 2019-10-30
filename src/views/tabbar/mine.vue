@@ -16,7 +16,7 @@
             <img src="@/assets/img/more_small.png" alt />
         </router-link>
         <div class="nav_box">
-            <router-link to class="nav_list">
+            <router-link to="register" class="nav_list">
                 <img src="@/assets/img/vip.png" alt />
                 <p>{{$t('my.注册会员')}}</p>
                 <img src="@/assets/img/more_small.png" alt />

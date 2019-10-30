@@ -8,7 +8,7 @@
 
         <div class="card">
             <div class="title">
-                <span>{{name}}</span>
+                <span>{{$t('assets.莱文币')}}</span>
                 <router-link to="FillMoney" tag="div">
                     <translate position="flash" class="recharge">{{$t('assets.充值')}}</translate>
                 </router-link>
