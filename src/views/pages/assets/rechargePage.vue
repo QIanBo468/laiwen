@@ -7,12 +7,12 @@
 
     <div class="card">
       <div class="title">{{$t('assets.我的钱包地址')}}</div>
-      <div class="card_content">{{purse}}</div>
-      <button  v-clipboard:copy="purse" v-clipboard:success="onCopy" v-clipboard:error="onError">{{$t('assets.复制')}}</button>
+      <div class="card_content">{{address}}</div>
+      <button  v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError">{{$t('assets.复制')}}</button>
       <div class="code_img">
-        <img src="@/assets/img/code.png" alt />
+        <img :src="src" alt />
       </div>
-      <div class="remark">{{$t('assets.长按二维码识别')}}</div>
+      <!-- <div class="remark">{{$t('assets.长按二维码识别')}}</div> -->
     </div>
 
     <div class="money_type">
@@ -20,11 +20,8 @@
       <span>{{$t('assets.充币说明')}}</span>
     </div>
 
-    <div class="content">
-      <p>服从经济学的角度，我们要尊重别人的财富，不能见猎心喜、顺手牵羊，这是普世的价值观。在公正观的背后，是效率考量：保护产权的女里是会消耗资源的，这种消耗越大，资源的净值月底，社会的道德规范，越是能够帮助降低这种消耗，社会财富的积累就越多。</p>
-      <p>（1）同样，管理中建立规则也是一样，规则存在的意义在于树立通行的行为规范（或是职业行为准则），基于这种行为准则，形成通行的惯例，非商业转载请注明出处。</p>
-      <p>（2）同样，管理中建立规则也是一样，规则存在的意义在于树立通行的行为规范（或是职业行为准则），基于这种行为准则，形成通行的惯例，非商业转载请注明出处。</p>
-      <p>（3）同样，管理中建立规则也是一样，规则存在的意义在于树立通行的行为规范（或是职业行为准则），基于这种行为准则，形成通行的惯例，非商业转载请注明出处。</p>
+    <div class="content" v-html="info">
+      
     </div>
   </div>
 </template>
@@ -32,24 +29,71 @@
 export default {
   data(){
     return{
-      purse:'123',
+      address:'',
+      info:'',
+      src:'',
     }
   },
+  mounted() {
+    this.getdesc();
+    this.getdata();
+  },
   methods: {
-    //复制成功
-        onCopy() {
-            this.$toast({
-                duration: 1000,
-                message: this.$t('assets.复制成功')
-            });
-        },
-        // 复制失败
-        onError(){
-          this.$toast({
-                duration: 1000,
-                message: this.$t('assets.复制失败')
-            });
+    getdata(){
+      this.$post({
+        module: "User",
+        interface: 8000,
+        success: res => {
+            
+            if (res.data.code == 0) {
+                this.address=  res.data.data.address;
+                this.src=  res.data.data.src;
+            }
+            else{
+                this.$toast({
+                    duration: 1000,
+                    message: res.data.message
+                });
+            }
         }
+      });
+    },
+    //获取充币说明
+    getdesc(){
+      this.$post({
+        module: "Content",
+        interface: 4003,
+        data: {
+            name: 'charge'
+        },
+        success: res => {
+            
+            if (res.data.code == 0) {
+                this.info=  res.data.data.content
+            }
+            else{
+                this.$toast({
+                    duration: 1000,
+                    message: res.data.message
+                });
+            }
+        }
+      });
+    },
+    //复制成功
+    onCopy() {
+        this.$toast({
+            duration: 1000,
+            message: this.$t('assets.复制成功')
+        });
+    },
+    // 复制失败
+    onError(){
+      this.$toast({
+            duration: 1000,
+            message: this.$t('assets.复制失败')
+        });
+    }
   }
 };
 </script>
@@ -95,9 +139,10 @@ export default {
     font-size: 14px;
   }
   .card_content {
-    font-size: 20px;
+    font-size: 16px;
     margin: 17px 0;
     color: #705827;
+    word-wrap: break-word;
   }
   button {
     background: linear-gradient(

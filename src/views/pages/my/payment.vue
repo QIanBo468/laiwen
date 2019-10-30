@@ -17,11 +17,12 @@
       <div v-for="(item,index) in list" @click="edit_payment(item.id)" :key="index">
 
         <img v-if="item.cardType == 3" src="@/assets/img/bank@2x.png" alt="">
-        <img v-else :src="item.logo" alt="">
+        <img v-else :src="item.logo" alt="" >
         <div>
           <div>
             <p v-if="item.cardType == 3">{{item.bankCode}}</p>
-            <p v-else>{{item.cardTypeCn}}</p>
+            <p v-if="item.cardType == 2">{{$t('assets.微信')}}</p>
+            <p v-if="item.cardType == 1">{{$t('assets.支付宝')}}</p>
             <div @click.stop="1">
             <van-switch v-if="item.cardType == 3" class="switch_btn" size="22px"
                         active-color="#A1937D"

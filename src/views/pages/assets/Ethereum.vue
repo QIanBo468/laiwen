@@ -92,6 +92,15 @@
                 </van-list>
             </van-tab>
         </van-tabs>
+
+        <van-popup :style="{width: '70%'}" :close-on-click-overlay="false" v-model="isShow">
+            <div class="van_body">
+                <div class="title">{{$t("assets.绑定手机号")}}</div>
+                <div class="content" v-html="$t('assets.为保护您的账户安全,请先绑定手机号')"></div>
+                <button class="btn" @click="$router.push('tell')">{{$t('assets.立即绑定')}}</button>
+                <div class="recharge" @click="isShow=false">{{$t("public.取消")}}</div>
+            </div>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -118,8 +127,24 @@ export default {
             loading2: false, //加载状态
             page2: 1, //页码
             lastId2: 0, //最新id
-            direction2: 0 //状态
+            direction2: 0, //状态
+            isShow:false,
         };
+    },
+    mounted() {
+      // 获取个人信息 确定是否绑定手机号
+        this.$post({
+            module: "User",
+            interface: 1000,
+            success: res => {
+                console.log("用户信息", res);
+                if (res.data.code == 0) {
+                   if(res.data.data.mobile == null || res.data.data.mobile == undefined || res.data.data.mobile == ''){
+                      this.isShow = true;
+                   }
+                }
+            }
+        });
     },
     methods: {
         // 获取信息
@@ -360,6 +385,44 @@ export default {
             color: #fff;
             font-size: 16px;
         }
+    }
+}
+.van_body {
+    background: linear-gradient(
+        137deg,
+        rgba(233, 215, 177, 1) 0%,
+        rgba(200, 168, 113, 1) 100%
+    );
+    padding: 28px 20px 20px;
+    border-radius: 6px;
+    text-align: center;
+
+    .title {
+        color: #705827;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .content {
+        color: #705827;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+    .btn {
+        color: #705827;
+        background-color: #fff7de;
+        border-radius: 50px;
+        width: 100%;
+        font-size: 15px;
+        margin-top: 15px;
+        padding: 5px 0;
+    }
+    .recharge {
+        color: #fff;
+        width: fit-content;
+        margin: 0 auto;
+        padding: 0 5px;
+        margin-top: 15px;
+        font-size: 14px;
     }
 }
 </style>
