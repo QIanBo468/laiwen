@@ -23,7 +23,7 @@
     </div>
 
     <translate position="top">
-      <div class="item" v-for="item in list" :key="it">
+      <div class="item" v-for="item in list" :key="item">
         <div class="title" v-if="item.type == 0">{{$t('index.投资')}}</div>
         <div class="title" v-else>{{$t('index.复投')}}</div>
         <div class="num_box">

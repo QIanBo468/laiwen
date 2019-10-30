@@ -114,7 +114,7 @@ export default {
     },
     watch: {
       money(val){//计算金额
-        this.arrival = this.money * this.service_charge;
+        this.arrival = this.money * (this.service_charge/100);
         this.arrival = this.money - this.arrival.toFixed(2);
       },
       radio(val){//选择提现方式

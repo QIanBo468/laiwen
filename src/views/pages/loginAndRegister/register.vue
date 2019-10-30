@@ -89,16 +89,15 @@ export default {
         };
     },
     mounted() {
-         if (localStorage.getItem("lang") == "en") {
+        if (localStorage.getItem("lang") == "en") {
             this.lang = 0;
         } else {
             this.lang = 1;
         }
         this.$post({
                 module: "Content",
-                interface: 4003,
+                interface: 4005,
                 data: {
-                    name:'agreement',
                     language:this.lang,
                 },
                 success: res => {
@@ -106,7 +105,6 @@ export default {
                     if (res.data.code == 0) {
                         this.xy = res.data.data.content;
                         console.log(this.xy);
-                        
                     } else {
                         this.$toast({
                             duration: 1000,

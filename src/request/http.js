@@ -30,13 +30,18 @@ if (process.env.NODE_ENV == 'development') {
 Vue.prototype.httpPaths = "http://laiwen.qdunzi.com/upload";
 const token = localStorage.getItem("token") || "";
 
-Vue.prototype.$get = params => {
+if (localStorage.getItem("lang") == "en") {
+    Vue.prototype.lang = 'Not Logged';
+} else {
+    Vue.prototype.lang = '未登录';
+}
 
+Vue.prototype.$get = params => {
     axios
         .get(params.url, { params: Object.assign({}, params.data, token ? { token } : "") })
         .then(res => {
             if (res.data.code == no_login_code) {
-                Vue.prototype.$toast('未登录');
+                Vue.prototype.$toast( Vue.prototype.lang);
                 if (token) localStorage.removeItem("token");
                 setTimeout(() => {
                     router.replace('login')
@@ -77,7 +82,7 @@ Vue.prototype.$post = params => {
     $axios
         .then(res => {
             if (res.data.code == no_login_code) {
-                Vue.prototype.$toast('未登录');
+                Vue.prototype.$toast(Vue.prototype.lang);
                 if (token) localStorage.removeItem("token");
                 setTimeout(() => {
                     router.replace('login')
@@ -118,7 +123,7 @@ Vue.prototype.$request = params => {
     $axios
         .then(res => {
             if (res.data.code == no_login_code) {
-                Vue.prototype.$toast('未登录');
+                Vue.prototype.$toast(Vue.prototype.lang);
                 if (token) localStorage.removeItem("token");
                 setTimeout(() => {
                     router.replace('login')

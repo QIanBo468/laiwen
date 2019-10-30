@@ -13,7 +13,7 @@
                     <div>
                         <div class="txt">{{$t("index.投资金额")}}：</div>
                         <div class="num">
-                            {{item.price}}~{{item.highestPrice}}
+                            {{item.price}}~{{index == 2?'':item.highestPrice}}
                             <span>{{$t("index.莱文币")}}</span>
                         </div>
                     </div>
