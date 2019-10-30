@@ -47,8 +47,18 @@ export default {
             password: "", //新密码
             passwords: "", //确认新密码
             show: true, //获取验证码是否显示
-            time: 60 //验证码间隔时间
+            time: 60 ,//验证码间隔时间
+            lang:'',
         };
+    },
+    mounted() {
+         if (localStorage.getItem("lang") == "en") {
+            this.lang = 0;
+        } else {
+            this.lang = 1;
+        }
+        console.log(this.lang);
+        
     },
     methods: {
         //修改密码
@@ -87,7 +97,8 @@ export default {
                 data: {
                     account: this.account,
                     captcha: this.captcha,
-                    password: this.password
+                    password: this.password,
+                    language:this.lang,
                 },
                 success: res => {
                     console.log("保存并登录成功", res);
@@ -109,7 +120,8 @@ export default {
                 interface: 1000,
                 data: {
                     account: this.account,
-                    password: this.password
+                    password: this.password,
+                    language:this.lang,
                 },
                 success: res => {
                     console.log("登录成功", res);

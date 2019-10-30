@@ -58,9 +58,14 @@
         <button class="register_btn" @click="register">{{$t('login.注册')}}</button>
 
         <div class="protocol">
-            <van-checkbox v-model="checked" checked-color="#C8A871"></van-checkbox>
-            <span>{{$t('login.协议')}}</span>
+            <div> <van-checkbox v-model="checked" checked-color="#C8A871"></van-checkbox></div>
+            <span @click="shows = true">{{$t('login.协议')}}</span>
         </div>
+        <van-popup v-model="shows"  position="bottom" closeable>
+            <div class="pact" v-html="xy">
+                <div v-html="xy"></div>
+            </div>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -77,8 +82,39 @@ export default {
             recommend: "", //推荐人邮箱
             place: "", //安置人邮箱
             show: true, //获取验证码是否显示
-            time: 60 //验证码间隔时间
+            time: 60, //验证码间隔时间
+            lang:'',//语言
+            shows:false,
+            xy:'',
         };
+    },
+    mounted() {
+         if (localStorage.getItem("lang") == "en") {
+            this.lang = 0;
+        } else {
+            this.lang = 1;
+        }
+        this.$post({
+                module: "Content",
+                interface: 4003,
+                data: {
+                    name:'agreement',
+                    language:this.lang,
+                },
+                success: res => {
+                    console.log("用户协议", res);
+                    if (res.data.code == 0) {
+                        this.xy = res.data.data.content;
+                        console.log(this.xy);
+                        
+                    } else {
+                        this.$toast({
+                            duration: 1000,
+                            message: res.data.message
+                        });
+                    }
+                }
+            });
     },
     methods: {
         // 注册
@@ -169,7 +205,8 @@ export default {
                     password: this.password,
                     safeword: this.safeword,
                     recommend: this.recommend,
-                    place: this.place
+                    place: this.place,
+                    language:this.lang
                 },
                 success: res => {
                     console.log("注册成功", res);
@@ -339,9 +376,18 @@ export default {
     display: flex;
     padding: 13px 0;
     justify-content: center;
-
-    span {
-        margin-left: 10px;
+    align-items: center;
+    div{
+        padding:0 10px;
     }
+    span {
+        display:block;
+        flex: 1;
+    }
+}
+.pact{
+    width: 100%;
+    min-height: 200px;
+    margin-top: 35px;
 }
 </style>
