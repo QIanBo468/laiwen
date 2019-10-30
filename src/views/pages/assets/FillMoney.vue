@@ -13,9 +13,12 @@
         </div>
         <div class="card_box">
           <div class="card" v-for="(item,index) in list" :key="index">
-            <img :src="item.pic" alt />
+            <img :src="item.pic" alt  @click="picmax(item.pic)" v-if="item.type != 3"/>
+            <img src="@/assets/img/bank.png" alt v-else/>
             <div class="content">
-              <div class="content_title">{{item.type | type(item.bankType)}}</div>
+              <div class="content_title" v-if="item.type == 1">{{$t("assets.支付宝")}}</div>
+              <div class="content_title" v-if="item.type == 2">{{$t("assets.微信")}}</div>
+              <div class="content_title" v-if="item.type == 3">{{item.bankType}}</div>
               <div class="content_data_box">
                 <div>
                   <span>{{$t("assets.账户名称")}}：</span>
@@ -58,6 +61,11 @@
         </div>
       </div>
     </div>
+    <van-popup v-model="show">
+      <div class="pop">
+        <img :src="img" alt="">
+      </div>
+    </van-popup>
   </div>
 </template>
 <script>
@@ -65,18 +73,12 @@ export default {
   data(){
     return{
       list:'',
+      show:false,
+      img:'',
     }
   },
   filters:{
-    type(val,type){
-      if(val == 1){
-        return '支付宝支付'
-      }else if(val == 2){
-        return '微信支付'
-      }else if(val == 3){
-        return type
-      }
-    }
+
   },
   mounted() {
     this.$post({
@@ -89,7 +91,15 @@ export default {
                 }
             }
         });
+      
   },
+  methods: {
+    picmax(img){
+      this.img = img;
+      this.show = true;
+    }
+  }
+  
 };
 </script>
 <style scoped lang="scss">
@@ -195,6 +205,17 @@ export default {
         }
       }
     }
+  }
+}
+.pop{
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  img{
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

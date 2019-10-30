@@ -60,11 +60,17 @@ export default {
         };
     },
     mounted() {
+        
         // 获取中英文切换状态
         let cutover = localStorage.getItem("lang");
-        
+        let tit;
+        if (cutover == "en") {
+            tit = 'item  C'
+        } else {
+             tit = 'C套餐'
+        }
         let max;
-        if (this.packages != "C套餐") {
+        if (this.packages != tit || this.packages != tit) {
             max = this.$route.query.max;
         }else{
             max = '';
@@ -86,9 +92,18 @@ export default {
         }
     },
     methods: {
+        
         // 提交
         investmentFun() {
-            if (this.packages != "C套餐") {
+            let cutover = localStorage.getItem("lang");
+            let tit;
+            if (cutover == "en") {
+                tit = 'item  C'
+            } else {
+                tit = 'C套餐'
+            }
+            
+            if (this.packages != tit) {
                 if (
                     this.amount < this.$route.query.min - 1 ||
                     this.amount > this.$route.query.max ||
@@ -105,6 +120,7 @@ export default {
                     this.amount < this.$route.query.min - 1 ||
                     this.amount % 100 != 0
                 ) {
+
                     this.$toast({
                         duration: 1500,
                         message: this.placeholders
