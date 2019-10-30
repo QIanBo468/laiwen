@@ -110,6 +110,9 @@ export default {
   justify-content: space-between;
   padding: 0 15px;
   span {
+    &:nth-of-type(2){
+      width: 30%;
+    }
     display: inline-block;
     width: 20%;
     color: #ffffff;
