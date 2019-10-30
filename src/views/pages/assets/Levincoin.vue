@@ -39,7 +39,7 @@
             animated
         >
             <van-tab :title="$t('assets.全部')">
-              <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+              <van-list v-model="loading" :finished="finished" :finished-text="$t('my.已全部加载完毕')" @load="onLoad">
                 <translate position="top" class="tab_box">
                     <div class="item" v-for="(item,index) in list" :key="index">
                         <div class="text">
@@ -55,7 +55,7 @@
               <van-list
               v-model="loading1"
               :finished="finished1"
-              finished-text="没有更多了"
+              :finished-text="$t('my.已全部加载完毕')"
               @load="onLoad1"
             >
                 <translate position="top" class="tab_box">
@@ -73,7 +73,7 @@
               <van-list
               v-model="loading2"
               :finished="finished2"
-              finished-text="没有更多了"
+              :finished-text="$t('my.已全部加载完毕')"
               @load="onLoad2"
             >
                 <translate position="top" class="tab_box">

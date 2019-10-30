@@ -7,7 +7,7 @@
         <van-list
             v-model="loading"
             :finished="finished"
-            finished-text="没有更多了"
+            :finished-text="$t('my.已全部加载完毕')"
             @load="onLound"
             :offset="0"
         >
