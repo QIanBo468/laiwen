@@ -2,6 +2,14 @@
     <div class="register">
         <div class="nav">
             <img src="@/assets/img/back.png" @click="$router.go(-1)" />
+            <div class="qh">
+            <van-switch v-model="checked1"
+                  size="20px"
+                  active-color="#D5AB64"
+                  inactive-color="#0C0C0C"
+                  @change="localchange" />
+            <p>{{localStorage}}</p>
+            </div>
         </div>
 
         <div class="title">{{$t('login.注册')}}</div>
@@ -46,7 +54,7 @@
 
             <div class="item">
                 <img src="@/assets/img/youxiang.png" />
-                <input type="email" :placeholder="$t('login.请输入推荐人邮箱')" v-model="recommend" />
+                <input type="email" :placeholder="$t('login.请输入推荐人邮箱')" v-model="recommend" readonly="true" />
             </div>
 
             <div class="item">
@@ -86,37 +94,77 @@ export default {
             lang:'',//语言
             shows:false,
             xy:'',
+            localStorage:''
         };
     },
-    mounted() {
-        if (localStorage.getItem("lang") == "en") {
+    computed: {
+        checked1 () {
+            if (localStorage.getItem("lang") == "en") {
             this.lang = 0;
-        } else {
+                return true
+            } else {
             this.lang = 1;
+                return false
+            }
         }
+    },
+    mounted() {
+        this.setlanguage();
+        
         this.$post({
-                module: "Content",
-                interface: 4005,
-                data: {
-                    language:this.lang,
-                },
-                success: res => {
-                    console.log("用户协议", res);
-                    if (res.data.code == 0) {
-                        this.xy = res.data.data.content;
-                        console.log(this.xy);
-                    } else {
-                        this.$toast({
-                            duration: 1000,
-                            message: res.data.message
-                        });
-                    }
+            module: "Content",
+            interface: 4005,
+            data: {
+                language:this.lang,
+            },
+            success: res => {
+                console.log("用户协议", res);
+                if (res.data.code == 0) {
+                    this.xy = res.data.data.content;
+                    console.log(this.xy);
+                } else {
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
                 }
-            });
+            }
+        });
+        this.recommend = this.$route.query.from;
     },
     methods: {
+        setlanguage(){
+            if (localStorage.getItem("lang") == "en") {
+                this.lang = 0;
+            } else {
+                this.lang = 1;
+            }
+            if (localStorage.getItem("lang") == "en") this.localStorage = "En";
+            else this.localStorage = "中";
+
+            let item = document.querySelectorAll(".animate"),
+              _this = this;
+
+            for (let i = 0; i < item.length; i++) {
+              item[i].addEventListener("touchstart", e => {
+                _this.$_clickAnimate(
+                  item[i],
+                  e.touches[0].clientX,
+                  e.touches[0].clientY,
+                  "rgba(74, 51, 0, 0.2)"
+                );
+              });
+            }
+        },
         // 注册
         register() {
+            if (this.recommend == "") {
+                this.$toast({
+                    duration: 1000,
+                    message: this.$t('login.推荐关系')
+                });
+                return;
+            }
             if (this.account == "") {
                 this.$toast({
                     duration: 1000,
@@ -173,13 +221,7 @@ export default {
                 });
                 return;
             }
-            if (this.recommend == "") {
-                this.$toast({
-                    duration: 1000,
-                    message: this.$t('login.请输入推荐人邮箱')
-                });
-                return;
-            }
+            
             if (this.place == "") {
                 this.$toast({
                     duration: 1000,
@@ -209,16 +251,20 @@ export default {
                 success: res => {
                     console.log("注册成功", res);
                     if (res.data.code == 0) {
-                        localStorage.setItem(
-                            "Bearer",
-                            res.data.data.accessToken.accessToken
-                        );
-                        console.log(localStorage.getItem("Bearer"));
+                        // localStorage.setItem(
+                        //     "Bearer",
+                        //     res.data.data.accessToken
+                        // );
+                        // console.log(localStorage.getItem("Bearer"));
                         this.$toast({
                             duration: 1000,
                             message: this.$t('login.注册成功')
                         });
-                        this.$router.replace("/");
+                        //跳转到下载页
+                        if(res.data.data.url  != ""){
+                            window.location.href = res.data.data.url;
+                        }
+                        //this.$router.replace("/");
                     } else {
                         this.$toast({
                             duration: 1000,
@@ -265,7 +311,14 @@ export default {
                     }
                 }
             });
-        }
+        },
+        localchange () {
+            console.log(this.checked1)
+          if (this.checked1) localStorage.setItem("lang", "zh");
+          else localStorage.setItem("lang", "en");
+
+          this.$router.go(0);
+        },
     }
 };
 </script>
@@ -281,7 +334,20 @@ export default {
         height: 24px;
         margin-left: 11px;
     }
-    
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #0c0c0c;
+    p {
+        font-size: 14px;
+        color: #ffffff;
+        margin-left: 10px;
+    }
+        /deep/.van-switch {
+        border: 1px solid #d5ab64;
+    }
+    .qh{
+        display:flex;
+    }
 }
 
 .title {
