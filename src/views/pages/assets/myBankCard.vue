@@ -65,7 +65,7 @@ export default {
         sessionStorage.setItem("radio", this.radio);
         this.list.forEach(item=>{
             if(item.id == val){
-                sessionStorage.setItem("card", item.cardNo);
+                sessionStorage.setItem("card", item.id);
             }
         })
       }
