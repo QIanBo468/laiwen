@@ -36,11 +36,16 @@ export default {
       isEnd:0,
       isEndShow:0,
       index:0,
+      type:'eth',
     }
   },
   mounted() {
       this.getlist();
       window.addEventListener('scroll', this.scrollEvent,false);
+      var type = this.$route.query.type
+      if(type == 'usdt'){
+        this.type = 'usdt';
+      }
   },
   methods: {
     //获取列表
@@ -95,7 +100,12 @@ export default {
       }
       var info = this.list[this.index]
       console.log('选中的',info);
-      this.$router.push({ path: '/getCoin', query: {address: info.address} })
+      if(this.type == 'eth'){
+        this.$router.push({ path: '/getCoin', query: {address: info.address} })
+      }
+      else{
+        this.$router.push({ path: '/getCoinUsdt', query: {address: info.address} })
+      }
     }
 
   }

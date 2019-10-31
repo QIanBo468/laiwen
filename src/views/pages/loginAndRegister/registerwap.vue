@@ -94,21 +94,24 @@ export default {
             lang:'',//语言
             shows:false,
             xy:'',
-            localStorage:''
+            localStorage:'En'
         };
     },
     computed: {
         checked1 () {
             if (localStorage.getItem("lang") == "en") {
-            this.lang = 0;
+                this.lang = 0;
                 return true
             } else {
-            this.lang = 1;
+                this.lang = 1;
                 return false
             }
         }
     },
     mounted() {
+        if (localStorage.getItem("lang") == null) {
+            localStorage.setItem("lang", "en");
+        }
         this.setlanguage();
         
         this.$post({

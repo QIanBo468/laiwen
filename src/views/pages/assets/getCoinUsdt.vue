@@ -21,7 +21,7 @@
         </div>
         <div class="input">
           <input type="text" v-model="address" :placeholder="$t('assets.请输入钱包地址')" />
-          <router-link to="addressBook" v-show="!address">
+          <router-link to="addressBook?type=usdt" v-show="!address">
             <img src="@/assets/img/dizhibo.png" alt />
           </router-link>
           <img @click="address = ''" src="@/assets/img/guanbi.png" v-show="address" alt /> 
