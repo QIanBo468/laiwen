@@ -225,10 +225,10 @@ export default {
         let data = {name:'',account:''};
         if(this.radio == this.wx.id){
           data.name = 20;
-          data.account = this.wx.cardNo
+          data.account = this.wx.id
         }else if(this.radio == this.zfb.id){
           data.name = 10;
-          data.account = this.wx.cardNo
+          data.account = this.zfb.id
         }else{
           data.name = 30;
           data.account = Number(sessionStorage.getItem("card"));
