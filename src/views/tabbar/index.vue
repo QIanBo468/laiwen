@@ -88,7 +88,7 @@ export default {
     localchange () {
       if (this.checked) localStorage.setItem("lang", "zh");
       else localStorage.setItem("lang", "en");
-      this.$router.go(0);
+          window.location.reload()      
     },
     //获取轮播图
     getCarousel () {

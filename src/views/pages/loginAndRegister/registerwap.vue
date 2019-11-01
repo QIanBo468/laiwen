@@ -316,11 +316,9 @@ export default {
             });
         },
         localchange () {
-            console.log(this.checked1)
           if (this.checked1) localStorage.setItem("lang", "zh");
           else localStorage.setItem("lang", "en");
-
-          this.$router.go(0);
+          window.location.reload()
         },
     }
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" v-if="show">
     <div class="nav">
       <van-switch v-model="checked"
                   size="20px"
@@ -46,6 +46,7 @@ export default {
       password: "", //密码
       localStorage: "En",
       lang: '',
+      show:true
     };
   },
   computed: {
@@ -63,7 +64,8 @@ export default {
     localchange () {
       if (this.checked) localStorage.setItem("lang", "zh");
       else localStorage.setItem("lang", "en");
-      this.$router.go(0);
+      
+      window.location.reload()
     },
     loginFun () {
       if (this.account == "") {
