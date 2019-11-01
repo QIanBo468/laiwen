@@ -4,9 +4,9 @@
             <img src="@/assets/img/back.png" @click="$router.go(-1)" />
             <span>{{$t('index.公司简介')}}</span>
         </div>
-        <div class="banner">
+        <!-- <div class="banner">
             <img src="@/assets/img/about_us_wish_content1.png" alt />
-        </div>
+        </div> -->
         <div class="content" v-html="content"></div>
     </div>
 </template>
@@ -78,6 +78,9 @@ export default {
     font-size: 14px;
     color: #fff;
     padding: 0 15px;
-    text-indent: 2em;
+    /deep/img{
+        width:100%;
+        height: auto;
+    }
 }
 </style>

@@ -11,9 +11,6 @@
       <p>{{$t('my.莱文资本')}}</p>
     </div>
     <div class="content" v-html="info">
-      <!-- <p>用户注册协议</p>
-      　未经本站的授权或许可，任何会员不得借用本站的名义从事任何商业活动，也不得将本站作为从事商业活动的场所、平台或其他任何形式的媒介。
-      禁止将本站用作从事各种非法活动的场所、平台或者其他任何形式的媒介。违反者若触犯法律，一切后果自负，本站不承担任何责任。 -->
     </div>
     <!-- <div class="botn_box">copyright</div> -->
   </div>
@@ -143,6 +140,10 @@ export default {
   p {
     color: #fff;
     font-size: 18px;
+  }
+  /deep/img{
+    width: 100%;
+    height: auto;
   }
 }
 .botn_box {

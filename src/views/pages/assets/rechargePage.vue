@@ -196,6 +196,10 @@ export default {
   font-size: 14px;
   color: #fff;
   padding: 0 15px;
-  text-indent: 2em;
+  
+  /deep/img{
+    width: 100%;
+    height: auto;
+  }
 }
 </style>
