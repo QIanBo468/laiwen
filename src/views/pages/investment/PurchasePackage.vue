@@ -106,8 +106,7 @@ export default {
             if (this.packages != tit) {
                 if (
                     this.amount < this.$route.query.min - 1 ||
-                    this.amount > this.$route.query.max ||
-                    this.amount % 100 != 0
+                    this.amount > this.$route.query.max 
                 ) {
                     this.$toast({
                         duration: 1500,
@@ -117,8 +116,7 @@ export default {
                 }
             }else{
                 if (
-                    this.amount < this.$route.query.min - 1 ||
-                    this.amount % 100 != 0
+                    this.amount < this.$route.query.min - 1
                 ) {
 
                     this.$toast({

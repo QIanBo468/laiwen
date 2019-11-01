@@ -78,7 +78,7 @@ module.exports = {
     "套餐类型": "Package Type",
     "金额": "Amount",
     "提交": "Submit",
-    "请输入金额": "Multiples of 100 ",
+    "请输入金额": "Amount range",
     "投资成功": "Successful investment",
     "投资失败": "Investment failure",
     "消耗莱文币": "Consume LEVIN",
