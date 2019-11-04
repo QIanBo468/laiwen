@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="nav">
-      <img src="@/assets/img/back.png" @click="$router.go(-1)" />
+      <img src="@/assets/img/back.png" @click="back()" />
       <div>{{$t('assets.提币')}}</div>
       <router-link tag="span" to="getCoinList">{{$t('assets.提币记录')}}</router-link>
     </div>
@@ -20,7 +20,7 @@
           <span>{{$t('assets.钱包地址')}}</span>
         </div>
         <div class="input">
-          <input type="text" v-model="address" :placeholder="$t('assets.请输入钱包地址')" />
+          <input type="text" v-model="address"  :placeholder="$t('assets.请输入钱包地址')" />
           <router-link to="addressBook" v-show="!address">
             <img src="@/assets/img/dizhibo.png" alt />
           </router-link>
@@ -93,7 +93,8 @@ export default {
   },
 
   mounted() {
-    var address = this.$route.query.address;
+    // var address = this.$route.query.address;
+    let address = sessionStorage.getItem('address');
     if(typeof(address) != 'undefined'){
       this.address  = address;
     }
@@ -102,6 +103,10 @@ export default {
     this.getData();
   },
   methods: {
+    back(){
+      sessionStorage.clear();
+      this.$router.go(-1);
+    },
     getData(){
       // 获取个人信息 确定是否绑定手机号
       this.$post({

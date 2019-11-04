@@ -8,13 +8,13 @@
 
     <translate position="top" v-if="list.length > 0">
       <van-radio-group v-model="index" checked-color="#C8A871" >
-        <div class="item" v-for="(item,index) in list">
+        <div class="item" v-for="(item,indexs) in list" :key="indexs">
           <!-- <img src="@/assets/img/gonggao_more.png" alt /> -->
           <div class="text">
             <div>{{item.name}}</div>
             <div>{{item.address}}</div>
           </div>
-          <van-radio :name="index"></van-radio>
+          <van-radio :name="indexs"></van-radio>
         </div>
       </van-radio-group>
     </translate>
@@ -47,6 +47,9 @@ export default {
         this.type = 'usdt';
       }
   },
+  created(){
+    this.index = sessionStorage.getItem('addressid');
+  },
   methods: {
     //获取列表
     getlist(){
@@ -59,7 +62,6 @@ export default {
               page: that.page
           },
           success: res => {
-              
               if (res.data.code == 0) {
                   if(res.data.data.list.length == 0){
                     that.isEnd = 1;
@@ -92,19 +94,24 @@ export default {
       }
     },
     com_addr(){
-      if(this.index < 0){
+      console.log(this.index);
+      if(this.index < 0 || this.index == ''){
         this.$toast({
             duration: 1000,
             message: this.$t('my.您的地址簿为空,快去添加吧')
         });
       }
-      var info = this.list[this.index]
+      let info = this.list[this.index].address;
+      sessionStorage.setItem('address',info);
+      sessionStorage.setItem('addressid',this.index)
       console.log('选中的',info);
       if(this.type == 'eth'){
-        this.$router.push({ path: '/getCoin', query: {address: info.address} })
+        this.$router.go(-1);
+        // this.$router.push({ path: '/getCoin', query: {address: info.address} })
       }
       else{
-        this.$router.push({ path: '/getCoinUsdt', query: {address: info.address} })
+        this.$router.go(-1);
+        // this.$router.push({ path: '/getCoinUsdt', query: {address: info.address} })
       }
     }
 
