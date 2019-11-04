@@ -7,7 +7,7 @@
     </div>
 
     <translate position="top" v-if="list.length > 0">
-      <van-radio-group v-model="index" checked-color="#C8A871" >
+      <van-radio-group v-model="radio" checked-color="#C8A871" >
         <div class="item" v-for="(item,indexs) in list" :key="indexs">
           <!-- <img src="@/assets/img/gonggao_more.png" alt /> -->
           <div class="text">
@@ -35,7 +35,7 @@ export default {
       page:1,
       isEnd:0,
       isEndShow:0,
-      index:0,
+      radio:'',
       type:'eth',
     }
   },
@@ -48,7 +48,8 @@ export default {
       }
   },
   created(){
-    this.index = sessionStorage.getItem('addressid');
+    this.radio =Number(sessionStorage.getItem('addressid'));
+    console.log(this.radio);
   },
   methods: {
     //获取列表
@@ -94,16 +95,15 @@ export default {
       }
     },
     com_addr(){
-      console.log(this.index);
-      if(this.index < 0 || this.index == ''){
+      if(this.radio == '' && this.radio != 0){
         this.$toast({
             duration: 1000,
             message: this.$t('my.您的地址簿为空,快去添加吧')
         });
       }
-      let info = this.list[this.index].address;
+      let info = this.list[this.radio].address;
       sessionStorage.setItem('address',info);
-      sessionStorage.setItem('addressid',this.index)
+      sessionStorage.setItem('addressid',this.radio)
       console.log('选中的',info);
       if(this.type == 'eth'){
         this.$router.go(-1);
