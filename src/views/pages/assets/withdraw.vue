@@ -51,7 +51,7 @@
 
                 <div class="remark">
                     <span>{{$t('assets.手续费')}}</span>
-                    <span>{{service_charge}}</span>
+                    <span>{{service_charge}}%</span>
                 </div>
                 <div class="remark">
                     <span>{{$t('assets.实际到账')}}</span>
@@ -233,6 +233,7 @@ export default {
           data.name = 30;
           data.account = Number(sessionStorage.getItem("card"));
         }
+        console.log('ma',this.code);
          this.$post({
             module: "Finance",
             interface: 4001,
@@ -242,7 +243,7 @@ export default {
               account:data.account,
               amount:this.money,
               safeword:this.password,
-              code:this.code,
+              captcha:this.code
             },
             success: res => {
                 console.log("提现", res);

@@ -239,7 +239,7 @@ export default {
                         duration: 1000,
                         message: res.data.message
                     });
-                    this.$router.go(-1);
+                    //this.$router.go(-1);
                   }
                   else{
                     this.$toast({

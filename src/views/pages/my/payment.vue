@@ -144,7 +144,8 @@ export default {
                       duration: 1000,
                       message: res.data.message
                   });
-                this.list.splice(index);
+                this.list.splice(index,1);
+                console.log('剩余的数量',this.list);
                 if(this.list.length == 0){
                   this.is_show = true;
                 }
