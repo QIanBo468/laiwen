@@ -80,7 +80,7 @@ export default {
                       duration: 1000,
                       message: res.data.message
                   });
-                  this.$router.replace("/address_book");
+                  this.$router.go(-1);
               }
               else{
                   this.$toast({

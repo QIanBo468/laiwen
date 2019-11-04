@@ -235,7 +235,11 @@ export default {
                   if (res.data.code == 0) {
                     //提币提交
                     console.log('111');
-                    
+                    this.$toast({
+                        duration: 1000,
+                        message: res.data.message
+                    });
+                    this.$router.go(-1);
                   }
                   else{
                     this.$toast({

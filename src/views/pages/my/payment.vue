@@ -144,7 +144,10 @@ export default {
                       duration: 1000,
                       message: res.data.message
                   });
-                this.list.splice(index)
+                this.list.splice(index);
+                if(this.list.length == 0){
+                  this.is_show = true;
+                }
               }
               else{
                   this.$toast({

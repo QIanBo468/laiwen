@@ -109,6 +109,7 @@ export default {
         }
     },
     mounted() {
+        console.log(localStorage.getItem("lang"));
         if (localStorage.getItem("lang") == null) {
             localStorage.setItem("lang", "en");
         }

@@ -141,7 +141,8 @@ export default {
                     duration: 1000,
                     message: res.data.message
                 });
-                this.$router.replace("/mine");
+                this.$router.go(-1);
+                //this.$router.replace("/mine");
             }
             else{
                 this.$toast({

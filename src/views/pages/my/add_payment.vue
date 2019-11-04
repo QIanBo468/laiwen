@@ -166,7 +166,7 @@ export default {
                     duration: 1000,
                     message: this.$t('my.添加账号成功')
                 });
-                this.$router.replace("/payment");
+                this.$router.go(-1);
             }
             else{
                 this.$toast({

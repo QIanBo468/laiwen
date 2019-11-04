@@ -189,8 +189,8 @@ export default {
         interface: 2005,
         data: {
             captcha: that.code,
-            oldPassword: that.oldPassword,
-            password: that.password,
+            oldSafeword: that.oldPassword,
+            safeword: that.password,
         },
         success: res => {
             

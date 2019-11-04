@@ -37,7 +37,7 @@
           <img src="@/assets/img/in.png" />
         </translate>
       </router-link>
-      <router-link to="register"
+      <router-link to="registerIn"
                    class="item">
         <translate position="left"
                    time="0.4s">
@@ -135,8 +135,8 @@ export default {
         },
         success: res => {
           console.log("获取语言", res);
+          this.getNews();
           if (res.data.code == 0) {
-
           } else {
             this.$toast({
               duration: 1000,
@@ -151,7 +151,7 @@ export default {
     if (localStorage.getItem("lang") == "en") this.localStorage = "En";
     else this.localStorage = "中";
     this.getCarousel();
-    this.getNews();
+    // this.getNews();
   }
 };
 </script>
