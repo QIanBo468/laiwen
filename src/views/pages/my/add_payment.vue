@@ -276,7 +276,7 @@ export default {
     }
     .btn_outer {
       padding: 15px;
-      position: absolute;
+      position: fixed;
       bottom: 20px;
       left: 0;
       right: 0;

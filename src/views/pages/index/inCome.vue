@@ -25,18 +25,18 @@
 
             <div class="content_box" :class="{drop_show:dropShow}">
                 <div class="drop_down">
-                    <van-radio-group v-model="radio" checked-color="#C8A871">
+                    <van-radio-group  v-model="radio" checked-color="#C8A871">
                         <div class="drop_item">
                             <span>{{$t('index.静态收益')}}</span>
-                            <van-radio name="1"></van-radio>
+                            <van-radio @click="getIncome" name="1"></van-radio>
                         </div>
                         <div class="drop_item">
                             <span>{{$t('index.直推奖金')}}</span>
-                            <van-radio name="2"></van-radio>
+                            <van-radio  @click="getIncome"  name="2"></van-radio>
                         </div>
                         <div class="drop_item">
                             <span>{{$t('index.管理奖金')}}</span>
-                            <van-radio name="3"></van-radio>
+                            <van-radio  @click="getIncome"  name="3"></van-radio>
                         </div>
                     </van-radio-group>
                 </div>
@@ -58,10 +58,10 @@
                     :key="index"
                 >
                     <div class="text">
-                        <div>静态收益</div>
-                        <div>2019.06.12 14:12:45</div>
+                        <div>{{item.remark}}</div>
+                        <div>{{item.createdAt}}</div>
                     </div>
-                    <span>+21323</span>
+                    <span>+{{item.realMoney}}</span>
                 </div>
             </van-list>
         </translate>
@@ -93,6 +93,7 @@ export default {
     methods: {
         //获取我的收益
         getIncome() {
+            
             let creditTypes = "";
 
             if (this.radio == "1") {
@@ -102,6 +103,7 @@ export default {
             } else if (this.radio == "3") {
                 creditTypes = 'credit_7';
             }
+            console.log(this.radio,creditTypes)
             this.$post({
                 module: "Finance",
                 interface: 2101,
