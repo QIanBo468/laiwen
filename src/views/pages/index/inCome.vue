@@ -93,7 +93,7 @@ export default {
     methods: {
         //获取我的收益
         getIncome() {
-            
+            this.dropShow = !this.dropShow
             let creditTypes = "";
 
             if (this.radio == "1") {
