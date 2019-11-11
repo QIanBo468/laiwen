@@ -6,7 +6,8 @@
                   active-color="#D5AB64"
                   inactive-color="#0C0C0C"
                   @change="localchange" />
-      <p>{{localStorage}}</p>
+      <!-- <p>{{localStorage}}</p> -->
+      <img width="28px;" height="20px;" :src="languages" alt="">
     </div>
     <van-swipe :autoplay="3000"
                indicator-color="white"
@@ -68,6 +69,7 @@
 export default {
   data () {
     return {
+      languages:require('../../assets/img/US@3x.png'),
       localStorage: "En",
       carouselList: [], //轮播图数据
       news: "" //最新公告
@@ -148,8 +150,13 @@ export default {
     }
   },
   created () {
-    if (localStorage.getItem("lang") == "en") this.localStorage = "En";
-    else this.localStorage = "中";
+    if (localStorage.getItem("lang") == "en") {
+      this.localStorage = "En";
+    }
+    else {
+      this.localStorage = "中"
+      this.languages = require('../../assets/img/CHN@3x.png');
+      }
     this.getCarousel();
     // this.getNews();
   }
