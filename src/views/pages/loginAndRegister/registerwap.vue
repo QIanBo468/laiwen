@@ -8,7 +8,7 @@
                   active-color="#D5AB64"
                   inactive-color="#0C0C0C"
                   @change="localchange" />
-            <p>{{localStorage}}</p>
+            <img width="28px;" height="20px;" :src="languages" alt="">
             </div>
         </div>
 
@@ -94,7 +94,8 @@ export default {
             lang:'',//语言
             shows:false,
             xy:'',
-            localStorage:'En'
+            localStorage:'En',
+            languages:require('../../../assets/img/US@3x.png'),
         };
     },
     computed: {
@@ -144,7 +145,10 @@ export default {
                 this.lang = 1;
             }
             if (localStorage.getItem("lang") == "en") this.localStorage = "En";
-            else this.localStorage = "中";
+            else{ 
+                this.localStorage = "中";
+                this.languages = require("../../../assets/img/CHN@3x.png");
+            }
 
             let item = document.querySelectorAll(".animate"),
               _this = this;

@@ -1,84 +1,80 @@
 <template>
   <div class="login" v-if="show">
     <div class="nav">
-      <van-switch v-model="checked"
-                  size="20px"
-                  active-color="#D5AB64"
-                  inactive-color="#0C0C0C"
-                  @change="localchange" />
-      <p>{{localStorage}}</p>
+      <van-switch
+        v-model="checked"
+        size="20px"
+        active-color="#D5AB64"
+        inactive-color="#0C0C0C"
+        @change="localchange"
+      />
+       <img width="28px;" height="20px;" :src="languages" alt="">
+      <!-- <p>{{localStorage}}</p> -->
     </div>
     <div class="title">{{$t('login.登录')}}</div>
     <div class="input_box">
       <div class="item">
         <img src="@/assets/img/youxiang.png" />
-        <input type="email"
-               :placeholder="$t('login.请输入邮箱')"
-               v-model="account" />
+        <input type="email" :placeholder="$t('login.请输入邮箱')" v-model="account" />
       </div>
 
       <div class="item">
         <img src="@/assets/img/mima.png" />
-        <input type="password"
-               :placeholder="$t('login.请输入密码')"
-               v-model="password" />
+        <input type="password" :placeholder="$t('login.请输入密码')" v-model="password" />
       </div>
     </div>
 
     <div class="forget_pwd">
-      <router-link class="animate"
-                   to="forgetPwd">{{$t('login.忘记密码')}}？</router-link>
+      <router-link class="animate" to="forgetPwd">{{$t('login.忘记密码')}}？</router-link>
     </div>
 
-    <button @click="loginFun"
-            class="login_btn">{{$t('login.登录')}}</button>
+    <button @click="loginFun" class="login_btn">{{$t('login.登录')}}</button>
 
-    <router-link tag="div"
-                 class="animate register_btn"
-                 to="register">{{$t("login.立即注册")}}</router-link>
+    <router-link tag="div" class="animate register_btn" to="register">{{$t("login.立即注册")}}</router-link>
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       account: "", //账号
       password: "", //密码
       localStorage: "En",
-      lang: '',
-      show:true
+      lang: "",
+      show: true,
+      languages:require('../../../assets/img/US@3x.png')
     };
   },
   computed: {
-    checked () {
+    checked() {
       if (localStorage.getItem("lang") == "en") {
         this.lang = 0;
-        return true
+        return true;
       } else {
         this.lang = 1;
-        return false
+        return false;
       }
     }
   },
   methods: {
-    localchange () {
+    localchange() {
       if (this.checked) localStorage.setItem("lang", "zh");
       else localStorage.setItem("lang", "en");
-      
-      window.location.reload()
+
+      window.location.reload();
     },
-    loginFun () {
+    loginFun() {
       if (this.account == "") {
         this.$toast({
           duration: 1000,
-          message: this.$t('login.请输入邮箱')
+          message: this.$t("login.请输入邮箱")
         });
         return;
       }
       if (this.password == "") {
         this.$toast({
           duration: 1000,
-          message: this.$t('login.请输入密码')
+          message: this.$t("login.请输入密码")
         });
         return;
       }
@@ -88,19 +84,16 @@ export default {
         data: {
           account: this.account,
           password: this.password,
-          language: this.lang,
+          language: this.lang
         },
         success: res => {
           console.log("登录成功", res);
           if (res.data.code == 0) {
-            localStorage.setItem(
-              "Bearer",
-              res.data.data.accessToken
-            );
+            localStorage.setItem("Bearer", res.data.data.accessToken);
             console.log(localStorage.getItem("Bearer"));
             this.$toast({
               duration: 1000,
-              message: this.$t('login.登录成功')
+              message: this.$t("login.登录成功")
             });
             this.$router.replace("/");
           } else {
@@ -113,9 +106,13 @@ export default {
       });
     }
   },
-  mounted () {
-    if (localStorage.getItem("lang") == "en") this.localStorage = "En";
-    else this.localStorage = "中";
+  mounted() {
+    if (localStorage.getItem("lang") == "en") {
+      this.localStorage = "En";
+    } else {
+      this.localStorage = "中";
+      this.languages = require("../../../assets/img/CHN@3x.png");
+    }
 
     let item = document.querySelectorAll(".animate"),
       _this = this;
