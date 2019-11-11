@@ -244,6 +244,7 @@ export default {
                 module: "Account",
                 interface: 1001,
                 data: {
+                    language:this.lang,
                     account: this.account
                 },
                 success: res => {
