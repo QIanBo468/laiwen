@@ -28,15 +28,15 @@
                     <van-radio-group  v-model="radio" checked-color="#C8A871">
                         <div class="drop_item">
                             <span>{{$t('index.静态收益')}}</span>
-                            <van-radio @click="getIncome" name="1"></van-radio>
+                            <van-radio @click="dropShow = !dropShow,getIncome" name="1"></van-radio>
                         </div>
                         <div class="drop_item">
                             <span>{{$t('index.直推奖金')}}</span>
-                            <van-radio  @click="getIncome"  name="2"></van-radio>
+                            <van-radio  @click="dropShow = !dropShow,getIncome"  name="2"></van-radio>
                         </div>
                         <div class="drop_item">
                             <span>{{$t('index.管理奖金')}}</span>
-                            <van-radio  @click="getIncome"  name="3"></van-radio>
+                            <van-radio  @click="dropShow = !dropShow,getIncome"  name="3"></van-radio>
                         </div>
                     </van-radio-group>
                 </div>
@@ -93,7 +93,6 @@ export default {
     methods: {
         //获取我的收益
         getIncome() {
-            this.dropShow = !this.dropShow
             let creditTypes = "";
 
             if (this.radio == "1") {
