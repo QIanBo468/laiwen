@@ -150,12 +150,14 @@ export default {
     }
   },
   created () {
-    if (localStorage.getItem("lang") == "en") {
-      this.localStorage = "En";
-    }
-    else {
+    if (localStorage.getItem("lang") == "zh") {
       this.localStorage = "中"
       this.languages = require('../../assets/img/CHN@3x.png');
+    }
+    else {
+      this.localStorage = "En";
+      this.languages = require('../../assets/img/US@3x.png');
+      
       }
     this.getCarousel();
     // this.getNews();
